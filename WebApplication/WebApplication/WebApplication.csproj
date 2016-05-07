@@ -45,11 +45,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -182,11 +182,15 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RecallMessageController.cs" />
-    <Compile Include="Controllers\RequestController.cs" />
-    <Compile Include="Controllers\RequestSolutionController.cs" />
+    <Compile Include="Controllers\MathTaskController.cs" />
+    <Compile Include="Controllers\MathTaskSolutionController.cs" />
     <Compile Include="Controllers\StudentGroupsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605071008481_initial.cs" />
+    <Compile Include="Migrations\201605071008481_initial.Designer.cs">
+      <DependentUpon>201605071008481_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseModel.cs" />
@@ -1575,11 +1579,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Request\Create.cshtml" />
-    <Content Include="Views\Request\Index.cshtml" />
-    <Content Include="Views\Request\MyIndex.cshtml" />
-    <Content Include="Views\Request\_Details.cshtml" />
-    <Content Include="Views\Request\_Executor.cshtml" />
+    <Content Include="Views\MathTask\Create.cshtml" />
+    <Content Include="Views\MathTask\Index.cshtml" />
+    <Content Include="Views\MathTask\MyIndex.cshtml" />
+    <Content Include="Views\MathTask\_Details.cshtml" />
+    <Content Include="Views\MathTask\_Executor.cshtml" />
     <Content Include="Views\Account\Create.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
@@ -1588,25 +1592,25 @@
     <Content Include="Views\Document\Details.cshtml" />
     <Content Include="Views\Document\Edit.cshtml" />
     <Content Include="Views\Document\Index.cshtml" />
-    <Content Include="Views\RequestSolution\Create.cshtml" />
-    <Content Include="Views\RequestSolution\Index.cshtml" />
-    <Content Include="Views\RequestSolution\MyRightSolutions.cshtml" />
-    <Content Include="Views\Request\Message.cshtml" />
+    <Content Include="Views\MathTaskSolution\Create.cshtml" />
+    <Content Include="Views\MathTaskSolution\Index.cshtml" />
+    <Content Include="Views\MathTaskSolution\MyRightSolutions.cshtml" />
+    <Content Include="Views\MathTask\Message.cshtml" />
     <Content Include="Views\Manage\CreateContact.cshtml" />
     <Content Include="Views\Contact\Create.cshtml" />
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
     <Content Include="Views\Comment\_TreeList.cshtml" />
-    <Content Include="Views\Request\Details.cshtml" />
+    <Content Include="Views\MathTask\Details.cshtml" />
     <Content Include="Views\Comment\_RequestSolutionDetails.cshtml" />
     <Content Include="Views\RecallMessage\Index.cshtml" />
     <Content Include="Views\RecallMessage\_TreeList.cshtml" />
     <Content Include="Views\Account\_TreeList.cshtml" />
     <Content Include="Views\Account\_UserDetails.cshtml" />
     <Content Include="Views\Account\UserDetails.cshtml" />
-    <Content Include="Views\RequestSolution\_CreateRightSolution.cshtml" />
-    <Content Include="Views\RequestSolution\MyIndex.cshtml" />
-    <Content Include="Views\RequestSolution\_ShowRightSolution.cshtml" />
+    <Content Include="Views\MathTaskSolution\_CreateRightSolution.cshtml" />
+    <Content Include="Views\MathTaskSolution\MyIndex.cshtml" />
+    <Content Include="Views\MathTaskSolution\_ShowRightSolution.cshtml" />
     <Content Include="Views\StudentGroups\Create.cshtml" />
     <Content Include="Views\StudentGroups\Delete.cshtml" />
     <Content Include="Views\StudentGroups\Details.cshtml" />
@@ -1626,6 +1630,11 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201605071008481_initial.resx">
+      <DependentUpon>201605071008481_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

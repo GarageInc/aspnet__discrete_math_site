@@ -58,6 +58,15 @@
     </div>
 }
 
+@using (Html.BeginForm("StartIfAdmin", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="buttonS" value="Сгенерировать базовых пользователей" />
+        </div>
+    </div>
+}
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

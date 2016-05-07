@@ -19,12 +19,14 @@ namespace WebApplication.Controllers
     using System.Data.Entity;
     using System.Collections.Generic;
     using Microsoft.AspNet.Identity.EntityFramework;
+
     [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         ApplicationDbContext db;
+
         public AccountController()
         {
             db = new ApplicationDbContext();
@@ -168,6 +170,62 @@ namespace WebApplication.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult StartIfAdmin()
+        {
+            if (db.Users.Count() == 1)
+            {
+                var studentsGroup09208 = new StudentGroup
+                {
+                    Name = "09-208",
+                };
+
+                var studentsGroup09207 = new StudentGroup
+                {
+                    Name = "09-208",
+                };
+
+                db.StudentsGroups.Add(studentsGroup09207);
+                db.StudentsGroups.Add(studentsGroup09208);
+
+                createUser("Евгений Васильевич", "2@2.ru", "123qwe123qwe", "Teacher");
+                createUser("Петя", "3@3.ru", "123qwe123qwe", "Student", studentsGroup09207);
+                createUser("Вася", "4@4.ru", "123qwe123qwe", "Student", studentsGroup09207);
+
+                db.SaveChanges();
+            }
+
+
+            return View("Login");
+        }
+
+        void createUser(string name, string email, string password, string role, StudentGroup group = null)
+        {
+            var user = new ApplicationUser
+            {
+                UserName = email,
+                Name = name,
+                Password = password,
+                Email = email,
+                LastVisition = DateTime.Now,
+                RegistrationDate = DateTime.Now,
+                UserInfo = "user",
+                BlockDate = DateTime.Now,
+                IsBlocked = true,
+                BlockReason = ""
+            };
+
+            if (group != null)
+            {
+                user.StudentGroup = group;
+                group.Students.Add(user);
+            }
+
+            var result = UserManager.Create(user, password);
+
+            UserManager.AddToRole(user.Id, role);
+        }
+
         //
         // POST: /Account/Register
         [HttpPost]
@@ -201,12 +259,14 @@ namespace WebApplication.Controllers
                 };
                
                 var result = UserManager.Create(user, model.Password);
-                
-                // Определим роль
-                if(model.IsAdministrator)
+
+                // Определим роль для первого пользователя по умолчанию
+                if (db.Users.Count() == 0)
+                {
                     UserManager.AddToRole(user.Id, "Administrator");
+                }
                 else
-                    UserManager.AddToRole(user.Id, "User");
+                    UserManager.AddToRole(user.Id, "Student");
 
                 if (result.Succeeded)
                 {
@@ -227,6 +287,7 @@ namespace WebApplication.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
+
                 AddErrors(result);
             }
 

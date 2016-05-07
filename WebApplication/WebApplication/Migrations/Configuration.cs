@@ -1,9 +1,11 @@
+using System.Web;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using WebApplication.Controllers;
 using WebApplication.Models;
 
 namespace WebApplication.Migrations
 {
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -25,9 +27,10 @@ namespace WebApplication.Migrations
             rm.Create(new IdentityRole("Student"));
 
             ApplicationDbContext db = new ApplicationDbContext();
-            
-            db.SaveChanges();
+
 
         }
+
+        
     }
 }
