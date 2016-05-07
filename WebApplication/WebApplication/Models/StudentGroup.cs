@@ -12,7 +12,7 @@ namespace WebApplication.Models
         [Required(ErrorMessage = "Обязательно для заполнения!")]
         public virtual string Name { get; set; }
         
-        [Display(Name = "Студенты")]
-        public virtual ICollection<ApplicationUser> Students { get; set; }
+        // [Display(Name = "Студенты")]
+        // public virtual ICollection<ApplicationUser> Students { get; set; }
     }
 }

@@ -88,9 +88,6 @@ namespace WebApplication.Models
         [Display(Name = "Подтверждение пароля")]
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Пароль и его подтверждение не совпадают.")]
         public string ConfirmPassword { get; set; }
-
-        [Display(Name = "Выберите, если Вы - преподаватель")]
-        public bool IsAdministrator { get; set; }
     }
 
     public class EditViewModel

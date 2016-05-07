@@ -1,7 +1,5 @@
-using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using WebApplication.Controllers;
 using WebApplication.Models;
 
 namespace WebApplication.Migrations
@@ -16,6 +14,7 @@ namespace WebApplication.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            ContextKey = "WebApplication.Models.ApplicationDbContext";
         }
 
         protected override void Seed(WebApplication.Models.ApplicationDbContext context)
@@ -28,9 +27,8 @@ namespace WebApplication.Migrations
 
             ApplicationDbContext db = new ApplicationDbContext();
 
+            db.SaveChanges();
 
         }
-
-        
     }
 }

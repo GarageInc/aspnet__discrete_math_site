@@ -29,6 +29,8 @@ namespace WebApplication.Models
 
         public DbSet<StudentGroup> StudentsGroups { get; set; }
 
+        public DbSet<MathTaskType> MathTaskTypes { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
@@ -53,7 +55,7 @@ namespace WebApplication.Models
             modelBuilder.Entity<MathTask>().HasMany(c => c.RequestSolutions);
             modelBuilder.Entity<MathTask>().HasMany(c => c.Comments);
 
-            modelBuilder.Entity<StudentGroup>().HasMany(c => c.Students);
+//            modelBuilder.Entity<StudentGroup>().HasMany(c => c.Students);
             // modelBuilder.Entity<MathTask>().HasMany(c => c.Documents);
             // modelBuilder.Entity<MathTaskSolution>().HasMany(c => c.Documents);
         }

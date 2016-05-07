@@ -1,20 +1,21 @@
-﻿@model WebApplication.Models.StudentGroup
+﻿@model WebApplication.Models.MathTaskType
 
 @{
-    ViewBag.Title = "Создание новой группы";
+    ViewBag.Title = "Редактирование";
 }
 
-<h2>Создание новой групп</h2>
+<h2>Редактирование</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Группа</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -25,7 +26,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Создать" class="btn btn-default" />
+                <input type="submit" value="Сохранить" class="btn btn-default" />
             </div>
         </div>
     </div>

@@ -32,6 +32,7 @@ namespace WebApplication.Models
 
         [Display(Name = "Задачи")]
         public virtual ICollection<MathTask> Requests { get; set; }
+
         [Display(Name = "Решения задач")]
         public virtual ICollection<MathTaskSolution> RequestSolutions { get; set; }
 

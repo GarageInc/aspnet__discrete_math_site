@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace WebApplication.Models
 {
     using System;
@@ -21,15 +23,22 @@ namespace WebApplication.Models
         [Display(Name = "ID файла")]
         public virtual int? DocumentId { get; set; }
 
+        [Display(Name = "ID Автора")]
+        public virtual string AuthorId { get; set; }
+
         [Display(Name = "Автор")]
         public virtual ApplicationUser Author { get; set; }
+        
+        [Display(Name = "ID типа")]
+        public virtual int MathTaskTypeId{ get; set; }
+
+        [Display(Name = "Тип")]
+        [ForeignKey("MathTaskTypeId")]
+        public virtual MathTaskType MathTaskType { get; set; }
         
         [Display(Name = "Данные")]
         [Required(ErrorMessage = "Обязательно для заполнения!")]
         public virtual string Data { get; set; }
-        
-        [Display(Name = "ID Автора")]
-        public virtual string AuthorId { get; set; }
         
         [Display(Name = "Решающие")]
         public virtual ICollection<ApplicationUser> Executors { get; set; }

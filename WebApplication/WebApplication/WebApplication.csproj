@@ -181,6 +181,7 @@
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MathTaskTypesController.cs" />
     <Compile Include="Controllers\RecallMessageController.cs" />
     <Compile Include="Controllers\MathTaskController.cs" />
     <Compile Include="Controllers\MathTaskSolutionController.cs" />
@@ -188,12 +189,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605071008481_initial.cs" />
-    <Compile Include="Migrations\201605071008481_initial.Designer.cs">
-      <DependentUpon>201605071008481_initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\MathTaskType.cs" />
+    <Compile Include="Models\MathTaskTypeBy.cs" />
     <Compile Include="Models\ServiceModels\AccountViewModels.cs" />
     <Compile Include="Models\Repo\ApplicationDbContext.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -225,10 +224,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Database.mdf" />
-    <Content Include="App_Data\Database_log.ldf">
-      <DependentUpon>Database.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -1616,8 +1611,14 @@
     <Content Include="Views\StudentGroups\Details.cshtml" />
     <Content Include="Views\StudentGroups\Edit.cshtml" />
     <Content Include="Views\StudentGroups\Index.cshtml" />
+    <Content Include="Views\MathTaskTypes\Create.cshtml" />
+    <Content Include="Views\MathTaskTypes\Delete.cshtml" />
+    <Content Include="Views\MathTaskTypes\Details.cshtml" />
+    <Content Include="Views\MathTaskTypes\Edit.cshtml" />
+    <Content Include="Views\MathTaskTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Content\themes\" />
     <Folder Include="Files\ErrorMessageFiles\" />
     <Folder Include="Files\RequestFiles\" />
@@ -1630,11 +1631,6 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605071008481_initial.resx">
-      <DependentUpon>201605071008481_initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

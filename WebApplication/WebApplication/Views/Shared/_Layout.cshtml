@@ -27,7 +27,7 @@
                     <ul class="nav navbar-nav">
                         
                         <li>
-                            @Html.ActionLink("Все задачи", "Index", "Request")
+                            @Html.ActionLink("Все задачи", "Index", "MathTask")
                         </li>
                         <li>
                             @Html.ActionLink("Тренажер", "Trenager", "Home")
@@ -44,6 +44,7 @@
                                     <li>@Html.ActionLink("Создать пользователя", "Create", "Account")</li>
                                 </ul>
                             </li>
+
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     Группы<b class="caret"></b>
@@ -53,6 +54,11 @@
                                     <li>@Html.ActionLink("Создать группу", "Create", "StudentGroups")</li>
                                 </ul>
                             </li>
+
+                            <li class="dropdown">
+                                @Html.ActionLink("Создать новых пользователей!", "StartIfAdmin", "Account", routeValues: null, htmlAttributes: new {title = "Account"})
+                            </li>
+                                
                         }
                         
                         <li class="nav-divider"></li>
@@ -64,26 +70,30 @@
                                     Панель студента<b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Загрузить решение задачи", "Create", "RequestSolution")</li>
-                                    <li>@Html.ActionLink("Мои загруженные решения задач", "MyIndex", "RequestSolution")</li>
+                                    <li>@Html.ActionLink("Загрузить решение задачи", "Create", "MathTaskSolution")</li>
+                                    <li>@Html.ActionLink("Мои загруженные решения задач", "MyIndex", "MathTaskSolution")</li>
                                     <li class="divider"></li>
                                 </ul>
                             </li>
                         }
                         
-                        @if (ViewContext.HttpContext.User.IsInRole("Administrator"))
+                        @if (ViewContext.HttpContext.User.IsInRole("Teacher"))
                         {
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     Панель преподавателя<b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Загрузить задачу", "Create", "Request")</li>
-                                    <li>@Html.ActionLink("Мои задачи", "MyIndex", "Request")</li>
-                                    <li>@Html.ActionLink("Правильные решения к моим задачам", "MyRightSolutions", "RequestSolution")</li>
+                                    <li>@Html.ActionLink("Загрузить задачу и назначить решателя", "Create", "MathTask")</li>
+                                    <li>@Html.ActionLink("Мои загруженные задачи", "MyIndex", "MathTask")</li>
+                                    <li>@Html.ActionLink("Правильные решения к моим задачам", "MyRightSolutions", "MathTaskSolution")</li>
 
                                     <li class="divider"></li>
-                                    <li>@Html.ActionLink("Подтвержение правильности решений к моим задачам с обсуждениями в комментариях", "Index", "RequestSolution")</li>
+                                    <li>@Html.ActionLink("Подтвержение правильности решений к моим задачам с обсуждениями в комментариях", "Index", "MathTaskSolution")</li>
+
+                                    <li class="divider"></li>
+                                    <li>Создать массовую контрольную</li>
+                                    <li>Мои массовые контрольные</li>
                                 </ul>
                             </li>
                         }
@@ -126,9 +136,9 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li>
                                 <span class="label label-success">Задач</span>
-                                <span class="badge badge-warning">@Html.Action("GetCountOfAllRequests", "Request")</span>
+                                <span class="badge badge-warning">@Html.Action("GetCountOfAllRequests", "MathTask")</span>
                                 <span class="label label-success">Пользователей</span>
-                                <span class="badge badge-warning">@Html.Action("GetCountOfAllUsers", "Request")</span>
+                                <span class="badge badge-warning">@Html.Action("GetCountOfAllUsers", "MathTask")</span>
                                 @DateTime.Now.Year – Все права защищены
                             </li>
                         </ul>

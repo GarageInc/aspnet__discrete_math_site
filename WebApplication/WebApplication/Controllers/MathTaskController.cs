@@ -41,12 +41,19 @@
         public ActionResult Create()
         {
             var curId = HttpContext.User.Identity.GetUserId();
+
             // получаем текущего пользователя
             ApplicationUser user = db.Users.Where(m => m.Id == curId).FirstOrDefault();
+
             if (user != null)
             {
+
+                SelectList mathTaskTypes = new SelectList(db.MathTaskTypes, "Id", "Name");
+                ViewBag.MathTaskTypes = mathTaskTypes;
+
                 return View();
             }
+
             return RedirectToAction("LogOff", "Account");
         }
 

@@ -182,7 +182,7 @@ namespace WebApplication.Controllers
 
                 var studentsGroup09207 = new StudentGroup
                 {
-                    Name = "09-208",
+                    Name = "09-207",
                 };
 
                 db.StudentsGroups.Add(studentsGroup09207);
@@ -195,8 +195,7 @@ namespace WebApplication.Controllers
                 db.SaveChanges();
             }
 
-
-            return View("Login");
+            return RedirectToAction("Index", "Home");
         }
 
         void createUser(string name, string email, string password, string role, StudentGroup group = null)
@@ -218,7 +217,6 @@ namespace WebApplication.Controllers
             if (group != null)
             {
                 user.StudentGroup = group;
-                group.Students.Add(user);
             }
 
             var result = UserManager.Create(user, password);
@@ -261,7 +259,7 @@ namespace WebApplication.Controllers
                 var result = UserManager.Create(user, model.Password);
 
                 // Определим роль для первого пользователя по умолчанию
-                if (db.Users.Count() == 0)
+                if (db.Users.Count() == 1)
                 {
                     UserManager.AddToRole(user.Id, "Administrator");
                 }
@@ -711,19 +709,11 @@ namespace WebApplication.Controllers
                 var allRoles = new List<IdentityRole>();
                 var userRoles = userCurrent.Roles;
 
-                // Соберем все роли
-                foreach(var ur in userRoles)
-                {
-                    allRoles.Add(db.Roles.First(x => x.Id == ur.RoleId));
-                }
-                // Удалим роли
-                foreach(var r in allRoles)
-                {
-                    UserManager.RemoveFromRole(user.Id, r.Name);
-                }
+                userCurrent.Roles.Clear();
+                
                 // Добавим новую роль
                 var newRole = db.Roles.First(x => x.Id == user.RoleId).Name;
-                UserManager.AddToRole(user.Id, newRole);
+                var result = UserManager.AddToRole(user.Id, newRole);
 
                 // Сохраним изменения
                 db.Entry(userCurrent).State = EntityState.Modified;

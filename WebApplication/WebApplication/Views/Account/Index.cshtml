@@ -127,7 +127,7 @@
                 <td>
                     @if (HttpContext.Current.User.IsInRole("Administrator"))
                     {
-                        if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+                        if (User.IsInRole("Administrator") )
                         {
                             @Html.ActionLink("Редактировать", "Edit", new {id = item.Id})<b>|</b>
                             @Html.ActionLink("Удалить", "Delete", new { id = item.Id })<b>|</b>
