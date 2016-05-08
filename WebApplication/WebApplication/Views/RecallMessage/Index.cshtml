@@ -21,7 +21,7 @@
             {
                 @Html.AntiForgeryToken()
 
-                <input type="hidden" id="requestId" name="requestId" value="@ViewBag.requestId" />
+                <input type="hidden" id="requestId" name="mathTaskId" value="@ViewBag.requestId" />
 
                 <input type="hidden" id="parentId" name="parentId" />
 
@@ -75,7 +75,7 @@ else
                 drop: function (event, ui) {
                     $('#newParentId').val($(this).attr('parent-id'));
                     $('#nodeId').val($(ui.draggable).attr('node-id'));
-                    $('#requestId').val($(ui.draggable).attr('request-id'));
+                    $('#requestId').val($(ui.draggable).attr('mathTask-id'));
                     $('#MoveForm').submit();
                 }
             });

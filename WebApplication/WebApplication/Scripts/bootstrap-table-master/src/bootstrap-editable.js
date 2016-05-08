@@ -545,7 +545,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
         **/
         success: null,
         /**
-        Error callback. Called when request failed (response status != 200).  
+        Error callback. Called when mathTask failed (response status != 200).  
         Usefull when you want to parse error response and display a custom message.
         Must return **string** - the message to be displayed in the error block.
                 
@@ -564,7 +564,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
         **/
         error: null,
         /**
-        Additional options for submit ajax request.
+        Additional options for submit ajax mathTask.
         List of values: http://api.jquery.com/jQuery.ajax
         
         @property ajaxOptions 
@@ -2111,7 +2111,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
                         $.extend(ajaxOptions.data, config.data);
                     }
 
-                    // perform ajax request
+                    // perform ajax mathTask
                     $.ajax(ajaxOptions);
                 } else { //client-side validation error
                     if (typeof config.error === 'function') {
@@ -2603,7 +2603,7 @@ List - abstract class for inputs that have source option loaded from js array or
             if ($.isFunction(this.options.source)) {
                 source = this.options.source.call(this.options.scope);
                 this.sourceData = null;
-                //note: if function returns the same source as URL - sourceData will be taken from cahce and no extra request performed
+                //note: if function returns the same source as URL - sourceData will be taken from cahce and no extra mathTask performed
             } else {
                 source = this.options.source;
             }
@@ -2860,7 +2860,7 @@ List - abstract class for inputs that have source option loaded from js array or
         sourceCache: true,
         /**
         Additional ajax options to be used in $.ajax() when loading list from server.
-        Useful to send extra parameters (`data` key) or change request method (`type` key).
+        Useful to send extra parameters (`data` key) or change mathTask method (`type` key).
         
         @property sourceOptions 
         @type object|function

@@ -643,3 +643,6 @@ C:\Data\discrete_math_site_asp_net\WebApplication\WebApplication\bin\ru\Microsof
 C:\Data\discrete_math_site_asp_net\WebApplication\WebApplication\obj\Debug\WebApplication.csprojResolveAssemblyReference.cache
 C:\Data\discrete_math_site_asp_net\WebApplication\WebApplication\obj\Debug\WebApplication.dll
 C:\Data\discrete_math_site_asp_net\WebApplication\WebApplication\obj\Debug\WebApplication.pdb
+C:\Data\discrete_math_site_asp_net\WebApplication\WebApplication\bin\WinMathML.dll
+C:\Data\discrete_math_site_asp_net\WebApplication\WebApplication\obj\Debug\WebApplication.Migrations.initial.resources
+C:\Data\discrete_math_site_asp_net\WebApplication\WebApplication\obj\Debug\WebApplication.csproj.GenerateResource.Cache

@@ -45,8 +45,8 @@ namespace WebApplication.Service.lib_boolean_funcs
         public override string ToLaTeXString()
         {
             if (argument is BooleanVariable)//специальная обработка отрицаний над переменными
-                return "\\overline{" + (argument as BooleanVariable).Name + "}_" + (argument as BooleanVariable).Index;
-            return "\\overline{" + argument.ToLaTeXString() + "}";
+                return "\\tilde{" + (argument as BooleanVariable).Name + "}_" + (argument as BooleanVariable).Index;
+            return "\\tilde{" + argument.ToLaTeXString() + "}";
         }
 
         public override bool FormulaValue(BooleanFormulaInput input)

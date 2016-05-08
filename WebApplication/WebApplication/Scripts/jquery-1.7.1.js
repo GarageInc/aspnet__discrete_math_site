@@ -6988,7 +6988,7 @@ jQuery.fn.extend({
 		if ( typeof url !== "string" && _load ) {
 			return _load.apply( this, arguments );
 
-		// Don't do a request if no elements are being requested
+		// Don't do a mathTask if no elements are being requested
 		} else if ( !this.length ) {
 			return this;
 		}
@@ -6999,7 +6999,7 @@ jQuery.fn.extend({
 			url = url.slice( 0, off );
 		}
 
-		// Default to a GET request
+		// Default to a GET mathTask
 		var type = "GET";
 
 		// If the second parameter was provided
@@ -7298,7 +7298,7 @@ jQuery.extend({
 					return this;
 				},
 
-				// Cancel the request
+				// Cancel the mathTask
 				abort: function( statusText ) {
 					statusText = statusText || "abort";
 					if ( transport ) {
@@ -7452,7 +7452,7 @@ jQuery.extend({
 		// Extract dataTypes list
 		s.dataTypes = jQuery.trim( s.dataType || "*" ).toLowerCase().split( rspacesAjax );
 
-		// Determine if a cross-domain request is in order
+		// Determine if a cross-domain mathTask is in order
 		if ( s.crossDomain == null ) {
 			parts = rurl.exec( s.url.toLowerCase() );
 			s.crossDomain = !!( parts &&
@@ -7470,7 +7470,7 @@ jQuery.extend({
 		// Apply prefilters
 		inspectPrefiltersOrTransports( prefilters, s, options, jqXHR );
 
-		// If request was aborted inside a prefiler, stop there
+		// If mathTask was aborted inside a prefiler, stop there
 		if ( state === 2 ) {
 			return false;
 		}
@@ -7481,7 +7481,7 @@ jQuery.extend({
 		// Uppercase the type
 		s.type = s.type.toUpperCase();
 
-		// Determine if request has content
+		// Determine if mathTask has content
 		s.hasContent = !rnoContent.test( s.type );
 
 		// Watch for a new set of requests
@@ -7666,13 +7666,13 @@ jQuery.extend({
 	// Counter for holding the number of active queries
 	active: 0,
 
-	// Last-Modified header cache for next request
+	// Last-Modified header cache for next mathTask
 	lastModified: {},
 	etag: {}
 
 });
 
-/* Handles responses to an ajax request:
+/* Handles responses to an ajax mathTask:
  * - sets all responseXXX fields accordingly
  * - finds the right dataType (mediates between content-type and expected dataType)
  * - returns the corresponding response
@@ -7741,7 +7741,7 @@ function ajaxHandleResponses( s, jqXHR, responses ) {
 	}
 }
 
-// Chain conversions given the request and the original response
+// Chain conversions given the mathTask and the original response
 function ajaxConvert( s, response ) {
 
 	// Apply the dataFilter if provided
@@ -8020,11 +8020,11 @@ function createActiveXHR() {
 	} catch( e ) {}
 }
 
-// Create the request object
+// Create the mathTask object
 // (This is still attached to ajaxSettings for backward compatibility)
 jQuery.ajaxSettings.xhr = window.ActiveXObject ?
 	/* Microsoft failed to properly
-	 * implement the XMLHttpRequest in IE7 (can't request local files),
+	 * implement the XMLHttpRequest in IE7 (can't mathTask local files),
 	 * so we use the ActiveXObject when it is available
 	 * Additionally XMLHttpRequest can be disabled in IE7/IE8 so
 	 * we need a fallback.
@@ -8083,7 +8083,7 @@ if ( jQuery.support.ajax ) {
 					// X-Requested-With header
 					// For cross-domain requests, seeing as conditions for a preflight are
 					// akin to a jigsaw puzzle, we simply never set it to be sure.
-					// (it can always be set on a per-request basis or even using ajaxSetup)
+					// (it can always be set on a per-mathTask basis or even using ajaxSetup)
 					// For same-domain requests, won't change header if already provided.
 					if ( !s.crossDomain && !headers["X-Requested-With"] ) {
 						headers[ "X-Requested-With" ] = "XMLHttpRequest";
@@ -8096,7 +8096,7 @@ if ( jQuery.support.ajax ) {
 						}
 					} catch( _ ) {}
 
-					// Do send the request
+					// Do send the mathTask
 					// This may raise an exception which is actually
 					// handled in jQuery.ajax (so no try/catch here)
 					xhr.send( ( s.hasContent && s.data ) || null );
@@ -8158,7 +8158,7 @@ if ( jQuery.support.ajax ) {
 
 									// Filter status for non standard behaviors
 
-									// If the request is local and we have data: assume a success
+									// If the mathTask is local and we have data: assume a success
 									// (success with no data won't get notified, that's the best we
 									// can do given current implementations)
 									if ( !status && s.isLocal && !s.crossDomain ) {

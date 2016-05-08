@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author zhixin wen <wenzhixin2010@gmail.com>
  * version: 1.8.1
  * https://github.com/wenzhixin/bootstrap-table/
@@ -1544,7 +1544,7 @@
 
         $.extend(data, query || {});
 
-        // false to stop request
+        // false to stop mathTask
         if (data === false) {
             return;
         }

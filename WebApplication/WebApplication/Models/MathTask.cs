@@ -17,6 +17,10 @@ namespace WebApplication.Models
         [Required(ErrorMessage = "Обязательно для заполнения!")]
         public virtual string Description { get; set; }
         
+        [MaxLength(500)]
+        [Display(Name = "Код в LaTeX, если есть, если не прикладывается документ - код документ будет автоматически сгенерирован в .bmp-формат при сохранении")]
+        public virtual string LatexCode { get; set; }
+
         [Display(Name = "Файл")]
         public virtual Document Document { get; set; }
 
@@ -43,6 +47,9 @@ namespace WebApplication.Models
         [Display(Name = "Решающие")]
         public virtual ICollection<ApplicationUser> Executors { get; set; }
         
+        [Display(Name = "ID группы, если является массовой рассылкой")]
+        public virtual int? StudentsGroupId{ get; set; }
+
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Обязательно для заполнения!")]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
@@ -72,7 +79,7 @@ namespace WebApplication.Models
 
 
     // Перечисление для статуса задачи
-    public enum RequestStatus
+    public enum MathTaskStatus
     {
         Open = 1,
         Distributed = 2,
@@ -81,7 +88,7 @@ namespace WebApplication.Models
     }
 
     // Перечисление для приоритета задачи
-    public enum RequestPriority
+    public enum MathTaskPriority
     {
         Low = 1,
         Medium = 2,

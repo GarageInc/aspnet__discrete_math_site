@@ -79,37 +79,37 @@
                     <td></td>
                     <td><b>@item.Id</b></td>
                     <td>
-                        @if (item.Status == (int)RequestStatus.Open)
+                        @if (item.Status == (int)MathTaskStatus.Open)
                         {
                             <span class="label label-success">Открыта</span>
                         }
-                        else if (item.Status == (int)RequestStatus.Distributed)
+                        else if (item.Status == (int)MathTaskStatus.Distributed)
                         {
                             <span class="label label-warning">Распределена</span>
                         }
-                        else if (item.Status == (int)RequestStatus.Proccesing)
+                        else if (item.Status == (int)MathTaskStatus.Proccesing)
                         {
                             <span class="label label-important">На решении</span>
                         }
-                        else if (item.Status == (int)RequestStatus.Closed)
+                        else if (item.Status == (int)MathTaskStatus.Closed)
                         {
                             <span class="label label-inverse">Закрыта</span>
                         }
                     </td>
                     <td>
-                        @if (item.Priority == (int)RequestPriority.Low)
+                        @if (item.Priority == (int)MathTaskPriority.Low)
                         {
                             <span class="badge badge-low">Низкий</span>
                         }
-                        else if (item.Priority == (int)RequestPriority.Medium)
+                        else if (item.Priority == (int)MathTaskPriority.Medium)
                         {
                             <span class="badge badge-medium">Средний</span>
                         }
-                        else if (item.Priority == (int)RequestPriority.High)
+                        else if (item.Priority == (int)MathTaskPriority.High)
                         {
                             <span class="badge badge-high">Высокий</span>
                         }
-                        else if (item.Priority == (int)RequestPriority.Critical)
+                        else if (item.Priority == (int)MathTaskPriority.Critical)
                         {
                             <span class="badge badge-critical">Критичный</span>
                         }

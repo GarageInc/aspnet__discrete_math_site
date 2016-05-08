@@ -11,7 +11,7 @@ namespace WebApplication.Service.lib_boolean_funcs
 
     abstract class BooleanFormula
     {
-        protected static readonly string[] LaTeXOperations = { "\\neg", " ", "\\vee ", "\\rightarrow ", "\\oplus ", "\\sim ", "\\mid ", "\\downarrow " };
+        protected static readonly string[] LaTeXOperations = { "\\neg", "\\&", "\\vee ", "\\rightarrow ", "\\oplus ", "\\sim ", "\\mid ", "\\downarrow " };
         protected BooleanOperations type;
 
         public BooleanOperations Type { get { return type; } }

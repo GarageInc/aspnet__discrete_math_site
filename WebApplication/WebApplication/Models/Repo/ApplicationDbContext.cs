@@ -40,8 +40,8 @@ namespace WebApplication.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ApplicationUser>().HasMany(c => c.Requests);
-            modelBuilder.Entity<ApplicationUser>().HasMany(c => c.RequestSolutions);
+            modelBuilder.Entity<ApplicationUser>().HasMany(c => c.MathTasks);
+            modelBuilder.Entity<ApplicationUser>().HasMany(c => c.MathTaskSolutions);
             modelBuilder.Entity<ApplicationUser>().HasMany(c => c.RecallMessages);
             modelBuilder.Entity<ApplicationUser>().HasMany(c => c.Contacts);
             modelBuilder.Entity<ApplicationUser>().HasMany(c => c.Comments);

@@ -1544,7 +1544,7 @@
 
         $.extend(data, query || {});
 
-        // false to stop request
+        // false to stop mathTask
         if (data === false) {
             return;
         }

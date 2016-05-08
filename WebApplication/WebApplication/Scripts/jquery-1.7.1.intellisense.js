@@ -29,20 +29,20 @@
 intellisense.annotate(jQuery, {
   'ajax': function() {
     /// <signature>
-    ///   <summary>Perform an asynchronous HTTP (Ajax) request.</summary>
-    ///   <param name="url" type="String">A string containing the URL to which the request is sent.</param>
-    ///   <param name="settings" type="Object">A set of key/value pairs that configure the Ajax request. All settings are optional. A default can be set for any option with $.ajaxSetup(). See jQuery.ajax( settings ) below for a complete list of all settings.</param>
+    ///   <summary>Perform an asynchronous HTTP (Ajax) mathTask.</summary>
+    ///   <param name="url" type="String">A string containing the URL to which the mathTask is sent.</param>
+    ///   <param name="settings" type="Object">A set of key/value pairs that configure the Ajax mathTask. All settings are optional. A default can be set for any option with $.ajaxSetup(). See jQuery.ajax( settings ) below for a complete list of all settings.</param>
     ///   <returns type="jqXHR" />
     /// </signature>
     /// <signature>
-    ///   <summary>Perform an asynchronous HTTP (Ajax) request.</summary>
-    ///   <param name="settings" type="Object">A set of key/value pairs that configure the Ajax request. All settings are optional. A default can be set for any option with $.ajaxSetup().</param>
+    ///   <summary>Perform an asynchronous HTTP (Ajax) mathTask.</summary>
+    ///   <param name="settings" type="Object">A set of key/value pairs that configure the Ajax mathTask. All settings are optional. A default can be set for any option with $.ajaxSetup().</param>
     ///   <returns type="jqXHR" />
     /// </signature>
   },
   'ajaxPrefilter': function() {
     /// <signature>
-    ///   <summary>Handle custom Ajax options or modify existing options before each request is sent and before they are processed by $.ajax().</summary>
+    ///   <summary>Handle custom Ajax options or modify existing options before each mathTask is sent and before they are processed by $.ajax().</summary>
     ///   <param name="dataTypes" type="String">An optional string containing one or more space-separated dataTypes</param>
     ///   <param name="handler(options, originalOptions, jqXHR)" type="Function">A handler to set default values for future Ajax requests.</param>
     /// </signature>
@@ -50,7 +50,7 @@ intellisense.annotate(jQuery, {
   'ajaxSetup': function() {
     /// <signature>
     ///   <summary>Set default values for future Ajax requests.</summary>
-    ///   <param name="options" type="Object">A set of key/value pairs that configure the default Ajax request. All options are optional.</param>
+    ///   <param name="options" type="Object">A set of key/value pairs that configure the default Ajax mathTask. All options are optional.</param>
     /// </signature>
   },
   'boxModel': function() {
@@ -137,28 +137,28 @@ intellisense.annotate(jQuery, {
   },
   'get': function() {
     /// <signature>
-    ///   <summary>Load data from the server using a HTTP GET request.</summary>
-    ///   <param name="url" type="String">A string containing the URL to which the request is sent.</param>
-    ///   <param name="data" type="String">A map or string that is sent to the server with the request.</param>
-    ///   <param name="success(data, textStatus, jqXHR)" type="Function">A callback function that is executed if the request succeeds.</param>
+    ///   <summary>Load data from the server using a HTTP GET mathTask.</summary>
+    ///   <param name="url" type="String">A string containing the URL to which the mathTask is sent.</param>
+    ///   <param name="data" type="String">A map or string that is sent to the server with the mathTask.</param>
+    ///   <param name="success(data, textStatus, jqXHR)" type="Function">A callback function that is executed if the mathTask succeeds.</param>
     ///   <param name="dataType" type="String">The type of data expected from the server. Default: Intelligent Guess (xml, json, script, or html).</param>
     ///   <returns type="jqXHR" />
     /// </signature>
   },
   'getJSON': function() {
     /// <signature>
-    ///   <summary>Load JSON-encoded data from the server using a GET HTTP request.</summary>
-    ///   <param name="url" type="String">A string containing the URL to which the request is sent.</param>
-    ///   <param name="data" type="Object">A map or string that is sent to the server with the request.</param>
-    ///   <param name="success(data, textStatus, jqXHR)" type="Function">A callback function that is executed if the request succeeds.</param>
+    ///   <summary>Load JSON-encoded data from the server using a GET HTTP mathTask.</summary>
+    ///   <param name="url" type="String">A string containing the URL to which the mathTask is sent.</param>
+    ///   <param name="data" type="Object">A map or string that is sent to the server with the mathTask.</param>
+    ///   <param name="success(data, textStatus, jqXHR)" type="Function">A callback function that is executed if the mathTask succeeds.</param>
     ///   <returns type="jqXHR" />
     /// </signature>
   },
   'getScript': function() {
     /// <signature>
-    ///   <summary>Load a JavaScript file from the server using a GET HTTP request, then execute it.</summary>
-    ///   <param name="url" type="String">A string containing the URL to which the request is sent.</param>
-    ///   <param name="success(script, textStatus, jqXHR)" type="Function">A callback function that is executed if the request succeeds.</param>
+    ///   <summary>Load a JavaScript file from the server using a GET HTTP mathTask, then execute it.</summary>
+    ///   <param name="url" type="String">A string containing the URL to which the mathTask is sent.</param>
+    ///   <param name="success(script, textStatus, jqXHR)" type="Function">A callback function that is executed if the mathTask succeeds.</param>
     ///   <returns type="jqXHR" />
     /// </signature>
   },
@@ -294,12 +294,12 @@ intellisense.annotate(jQuery, {
   },
   'param': function() {
     /// <signature>
-    ///   <summary>Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax request.</summary>
+    ///   <summary>Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax mathTask.</summary>
     ///   <param name="obj" type="Object">An array or object to serialize.</param>
     ///   <returns type="String" />
     /// </signature>
     /// <signature>
-    ///   <summary>Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax request.</summary>
+    ///   <summary>Create a serialized representation of an array or object, suitable for use in a URL query string or Ajax mathTask.</summary>
     ///   <param name="obj" type="Object">An array or object to serialize.</param>
     ///   <param name="traditional" type="Boolean">A Boolean indicating whether to perform a traditional "shallow" serialization.</param>
     ///   <returns type="String" />
@@ -321,10 +321,10 @@ intellisense.annotate(jQuery, {
   },
   'post': function() {
     /// <signature>
-    ///   <summary>Load data from the server using a HTTP POST request.</summary>
-    ///   <param name="url" type="String">A string containing the URL to which the request is sent.</param>
-    ///   <param name="data" type="String">A map or string that is sent to the server with the request.</param>
-    ///   <param name="success(data, textStatus, jqXHR)" type="Function">A callback function that is executed if the request succeeds.</param>
+    ///   <summary>Load data from the server using a HTTP POST mathTask.</summary>
+    ///   <param name="url" type="String">A string containing the URL to which the mathTask is sent.</param>
+    ///   <param name="data" type="String">A map or string that is sent to the server with the mathTask.</param>
+    ///   <param name="success(data, textStatus, jqXHR)" type="Function">A callback function that is executed if the mathTask succeeds.</param>
     ///   <param name="dataType" type="String">The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).</param>
     ///   <returns type="jqXHR" />
     /// </signature>
@@ -738,14 +738,14 @@ intellisense.annotate(jQuery.fn, {
   },
   'ajaxSend': function() {
     /// <signature>
-    ///   <summary>Attach a function to be executed before an Ajax request is sent. This is an Ajax Event.</summary>
+    ///   <summary>Attach a function to be executed before an Ajax mathTask is sent. This is an Ajax Event.</summary>
     ///   <param name="handler(event, jqXHR, ajaxOptions)" type="Function">The function to be invoked.</param>
     ///   <returns type="jQuery" />
     /// </signature>
   },
   'ajaxStart': function() {
     /// <signature>
-    ///   <summary>Register a handler to be called when the first Ajax request begins. This is an Ajax Event.</summary>
+    ///   <summary>Register a handler to be called when the first Ajax mathTask begins. This is an Ajax Event.</summary>
     ///   <param name="handler()" type="Function">The function to be invoked.</param>
     ///   <returns type="jQuery" />
     /// </signature>
@@ -759,7 +759,7 @@ intellisense.annotate(jQuery.fn, {
   },
   'ajaxSuccess': function() {
     /// <signature>
-    ///   <summary>Attach a function to be executed whenever an Ajax request completes successfully. This is an Ajax Event.</summary>
+    ///   <summary>Attach a function to be executed whenever an Ajax mathTask completes successfully. This is an Ajax Event.</summary>
     ///   <param name="handler(event, XMLHttpRequest, ajaxOptions)" type="Function">The function to be invoked.</param>
     ///   <returns type="jQuery" />
     /// </signature>

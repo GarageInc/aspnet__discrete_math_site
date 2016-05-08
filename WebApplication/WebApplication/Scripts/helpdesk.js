@@ -187,7 +187,7 @@ $(function () {
             });
     $table.on('expand-row.bs.table', function (e, index, row, $detail) {
         if (index % 2 == 1) {
-            $detail.html('Loading from ajax request...');
+            $detail.html('Loading from ajax mathTask...');
             $.get('LICENSE', function (res) {
                 $detail.html(res.replace(/\n/g, '<br>'));
             });

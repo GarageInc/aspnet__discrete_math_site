@@ -31,10 +31,10 @@ namespace WebApplication.Models
         public virtual ICollection<Document> Avatar { get; set; }
 
         [Display(Name = "Задачи")]
-        public virtual ICollection<MathTask> Requests { get; set; }
+        public virtual ICollection<MathTask> MathTasks { get; set; }
 
         [Display(Name = "Решения задач")]
-        public virtual ICollection<MathTaskSolution> RequestSolutions { get; set; }
+        public virtual ICollection<MathTaskSolution> MathTaskSolutions { get; set; }
 
         [Display(Name = "Дата последнего посещения")]
         public virtual DateTime LastVisition { get; set; } 

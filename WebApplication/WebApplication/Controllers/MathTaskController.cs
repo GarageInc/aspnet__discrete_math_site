@@ -1,4 +1,8 @@
-﻿namespace WebApplication.Controllers
+﻿using System.Drawing;
+using fmath.controls;
+using Microsoft.Ajax.Utilities;
+
+namespace WebApplication.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -14,13 +18,13 @@
 
     public class MathTaskController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-        
+        protected ApplicationDbContext Db { get; } = new ApplicationDbContext();
+
         public ActionResult Index()
         {
             IEnumerable<MathTask> allReqs = null;
             
-                allReqs = db.Requests
+                allReqs = Db.Requests
                     //.Where(x=>x.Checked)
                     ;
 
@@ -31,25 +35,47 @@
         {
             if (disposing)
             {
-                db.Dispose();
+                Db.Dispose();
             }
             base.Dispose(disposing);
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         public ActionResult Create()
         {
             var curId = HttpContext.User.Identity.GetUserId();
 
             // получаем текущего пользователя
-            ApplicationUser user = db.Users.Where(m => m.Id == curId).FirstOrDefault();
+            ApplicationUser user = Db.Users.FirstOrDefault(m => m.Id == curId);
 
             if (user != null)
             {
-
-                SelectList mathTaskTypes = new SelectList(db.MathTaskTypes, "Id", "Name");
+                SelectList mathTaskTypes = new SelectList(Db.MathTaskTypes, "Id", "Name");
                 ViewBag.MathTaskTypes = mathTaskTypes;
+                
+                return View();
+            }
+
+            return RedirectToAction("LogOff", "Account");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult CreateMassControlWork()
+        {
+            var curId = HttpContext.User.Identity.GetUserId();
+
+            // получаем текущего пользователя
+            ApplicationUser user = Db.Users.FirstOrDefault(m => m.Id == curId);
+
+            if (user != null)
+            {
+                SelectList mathTaskTypes = new SelectList(Db.MathTaskTypes, "Id", "Name");
+                ViewBag.MathTaskTypes = mathTaskTypes;
+
+                SelectList studentsGroups = new SelectList(Db.StudentsGroups, "Id", "Name");
+                ViewBag.StudentsGroups = studentsGroups;
 
                 return View();
             }
@@ -57,71 +83,139 @@
             return RedirectToAction("LogOff", "Account");
         }
 
-        // Создание новой задачи
+        
         [HttpPost]
-        //[Authorize]
-        public ActionResult Create(MathTask request, HttpPostedFileBase error)
+        [Authorize]
+        public ActionResult CreateMassControlWork(MathTask mathTask, HttpPostedFileBase file)
         {
             var curId = HttpContext.User.Identity.GetUserId();
+
             // получаем текущего пользователя
-            ApplicationUser user = db.Users.FirstOrDefault(m => m.Id == curId);
+            ApplicationUser user = Db.Users.FirstOrDefault(m => m.Id == curId);
+
             if (user == null)
             {
                 return RedirectToAction("LogOff", "Account");
             }
+
             if (ModelState.IsValid)
             {
-                // указываем статус Открыта у задачи
-                request.Status = (int)RequestStatus.Open;
-
-                //получаем время открытия
-                DateTime current = DateTime.Now;
-                
-                // указываем пользователя задачи
-                request.Author = user;
-                request.AuthorId = user.Id;
-
-
-                // если получен файл
-                if (error != null)
-                {
-                    Document doc = new Document();
-                    doc.Size = error.ContentLength;
-                    // Получаем расширение
-                    string ext = error.FileName.Substring(error.FileName.LastIndexOf('.'));
-                    doc.Type = ext;
-                    // сохраняем файл по определенному пути на сервере
-                    string path = current.ToString(user.Id.GetHashCode()+"dd/MM/yyyy H:mm:ss").Replace(":", "_").Replace("/", ".") + ext;
-                    error.SaveAs(Server.MapPath("~/Files/RequestFiles/" + path));
-                    doc.Url = path;
-
-                    request.Document = doc;
-                    db.Documents.Add(doc);
-                }
-                else
-                    request.Document = null;
-                
-                request.Status = (int)RequestStatus.Open;
-
-                //Добавляем задачу с возможно приложенными документами
-                db.Requests.Add(request);
-                user.Requests.Add(request);
-                db.Entry(user).State = EntityState.Modified;
-
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch(Exception e)
-                {
-                    return Content(e.Message);
-                }
+                TryCreate(user, mathTask, file);
 
                 return RedirectToAction("Index");
             }
-            return View(request);
+
+            return View(mathTask);
         }
 
+        protected void TryCreate(ApplicationUser user, MathTask mathTask, HttpPostedFileBase file)
+        {
+            //получаем время открытия
+            DateTime current = DateTime.Now;
+
+            Document doc = null;
+
+            // если получен файл
+            if (file != null)
+            {
+                string fileName = current.ToString(user.Id.GetHashCode() + "dd/MM/yyyy H:mm:ss").Replace(":", "_").Replace("/", ".").Replace(" ", "_");
+                string path = Server.MapPath("~/Files/RequestFiles/" + fileName);
+                string ext = "png";
+
+                if (!mathTask.LatexCode.IsNullOrWhiteSpace())
+                {
+                    Bitmap bmp = MathMLFormulaControl.generateBitmapFromLatex(mathTask.LatexCode);
+
+                    path = path + ext;
+
+                    bmp.Save(path, System.Drawing.Imaging.ImageFormat.Png);
+                    bmp.Dispose();
+                }
+                else
+                {
+                    doc = new Document();
+
+                    doc.Size = file.ContentLength;
+
+                    // Получаем расширение
+                    ext = file.FileName.Substring(file.FileName.LastIndexOf('.'));
+                    path = path + ext;
+
+                    doc.Type = ext;
+                    // сохраняем файл по определенному пути на сервере
+                    file.SaveAs(path);
+                    doc.Url = path;
+                }
+            }
+
+            if (mathTask.StudentsGroupId != null)
+            {
+                var students = Db.Users.Where(x => x.Id == mathTask.StudentsGroupId.ToString());
+
+                foreach (var student in students)
+                {
+                    mathTask.Executors.Add(student);
+                }
+            }
+
+            // указываем автора задачи
+            mathTask.Author = user;
+            mathTask.AuthorId = user.Id;
+
+            // если получен файл
+            if (file != null)
+            {
+                mathTask.Document = doc;
+                Db.Documents.Add(doc);
+            }
+            else
+                mathTask.Document = null;
+
+            mathTask.Status = (int)MathTaskStatus.Open;
+
+            //Добавляем задачу с возможно приложенными документами
+            Db.Requests.Add(mathTask);
+            user.MathTasks.Add(mathTask);
+
+            Db.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                Db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        // Создание новой задачи
+        [HttpPost]
+        [Authorize]
+        public ActionResult Create(MathTask mathTask, HttpPostedFileBase file)
+        {
+            var curId = HttpContext.User.Identity.GetUserId();
+
+            // получаем текущего пользователя
+            ApplicationUser user = Db.Users.FirstOrDefault(m => m.Id == curId);
+
+            if (user == null)
+            {
+                return RedirectToAction("LogOff", "Account");
+            }
+
+            if (ModelState.IsValid)
+            {
+                TryCreate(user, mathTask, file);
+                
+                return RedirectToAction("Index");
+            }
+
+            return View(mathTask);
+        }
+        
+
+        
         /// <summary>
         /// Получение задач текущего пользователя
         /// </summary>
@@ -131,9 +225,9 @@
         {
             var currentId = HttpContext.User.Identity.GetUserId();
             // получаем текущего пользователя
-            ApplicationUser user = db.Users.Where(m => m.Id == currentId).FirstOrDefault();
+            ApplicationUser user = Db.Users.FirstOrDefault(m => m.Id == currentId);
             IEnumerable<MathTask> allReqs = null;
-                allReqs = db.Requests
+                allReqs = Db.Requests
                     .Where(r => r.Author.Id == user.Id) //получаем задачи для текущего пользователя
                     .Include(r => r.Author)// добавляем данные о пользователях
                     .Include(r=>r.RightMathTaskSolution)
@@ -150,7 +244,7 @@
         /// <returns></returns>
         public ActionResult MyDetails(int id)
         {
-            MathTask request = db.Requests.Find(id);
+            MathTask request = Db.Requests.Find(id);
 
             if (request != null)
             {
@@ -163,7 +257,7 @@
         //[Authorize]
         public ActionResult MyExecutor(string id)
         {
-            ApplicationUser executor = db.Users.First(m => m.Id == id);
+            ApplicationUser executor = Db.Users.First(m => m.Id == id);
 
             if (executor != null)
             {
@@ -176,13 +270,13 @@
         //[Authorize]
         public ActionResult MyDelete(int id)
         {
-            MathTask request = db.Requests.Find(id);
+            MathTask request = Db.Requests.Find(id);
             // получаем текущего пользователя
             var curId = HttpContext.User.Identity.GetUserId();
-            ApplicationUser user = db.Users.First(m => m.Id == curId);
+            ApplicationUser user = Db.Users.First(m => m.Id == curId);
             if (request != null && request.Author.Id == user.Id)
             {
-                db.SaveChanges();
+                Db.SaveChanges();
             }
             return RedirectToAction("MyIndex");
         }
@@ -195,7 +289,7 @@
         /// <returns></returns>
         public FileResult Download(int id)
         {
-            var req = db.Requests.Find(id);
+            var req = Db.Requests.Find(id);
             var reqDoc = req.Document;
             
                 byte[] fileBytes = System.IO.File.ReadAllBytes(Server.MapPath("~/Files/RequestFiles/" + reqDoc.Url));
@@ -210,7 +304,7 @@
         /// <returns></returns>
         public ActionResult Details(int id)
         {
-            MathTask request = db.Requests.Find(id);
+            MathTask request = Db.Requests.Find(id);
 
             if (request != null)
             {
@@ -223,7 +317,7 @@
         //[Authorize]
         public ActionResult Author(string id)
         {
-            ApplicationUser executor = db.Users.Where(m => m.Id == id).First();
+            ApplicationUser executor = Db.Users.First(m => m.Id == id);
 
             if (executor != null)
             {
@@ -235,7 +329,7 @@
         //[Authorize]
         public ActionResult Executor(string id)
         {
-            ApplicationUser executor = db.Users.Where(m => m.Id == id).First();
+            ApplicationUser executor = Db.Users.First(m => m.Id == id);
 
             if (executor != null)
             {
@@ -254,14 +348,14 @@
         //[Authorize]
         public ActionResult Delete(int id)
         {
-            MathTask request = db.Requests.Find(id);
+            MathTask request = Db.Requests.Find(id);
             var curId = HttpContext.User.Identity.GetUserId();
             // получаем текущего пользователя
-            ApplicationUser user = db.Users.First(m => m.Id == curId);
+            ApplicationUser user = Db.Users.First(m => m.Id == curId);
             if (request != null && request.Author.Id == user.Id)
             {
-                db.Requests.Remove(request);
-                db.SaveChanges();
+                Db.Requests.Remove(request);
+                Db.SaveChanges();
             }
             return RedirectToAction("Index");
         }
@@ -272,14 +366,14 @@
         /// <returns></returns>
         public ActionResult GetCountOfAllRequests()
         {
-            string count = db.Requests.Count().ToString();
+            string count = Db.Requests.Count().ToString();
             ViewBag.Message = count;
             return PartialView("Message");
         }
 
         public ActionResult GetCountOfAllUsers()
         {
-            string count = db.Users.Count().ToString();
+            string count = Db.Users.Count().ToString();
             ViewBag.Message = count;
             return PartialView("Message");
         }
@@ -294,17 +388,17 @@
             {
                 return RedirectToAction("MyIndex");
             }
-            MathTask req = db.Requests.Find(requestId);
-            ApplicationUser ex = db.Users.Find(executorId);
+            MathTask req = Db.Requests.Find(requestId);
+            ApplicationUser ex = Db.Users.Find(executorId);
             if (req == null && ex == null)
             {
                 return RedirectToAction("MyIndex");
             }
 
-            req.Status = (int)RequestStatus.Distributed;
+            req.Status = (int)MathTaskStatus.Distributed;
 
-            db.Entry(req).State = EntityState.Modified;
-            db.SaveChanges();
+            Db.Entry(req).State = EntityState.Modified;
+            Db.SaveChanges();
 
             return RedirectToAction("MyIndex");
         }

@@ -20,15 +20,14 @@
         public async Task<ActionResult> Index()
         {
             var curId = this.User.Identity.GetUserId();
-
-            var all = db.RequestSolutions.Count();
-
+            
             var requestSolutions = db.RequestSolutions
                 .Include(r => r.Author)
                 .Include(r => r.Document)
                 .Include(r => r.MathTask)
                 .Where(r=>r.MathTask.AuthorId==curId)
                 .Where(r=>!r.IsRight);// Не выводим те правильные решения, которые загрузил этот пользователь
+
             return View(await requestSolutions.ToListAsync());
         }
         

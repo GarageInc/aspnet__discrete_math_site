@@ -1,8 +1,8 @@
-﻿using System.Net;
-using System.Web.WebPages;
-
+﻿
 namespace WebApplication.Controllers
 {
+    using System.Net;
+    using System.Web.WebPages;
     using System;
     using System.Globalization;
     using System.Linq;
@@ -187,6 +187,7 @@ namespace WebApplication.Controllers
 
                 db.StudentsGroups.Add(studentsGroup09207);
                 db.StudentsGroups.Add(studentsGroup09208);
+                db.SaveChanges();
 
                 createUser("Евгений Васильевич", "2@2.ru", "123qwe123qwe", "Teacher");
                 createUser("Петя", "3@3.ru", "123qwe123qwe", "Student", studentsGroup09207);
@@ -217,6 +218,8 @@ namespace WebApplication.Controllers
             if (group != null)
             {
                 user.StudentGroup = group;
+
+                db.Entry(group).State = EntityState.Modified;
             }
 
             var result = UserManager.Create(user, password);
@@ -551,13 +554,7 @@ namespace WebApplication.Controllers
         // Используется для защиты от XSRF-атак при добавлении внешних имен входа
         private const string XsrfKey = "XsrfId";
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
         private void AddErrors(IdentityResult result)
         {
@@ -615,7 +612,8 @@ namespace WebApplication.Controllers
         {
             //var result = Membership.FindUsersByEmail(Email).Count == 0;
 
-            var result = db.Users.Where(x=>x.Email==Email).Count() == 0;
+            var result = db.Users.Count(x => x.Email==Email) == 0;
+
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -823,7 +821,7 @@ namespace WebApplication.Controllers
                 {
                     Response.Redirect(Request.UrlReferrer.AbsoluteUri);
                 }
-                var node = db.RecallMessages.Where(x => x.Id == nodeId).Single();
+                var node = db.RecallMessages.Single(x => x.Id == nodeId);
                 node.ParentId = newParentId;
                 db.SaveChanges();
             }
@@ -864,7 +862,7 @@ namespace WebApplication.Controllers
                 node.IsDeleted = true;
                 DeleteNodes(db, node.Id);
             }
-            var deleted = db.RecallMessages.Where(x => x.Id == id && !x.IsDeleted).Single();
+            var deleted = db.RecallMessages.Single(x => x.Id == id && !x.IsDeleted);
             deleted.IsDeleted = true;
         }
 
@@ -875,7 +873,7 @@ namespace WebApplication.Controllers
 
             var com = db.RecallMessages.Find(id);
 
-            if (!user.UpRecalls.Where(x => x.Id == id).Any())
+            if (user.UpRecalls.All(x => x.Id != id))
             {
                 com.Karma++;
 
@@ -898,7 +896,7 @@ namespace WebApplication.Controllers
 
             var com = db.RecallMessages.Find(id);
 
-            if (!user.DownRecalls.Where(x => x.Id == id).Any())
+            if (user.DownRecalls.All(x => x.Id != id))
             {
                 com.Karma--;
 

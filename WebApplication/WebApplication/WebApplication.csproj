@@ -78,6 +78,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -125,6 +126,9 @@
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="WinMathML">
+      <HintPath>libs\WinMathML.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +193,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605081311530_initial.cs" />
+    <Compile Include="Migrations\201605081311530_initial.Designer.cs">
+      <DependentUpon>201605081311530_initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\MathTaskType.cs" />
@@ -207,9 +215,13 @@
     <Compile Include="Models\MathTask.cs" />
     <Compile Include="Models\StudentGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\ApplicationUserDTO.cs" />
-    <Compile Include="Service\ErrorDTO.cs" />
-    <Compile Include="Service\HaffmaneCode.cs" />
+    <Compile Include="Service\auto_generating_mathtasks\HaffmaneService.cs" />
+    <Compile Include="Service\auto_generating_mathtasks\PrefixCodeService.cs" />
+    <Compile Include="Service\auto_generating_mathtasks\UnambiguousDecodingService .cs" />
+    <Compile Include="Service\auto_generating_mathtasks\UnambiguousCodingService.cs" />
+    <Compile Include="Service\dto\ApplicationUserDTO.cs" />
+    <Compile Include="Service\dto\ErrorDTO.cs" />
+    <Compile Include="Service\haffmane_code\HaffmaneCode.cs" />
     <Compile Include="Service\lib_boolean_funcs\BinaryOperation.cs" />
     <Compile Include="Service\lib_boolean_funcs\BooleanConstant.cs" />
     <Compile Include="Service\lib_boolean_funcs\BooleanFormulaInput.cs" />
@@ -220,10 +232,14 @@
     <Compile Include="Service\lib_boolean_funcs\BooleanVariable.cs" />
     <Compile Include="Service\lib_boolean_funcs\BooleanVector.cs" />
     <Compile Include="Service\lib_boolean_funcs\UnaryOperation.cs" />
-    <Compile Include="Service\Node.cs" />
+    <Compile Include="Service\haffmane_code\Node.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Database.mdf" />
+    <Content Include="App_Data\Database_log.ldf">
+      <DependentUpon>Database.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -1616,9 +1632,9 @@
     <Content Include="Views\MathTaskTypes\Details.cshtml" />
     <Content Include="Views\MathTaskTypes\Edit.cshtml" />
     <Content Include="Views\MathTaskTypes\Index.cshtml" />
+    <Content Include="Views\MathTask\CreateMassControlWork.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\themes\" />
     <Folder Include="Files\ErrorMessageFiles\" />
     <Folder Include="Files\RequestFiles\" />
@@ -1631,6 +1647,14 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201605081311530_initial.resx">
+      <DependentUpon>201605081311530_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
