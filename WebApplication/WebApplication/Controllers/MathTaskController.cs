@@ -44,6 +44,7 @@ namespace WebApplication.Controllers
         [Authorize]
         public ActionResult Create()
         {
+            initMathML();
             var curId = HttpContext.User.Identity.GetUserId();
 
             // получаем текущего пользователя
@@ -64,6 +65,7 @@ namespace WebApplication.Controllers
         [Authorize]
         public ActionResult CreateMassControlWork()
         {
+            initMathML();
             var curId = HttpContext.User.Identity.GetUserId();
 
             // получаем текущего пользователя
@@ -88,6 +90,7 @@ namespace WebApplication.Controllers
         [Authorize]
         public ActionResult CreateMassControlWork(MathTask mathTask, HttpPostedFileBase file)
         {
+            initMathML();
             var curId = HttpContext.User.Identity.GetUserId();
 
             // получаем текущего пользователя
@@ -189,11 +192,21 @@ namespace WebApplication.Controllers
             }
         }
 
+        public void initMathML()
+        {
+
+            string path = Server.MapPath("~/Service/lib_mathmlformula/");
+
+            MathMLFormulaControl.setFolderUrlForFonts(path + "fonts");
+            MathMLFormulaControl.setFolderUrlForGlyphs(path + "glyphs");
+        }
+
         // Создание новой задачи
         [HttpPost]
         [Authorize]
         public ActionResult Create(MathTask mathTask, HttpPostedFileBase file)
         {
+            initMathML();
             var curId = HttpContext.User.Identity.GetUserId();
 
             // получаем текущего пользователя

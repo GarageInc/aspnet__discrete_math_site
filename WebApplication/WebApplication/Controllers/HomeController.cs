@@ -1,4 +1,7 @@
 ﻿
+using System.Drawing;
+using fmath.controls;
+
 namespace WebApplication.Controllers
 {
     using System;
@@ -25,7 +28,23 @@ namespace WebApplication.Controllers
 
             return View();
         }
-        
+
+        public void initMathML()
+        {
+
+            string path = Server.MapPath("~/Service/lib_mathmlformula/");
+
+            MathMLFormulaControl.setFolderUrlForFonts(path + "fonts");
+            MathMLFormulaControl.setFolderUrlForGlyphs(path + "glyphs");
+        }
+        // Возвращает страничку тренажера
+        public ActionResult LaTeX()
+        {
+            initMathML();
+
+            return View();
+        }
+
         // Генерируется задача в зависимости от присланного номера
         public JsonResult GetRequest(int id)
         {
@@ -99,6 +118,19 @@ namespace WebApplication.Controllers
                     }
             }
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        
+
+        // Генерируем и возвращаем изображение // Генерируется задача в зависимости от присланного номера
+        public string CheckLatex(string code)
+        {
+            Bitmap bmp = MathMLFormulaControl.generateBitmapFromLatex(code);
+            
+            ImageConverter converter = new ImageConverter();
+            var bytes = (byte[])converter.ConvertTo(bmp, typeof(byte[]));
+            
+            return Convert.ToBase64String(bytes);
         }
     }
 }

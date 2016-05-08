@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "LaTeX";
+}
+
+<div class="center">
+    <h2>LaTeX - просто введите код и нажмите "Создать!"</h2>
+
+    <hr />
+    <textarea id="result" cols="50" rows="4"></textarea>
+    
+    <br />
+    <button class="btn btn-default" id="generate">Проверить</button>
+
+    <br/>
+
+    <div class="latex_formula_image" style="padding: 20px; margin: 20px; border: 1px solid;"/>
+    
+</div>
+
+
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        // Генерируем запрос и ждём результат
+        $('#generate')
+            .click(function(e) {
+                var generated = document.getElementById('result').value;
+
+                $.ajax({
+                    type: 'GET',
+                    data: {
+                        'code': generated.toString().trim()
+                    },
+
+                    url: '@Url.Action("CheckLatex")',
+
+                    success: function(result) {
+                        console.log({ o: result });
+                        $('.latex_formula_image').html('<img src="data:image/jpeg;base64,' + result + '" />');
+                    },
+                    error: function(xhr, message, p3) {
+                        alert(message);
+                    }
+                });
+                
+            });
+
+
+    </script>
+}

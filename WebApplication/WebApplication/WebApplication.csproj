@@ -1633,6 +1633,7 @@
     <Content Include="Views\MathTaskTypes\Edit.cshtml" />
     <Content Include="Views\MathTaskTypes\Index.cshtml" />
     <Content Include="Views\MathTask\CreateMassControlWork.cshtml" />
+    <Content Include="Views\Home\LaTeX.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\themes\" />
@@ -1643,6 +1644,8 @@
     <Folder Include="Scripts\jquery.mb.YTPlayer-master\" />
     <Folder Include="Scripts\jquery.tubular.1.0.1\" />
     <Folder Include="Scripts\noty-2.3.5\" />
+    <Folder Include="Service\lib_mathmlformula\fonts\" />
+    <Folder Include="Service\lib_mathmlformula\glyphs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
