@@ -240,7 +240,7 @@ namespace WebApplication.Controllers
             {
                 user.StudentGroup = group;
 
-                db.Entry(group).State = EntityState.Modified;
+               // db.Entry(group).State = EntityState.Modified;
             }
 
             var result = UserManager.Create(user, password);
