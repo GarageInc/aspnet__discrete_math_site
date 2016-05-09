@@ -37,6 +37,7 @@ namespace WebApplication.Controllers
             MathMLFormulaControl.setFolderUrlForFonts(path + "fonts");
             MathMLFormulaControl.setFolderUrlForGlyphs(path + "glyphs");
         }
+
         // Возвращает страничку тренажера
         public ActionResult LaTeX()
         {
