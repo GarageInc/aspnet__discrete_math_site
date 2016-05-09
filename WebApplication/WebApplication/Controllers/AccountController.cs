@@ -153,9 +153,12 @@ namespace WebApplication.Controllers
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(model.ReturnUrl);
+
                 case SignInStatus.LockedOut:
                     return View("Lockout");
+
                 case SignInStatus.Failure:
+
                 default:
                     ModelState.AddModelError("", "Неправильный код.");
                     return View(model);
@@ -187,6 +190,24 @@ namespace WebApplication.Controllers
 
                 db.StudentsGroups.Add(studentsGroup09207);
                 db.StudentsGroups.Add(studentsGroup09208);
+
+                db.MathTaskTypes.Add(new MathTaskType
+                {
+                    Name = "Однозначность кодирования"
+                });
+                db.MathTaskTypes.Add(new MathTaskType
+                {
+                    Name = "Построение префиксного кода"
+                });
+                db.MathTaskTypes.Add(new MathTaskType
+                {
+                    Name = "Однозначность декодирования"
+                });
+                db.MathTaskTypes.Add(new MathTaskType
+                {
+                    Name = "Оптимальный код Хаффмана"
+                });
+
                 db.SaveChanges();
 
                 createUser("Евгений Васильевич", "2@2.ru", "123qwe123qwe", "Teacher");

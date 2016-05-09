@@ -27,10 +27,15 @@
                     <ul class="nav navbar-nav">
                         
                         <li>
-                            @Html.ActionLink("Все задачи", "Index", "MathTask")
+                            @Html.ActionLink("Все задачи для свободного просмотра", "Index", "MathTask")
                         </li>
+
                         <li>
                             @Html.ActionLink("Тренажер", "Trenager", "Home")
+                        </li>
+    
+                        <li>
+                            @Html.ActionLink("Генератор LaTeX", "LaTeX", "Home")
                         </li>
 
                         @if (User.IsInRole("Administrator"))
@@ -42,6 +47,16 @@
                                 <ul class="dropdown-menu">
                                     <li>@Html.ActionLink("Просмотр пользователей", "Index", "Account")</li>
                                     <li>@Html.ActionLink("Создать пользователя", "Create", "Account")</li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Типы задач<b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Просмотр типов задач", "Index", "MathTaskTypes")</li>
+                                    <li>@Html.ActionLink("Создать новый тип задач", "Create", "MathTaskTypes")</li>
                                 </ul>
                             </li>
 
