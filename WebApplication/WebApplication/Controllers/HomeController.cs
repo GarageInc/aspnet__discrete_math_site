@@ -29,6 +29,11 @@ namespace WebApplication.Controllers
             return View();
         }
 
+        public ActionResult BooleanFormulaInput()
+        {
+            return View();
+        }
+
         public void initMathML()
         {
 

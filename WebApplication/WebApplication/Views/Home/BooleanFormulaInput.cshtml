@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "BooleanFormulaInput";
+}
+
+<div class="well-color">
+    <div class="tab-content">
+        <div class="tab-pane active" id="online">
+            <h4 id="instruction" class="">Инструкция.</h4>
+            При вводе с клавиатуры используйте следующие обозначения:
+            <table class="table">
+                <tbody>
+                    <tr><th>Клавиша</th><th>Оператор</th><th></th></tr>
+                    <tr><td>!</td><td>¬</td><td class="tal">Отрицание (НЕ)</td></tr>
+                    <tr><td>|</td><td>|</td><td class="tal">Штрих Шеффера (И-НЕ)</td></tr>
+                    <tr><td>#</td><td>↓</td><td class="tal">Стрелка Пирса (ИЛИ-НЕ)</td></tr>
+                    <tr><td>*</td><td>&amp;</td><td class="tal">Конъюнкция (И)</td></tr>
+                    <tr><td>+</td><td>v</td><td class="tal">Дизъюнкция (ИЛИ)</td></tr>
+                    <tr><td>^</td><td>®</td><td class="tal">Исключающее ИЛИ, сумма по модулю 2 (XOR)</td></tr>
+                    <tr><td>~</td><td>→</td><td class="tal">Импликация (ЕСЛИ-ТО)</td></tr>
+                    <tr><td>%</td><td>←</td><td class="tal">Обратная импликация</td></tr>
+                    <tr><td>=</td><td>≡</td><td class="tal">Эквивалентность (РАВНО)</td></tr>
+                </tbody>
+            </table>
+
+            <form action="" method="POST">
+                <span class="instruction">Логическое выражение</span>: <input type="text" name="fx" size="40" required="" placeholder="x+y&amp;z">
+                <br />
+                <br><input type="checkbox" name="f1" value="1"> Вывод промежуточных таблиц для таблицы истинности
+                <br><input type="checkbox" name="f2" value="1"> Построение СКНФ
+                <br><input type="checkbox" name="f3" value="1"> Построение СДНФ
+                <br><input type="checkbox" name="f4" value="1"> Построение полинома Жегалкина
+                <br><input type="checkbox" name="f5" value="1"> Построение карты Вейча-Карно
+                <br/>
+                <br><input type="submit" id="solve2" name="STEP2" value="Решить" class="btn btn-lg btn-primary"><input type="hidden" id="script" name="script" value="12">
+                <script type="text/javascript">document.write('<input type="hidden" name="script_link" value="'+location.href+'">');</script><input type="hidden" name="script_link" value="http://math.semestr.ru/inf/table.php"><input type="hidden" id="crc" name="crc" value=""><input type="hidden" id="brws" name="brws" value="">
+            </form>
+        </div>
+
+    </div>
+</div>
+

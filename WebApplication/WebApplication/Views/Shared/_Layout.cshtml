@@ -37,7 +37,11 @@
                         <li>
                             @Html.ActionLink("Генератор LaTeX", "LaTeX", "Home")
                         </li>
-                        
+
+                        <li>
+                            @Html.ActionLink("Булевы формулы", "BooleanFormulaInput", "Home")
+                        </li>
+
                         <li class="divider-vertical"></li>'
                         
                         @if (User.IsInRole("Administrator"))
@@ -73,7 +77,7 @@
                             </li>
 
                             <li class="dropdown">
-                                @Html.ActionLink("Создать новых пользователей!", "StartIfAdmin", "Account", routeValues: null, htmlAttributes: new {title = "Account"})
+                                @Html.ActionLink("Заполнение БД", "StartIfAdmin", "Account", routeValues: null, htmlAttributes: new {title = "Account"})
                             </li>
                                 
                         }
