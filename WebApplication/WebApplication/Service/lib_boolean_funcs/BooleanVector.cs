@@ -6,7 +6,7 @@ using System.Web;
 
 namespace WebApplication.Service.lib_boolean_funcs
 {
-    class BooleanVector
+    public class BooleanVector
     {
         protected bool[] vector;
         protected static readonly Random random;

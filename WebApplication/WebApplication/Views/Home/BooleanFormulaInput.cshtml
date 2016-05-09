@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "BooleanFormulaInput";
+    ViewBag.Title = "Ввод булевых формул";
 }
 
 <div class="well-color">
@@ -22,21 +22,59 @@
                     <tr><td>=</td><td>≡</td><td class="tal">Эквивалентность (РАВНО)</td></tr>
                 </tbody>
             </table>
+            
+            <span class="instruction">Логическое выражение</span>:
+            <input type="text" name="fx" size="40" required="" placeholder="x+y&amp;z" id="result">
+            <br />
+            <br><input type="checkbox" name="f1" value="1"> Вывод промежуточных таблиц для таблицы истинности
+            <br><input type="checkbox" name="f2" value="1"> Построение СКНФ
+            <br><input type="checkbox" name="f3" value="1"> Построение СДНФ
+            <br><input type="checkbox" name="f4" value="1"> Построение полинома Жегалкина
+            <br><input type="checkbox" name="f5" value="1"> Построение карты Вейча-Карно
+            <br />
+            <br />
 
-            <form action="" method="POST">
-                <span class="instruction">Логическое выражение</span>: <input type="text" name="fx" size="40" required="" placeholder="x+y&amp;z">
-                <br />
-                <br><input type="checkbox" name="f1" value="1"> Вывод промежуточных таблиц для таблицы истинности
-                <br><input type="checkbox" name="f2" value="1"> Построение СКНФ
-                <br><input type="checkbox" name="f3" value="1"> Построение СДНФ
-                <br><input type="checkbox" name="f4" value="1"> Построение полинома Жегалкина
-                <br><input type="checkbox" name="f5" value="1"> Построение карты Вейча-Карно
-                <br/>
-                <br><input type="submit" id="solve2" name="STEP2" value="Решить" class="btn btn-lg btn-primary"><input type="hidden" id="script" name="script" value="12">
-                <script type="text/javascript">document.write('<input type="hidden" name="script_link" value="'+location.href+'">');</script><input type="hidden" name="script_link" value="http://math.semestr.ru/inf/table.php"><input type="hidden" id="crc" name="crc" value=""><input type="hidden" id="brws" name="brws" value="">
-            </form>
         </div>
-
     </div>
 </div>
 
+<div class="center">
+
+    <button id="generate" name="STEP2" class="btn btn-lg btn-primary">Решить</button>
+    <div class="latex_formula_image" style="padding: 20px; margin: 20px; border: 1px solid;">
+    </div>
+</div>
+
+
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        // Генерируем запрос и ждём результат
+        $('#generate')
+            .click(function(e) {
+                var generated = document.getElementById('result').value;
+
+                $.ajax({
+                    type: 'GET',
+                    data: {
+                        'formula': generated.toString().trim()
+                    },
+
+                    url: '@Url.Action("BooleanFormulaInput")',
+
+                    success: function(result) {
+                        console.log({ o: result });
+                        $('.latex_formula_image').html('<img src="data:image/jpeg;base64,' + result + '" />');
+                    },
+                    error: function(xhr, message, p3) {
+                        alert(message);
+                    }
+                });
+
+            });
+
+
+    </script>
+}

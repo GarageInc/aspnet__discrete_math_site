@@ -7,9 +7,9 @@ using System.Web;
 
 namespace WebApplication.Service.lib_boolean_funcs
 {
-    enum BooleanOperations { NOT, AND, OR, IMPLICATION, XOR, EQUIVALENCE, SHEFFER_STROKE, PIERCE_ARROW, IDENTITY, CONSTANT }
+    public enum BooleanOperations { NOT, AND, OR, IMPLICATION, XOR, EQUIVALENCE, SHEFFER_STROKE, PIERCE_ARROW, IDENTITY, CONSTANT }
 
-    abstract class BooleanFormula
+    public abstract class BooleanFormula
     {
         protected static readonly string[] LaTeXOperations = { "\\neg", "\\&", "\\vee ", "\\rightarrow ", "\\oplus ", "\\sim ", "\\mid ", "\\downarrow " };
         protected BooleanOperations type;

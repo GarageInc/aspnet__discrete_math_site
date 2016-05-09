@@ -6,7 +6,7 @@ using System.Web;
 
 namespace WebApplication.Service.lib_boolean_funcs
 {
-    class UnaryOperation : BooleanFormula
+    public class UnaryOperation : BooleanFormula
     {
         BooleanFormula argument;
 

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace WebApplication.Service.lib_boolean_funcs
 {
-    class BinaryOperation : BooleanFormula
+    public class BinaryOperation : BooleanFormula
     {
         BooleanFormula argument1, argument2;
 

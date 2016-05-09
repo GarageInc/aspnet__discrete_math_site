@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebApplication.Service.lib_boolean_funcs
 {
-    class BooleanFormulaInput
+    public class BooleanFormulaInput
     {
         protected bool[] input;
         protected List<BooleanVariable> variables;

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace WebApplication.Service.lib_boolean_funcs
 {
-    abstract class BooleanFormulaTerm : BooleanFormula
+    public abstract class BooleanFormulaTerm : BooleanFormula
     {
         public override IEnumerable SubFormulas() { yield break; }
 

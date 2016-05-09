@@ -6,7 +6,7 @@ using System.Web;
 
 namespace WebApplication.Service.lib_boolean_funcs
 {
-    class BooleanFormulaSet : List<BooleanFormula>
+    public class BooleanFormulaSet : List<BooleanFormula>
     {
 
         public string ToLaTeXString()

@@ -1,6 +1,7 @@
 ﻿
 using System.Drawing;
 using fmath.controls;
+using WebApplication.Service.lib_boolean_funcs;
 
 namespace WebApplication.Controllers
 {
@@ -137,6 +138,15 @@ namespace WebApplication.Controllers
             var bytes = (byte[])converter.ConvertTo(bmp, typeof(byte[]));
             
             return Convert.ToBase64String(bytes);
+        }
+
+        // Генерируем и возвращаем изображение // Генерируется задача в зависимости от присланного номера
+        public string BooleanFormulaInput(string formula)
+        {
+            List<BooleanVariable> variables = new List<BooleanVariable>();
+            BooleanFormula booleanFormula = BooleanFormulaParser.Parse(formula, variables);
+            
+            return CheckLatex(booleanFormula.ToLaTeXString());
         }
     }
 }

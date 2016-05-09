@@ -6,7 +6,7 @@ using System.Web;
 
 namespace WebApplication.Service.lib_boolean_funcs
 {
-    class BooleanFunction
+    public class BooleanFunction
     {
 
         public enum Properties { SelfAdjoint = 1, Linear = 2, Monotone = 4 }
