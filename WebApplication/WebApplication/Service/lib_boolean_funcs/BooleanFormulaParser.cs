@@ -7,76 +7,152 @@ namespace WebApplication.Service.lib_boolean_funcs
 {
     public class BooleanFormulaParser
     {
-        /*
-                    <tr><td>!</td><td>¬</td><td class="tal">Отрицание(НЕ)</td></tr>
-                    <tr><td>|</td><td>|</td><td class="tal">Штрих Шеффера(И-НЕ)</td></tr>
-                    <tr><td>#</td><td>↓</td><td class="tal">Стрелка Пирса (ИЛИ-НЕ)</td></tr>
-                    <tr><td>*</td><td>&amp;</td><td class="tal">Конъюнкция(И)</td></tr>
-                    <tr><td>+</td><td>v</td><td class="tal">Дизъюнкция(ИЛИ)</td></tr>
-                    <tr><td>^</td><td>®</td><td class="tal">Исключающее ИЛИ, сумма по модулю 2 (XOR)</td></tr>
-                    <tr><td>~</td><td>→</td><td class="tal">Импликация(ЕСЛИ-ТО)</td></tr>
-                    <tr><td>%</td><td>←</td><td class="tal">Обратная импликация</td></tr>
-                    <tr><td>=</td><td>≡</td><td class="tal">Эквивалентность(РАВНО)</td></tr>
-                    */
 
+        // ReSharper disable once InconsistentNaming
         public const char NOT = '!';
+        // ReSharper disable once InconsistentNaming
         public const char SHEFFER_STROKE = '|';
+        // ReSharper disable once InconsistentNaming
         public const char PIERCE_ARROW = '#';
+        // ReSharper disable once InconsistentNaming
         public const char AND = '*';
+        // ReSharper disable once InconsistentNaming
         public const char OR = '+';
+        // ReSharper disable once InconsistentNaming
         public const char XOR = '^';
+        // ReSharper disable once InconsistentNaming
         public const char IMPLICATION = '~';
+        // ReSharper disable once InconsistentNaming
         public const char IDENTITY = '%';
+        // ReSharper disable once InconsistentNaming
         public const char EQUIVALENCE = '=';
 
+        // ReSharper disable once InconsistentNaming
+        public const char LEFT_PARENTHESIS = '(';
+        // ReSharper disable once InconsistentNaming
+        public const char RIGHT_PARENTHESIS = ')';
+
+        // Принимается строка с уже искусственно заданными приоритетами: любые два аргумента окружены скобочками, иначе - ошибка. 
+        // Унарная операция(отрицание) возможна без скобочек 
         public static BooleanFormula Parse(string formula, List<BooleanVariable> variables)
         {
+            // Отдельно обрабатываем импликацию
             if (formula[0] == NOT)
             {
                 // вырежем и отправим без скобочек
-                return Parse(formula.Substring(2, formula.Length - 2), variables);
+                if (formula[1] == LEFT_PARENTHESIS && formula[formula.Length - 1] == RIGHT_PARENTHESIS)
+                    return new UnaryOperation(Parse(formula.Substring(2, formula.Length - 3), variables));
+                else
+                    return new UnaryOperation(Parse(formula.Substring(1, formula.Length - 1), variables));
             }
             else
             {
-                // x&y
-                // x&(x&y) 
                 // (x&x)&(x&y)
                 // (x&x)&y
-                // x&x&y - в последнюю очередь
+                // x&(x&x)
+                // x&x&y - error
 
-
-                // прочитаем переменную
-                string variableName = string.Empty;
-                char readed = formula[0];
-                int i = 1;
-                while (i < formula.Length && 
-                       readed != NOT && readed != SHEFFER_STROKE && readed != PIERCE_ARROW && readed != AND && readed != OR &&
-                       readed != XOR && readed != IMPLICATION && readed != IDENTITY && readed != EQUIVALENCE)
+                // x
+                if (!containsNotExecutableSymbol(formula))
                 {
-                    variableName += readed;
-                    readed = formula[i];
-                    i++;
+                    return getBooleanVariable(variables, formula);
                 }
-
-                BooleanVariable booleanVariable1 = getBooleanVariable(variables, variableName);
-
-                i++;
-                readed = formula[i];
-                
-                variableName = string.Empty;
-                while (i < formula.Length &&
-                       readed != NOT && readed != SHEFFER_STROKE && readed != PIERCE_ARROW && readed != AND && readed != OR &&
-                       readed != XOR && readed != IMPLICATION && readed != IDENTITY && readed != EQUIVALENCE)
+                else
                 {
-                    variableName += readed;
-                    readed = formula[i];
-                    i++;
-                }
+                    // прочитаем переменную
+                    string variableName = string.Empty;
+                    int i = 0;
+                    while (i < formula.Length && canBeVariableSymbol(formula[i]))
+                    {
+                        variableName += formula[i];
+                        i++;
+                    }
 
-                BooleanVariable booleanVariable2 = getBooleanVariable(variables, variableName);
-                
-                return new BinaryOperation(GetOperation(readed), booleanVariable1, booleanVariable2);
+                    BooleanFormula leftArgument;
+
+                    if (variableName != String.Empty)
+                    {
+                        leftArgument = getBooleanVariable(variables, variableName);
+                    }
+                    else
+                    {
+                        int counter = 1;
+                        int j = i + 1;
+                        var subFormula = "";
+                        while (counter != 0 && j < formula.Length)
+                        {
+                            if (formula[j] == LEFT_PARENTHESIS)
+                                counter++;
+                            else if (formula[j] == RIGHT_PARENTHESIS)
+                                counter--;
+
+                            if (counter != 0)
+                                subFormula += formula[j];
+
+                            j++;
+                        }
+                        leftArgument = Parse(subFormula, variables);
+
+                        i = j;
+                        // + сместили индекс i
+                    }
+
+                    char operation = formula[i++];// Прочитали символ после переменной
+
+                    variableName = String.Empty;
+
+                    while (i < formula.Length && canBeVariableSymbol(formula[i]))
+                    {
+                        if (i < formula.Length)
+                        {
+                            variableName += formula[i];
+                            // readed;
+                            i++;
+                        }
+                    }
+
+                    BooleanFormula rightArgument;
+                    if (variableName != String.Empty)
+                    {
+                        rightArgument = getBooleanVariable(variables, variableName);
+                    }
+                    else
+                    {
+                        int counter = 1;
+                        int j = i + 1;
+                        var subFormula = "";
+                        while (counter != 0 && j < formula.Length)
+                        {
+                            if (formula[j] == LEFT_PARENTHESIS)
+                                counter++;
+                            else if (formula[j] == RIGHT_PARENTHESIS)
+                                counter--;
+
+                            if (counter != 0)
+                                subFormula += formula[j];
+
+                            j++;
+                        }
+                        rightArgument = Parse(subFormula, variables);
+                    }
+
+                    return new BinaryOperation(GetOperation(operation), leftArgument, rightArgument);
+                }
             }
+        }
+
+        public static bool canBeVariableSymbol(char readed)
+        {
+            return readed != NOT && readed != SHEFFER_STROKE && readed != PIERCE_ARROW && readed != AND && readed != OR &&
+                   readed != XOR && readed != IMPLICATION && readed != IDENTITY && readed != EQUIVALENCE &&
+                   readed != LEFT_PARENTHESIS && readed != RIGHT_PARENTHESIS;
+        }
+
+        public static bool containsNotExecutableSymbol(string formula)
+        {
+            return formula.Contains(NOT) || formula.Contains(SHEFFER_STROKE) || formula.Contains(PIERCE_ARROW) || formula.Contains(AND) || formula.Contains(OR) ||
+                   formula.Contains(XOR) || formula.Contains(IMPLICATION) || formula.Contains(IDENTITY) || formula.Contains(EQUIVALENCE) ||
+                   formula.Contains(LEFT_PARENTHESIS) || formula.Contains(RIGHT_PARENTHESIS);
         }
 
         public static BooleanOperations GetOperation(char readed)
