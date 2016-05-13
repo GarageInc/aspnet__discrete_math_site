@@ -44,8 +44,19 @@ namespace WebApplication.Service.lib_boolean_funcs
 
         public override string ToLaTeXString()
         {
-            if (argument is BooleanVariable)//специальная обработка отрицаний над переменными
-                return "\\tilde{" + (argument as BooleanVariable).Name + "}_" + (argument as BooleanVariable).Index;
+
+            if (argument is BooleanVariable) //специальная обработка отрицаний над переменными
+            {
+                if ((argument as BooleanVariable).Index != -1)
+                {
+                    return "\\tilde{" + (argument as BooleanVariable).Name + "}_" +
+                           (argument as BooleanVariable).Index;
+                }
+                else
+                {
+                    return "\\tilde" + (argument as BooleanVariable).Name;
+                }
+            }
             return "\\tilde{" + argument.ToLaTeXString() + "}";
         }
 

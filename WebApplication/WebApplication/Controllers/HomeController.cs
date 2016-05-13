@@ -32,6 +32,8 @@ namespace WebApplication.Controllers
 
         public ActionResult BooleanFormulaInput()
         {
+            initMathML();
+
             return View();
         }
 
@@ -132,6 +134,7 @@ namespace WebApplication.Controllers
         // Генерируем и возвращаем изображение // Генерируется задача в зависимости от присланного номера
         public string CheckLatex(string code)
         {
+
             Bitmap bmp = MathMLFormulaControl.generateBitmapFromLatex(code);
             
             ImageConverter converter = new ImageConverter();
@@ -141,12 +144,60 @@ namespace WebApplication.Controllers
         }
 
         // Генерируем и возвращаем изображение // Генерируется задача в зависимости от присланного номера
-        public string BooleanFormulaInput(string formula)
+        public string CheckBooleanFormulaInput(string formula, int operation)
         {
-            List<BooleanVariable> variables = new List<BooleanVariable>();
-            BooleanFormula booleanFormula = BooleanFormulaParser.Parse(formula, variables);
-            
-            return CheckLatex(booleanFormula.ToLaTeXString());
+            formula = formula.Replace('{', '!');
+            formula = formula.Replace('}', ' ');
+            formula = formula.Trim();
+
+            try
+            {
+                if (operation == 0)
+                {
+
+                    List<BooleanVariable> variables = new List<BooleanVariable>();
+                    BooleanFormula booleanFormula = BooleanFormulaParser.Parse(formula, variables);
+
+                    return booleanFormula.ToLaTeXString();
+                } else if (operation == 1)
+                {
+
+                    List<BooleanVariable> variables = new List<BooleanVariable>();
+                    BooleanFormula booleanFormula = BooleanFormulaParser.Parse(formula, variables);
+
+                    return CheckLatex(booleanFormula.ToLaTeXString());
+                } else if (operation == 2)
+                {
+
+                    List<BooleanVariable> variables = new List<BooleanVariable>();
+                    BooleanFormula booleanFormula = BooleanFormulaParser.Parse(formula, variables);
+
+                    return CheckLatex(booleanFormula.GetZhegalkinPolynomial().ToLaTeXString());
+                }
+                else if (operation == 3)
+                {
+
+                    List<BooleanVariable> variables = new List<BooleanVariable>();
+                    BooleanFormula booleanFormula = BooleanFormulaParser.Parse(formula, variables);
+
+                    return CheckLatex(BooleanFormula.PerfectCNF(booleanFormula).ToLaTeXString());
+                }else if (operation == 4)
+                {
+
+                    List<BooleanVariable> variables = new List<BooleanVariable>();
+                    BooleanFormula booleanFormula = BooleanFormulaParser.Parse(formula, variables);
+
+                    return CheckLatex(BooleanFormula.PerfectDNF(booleanFormula).ToLaTeXString());
+                }
+                else
+                {
+                    return CheckLatex("Not_selected_operation");
+                }
+            }
+            catch (Exception e)
+            {
+                return CheckLatex("Error_in_formule!"); ;
+            }
         }
     }
 }

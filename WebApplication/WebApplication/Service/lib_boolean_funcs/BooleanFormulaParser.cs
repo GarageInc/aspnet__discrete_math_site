@@ -7,25 +7,25 @@ namespace WebApplication.Service.lib_boolean_funcs
 {
     public class BooleanFormulaParser
     {
-
+        //3456789
         // ReSharper disable once InconsistentNaming
         public const char NOT = '!';
         // ReSharper disable once InconsistentNaming
-        public const char SHEFFER_STROKE = '|';
+        public const char SHEFFER_STROKE = '8';
         // ReSharper disable once InconsistentNaming
-        public const char PIERCE_ARROW = '#';
+        public const char PIERCE_ARROW = '9';
         // ReSharper disable once InconsistentNaming
-        public const char AND = '*';
+        public const char AND = '3';
         // ReSharper disable once InconsistentNaming
-        public const char OR = '+';
+        public const char OR = '4';
         // ReSharper disable once InconsistentNaming
-        public const char XOR = '^';
+        public const char XOR = '7';
         // ReSharper disable once InconsistentNaming
-        public const char IMPLICATION = '~';
+        public const char IMPLICATION = '5';
         // ReSharper disable once InconsistentNaming
         public const char IDENTITY = '%';
         // ReSharper disable once InconsistentNaming
-        public const char EQUIVALENCE = '=';
+        public const char EQUIVALENCE = '6';
 
         // ReSharper disable once InconsistentNaming
         public const char LEFT_PARENTHESIS = '(';
