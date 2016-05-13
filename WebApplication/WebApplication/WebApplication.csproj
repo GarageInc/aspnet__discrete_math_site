@@ -225,6 +225,7 @@
     <Compile Include="Service\haffmane_code\HaffmaneCode.cs" />
     <Compile Include="Service\lib_boolean_funcs\BinaryOperation.cs" />
     <Compile Include="Service\lib_boolean_funcs\BooleanConstant.cs" />
+    <Compile Include="Service\lib_boolean_funcs\BooleanFormulaGenerator.cs" />
     <Compile Include="Service\lib_boolean_funcs\BooleanFormulaInput.cs" />
     <Compile Include="Service\lib_boolean_funcs\BooleanFormulaParser.cs" />
     <Compile Include="Service\lib_boolean_funcs\BooleanFormulaSet.cs" />
