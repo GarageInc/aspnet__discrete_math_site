@@ -671,43 +671,71 @@ function go(n){
 	//s=s.replace(/{([A-Z1-7])}/g, "0$1");
 	//s=s.replace(/{/g, "0(");
 	//s=s.replace(/}/g, ")");
-	s=s.replace(/\{\}/g, "");
+	s = s.replace(/\{\}/g, "");
 	s = s.replace(/\(\)/g, "");
 
+    if (parseInt(n) < 6) {
 
-	$.ajax({
-	    type: 'GET',
-	    data: {
-	        'formula': s,
-	        'operation': n
-	    },
+        $.ajax({
+            type: 'GET',
+            data: {
+                'formula': s,
+                'operation': n
+            },
 
-	    url: 'CheckBooleanFormulaInput',
+            url: 'CheckBooleanFormulaInput',
 
-	    success: function (result) {
-	        console.log({ o: result });
-	        if (n == "0") {
+            success: function(result) {
+                console.log({ o: result });
+                if (n == "0" || n == "5") {
 
-                prompt('LaTeX', result);
-            } else {
+                    prompt('LaTeX', result);
+                } else {
 
-                $('.latex_formula_image').html('<img src="data:image/jpeg;base64,' + result + '" />');
+                    $('.latex_formula_image').html('<img src="data:image/jpeg;base64,' + result + '" />');
+                }
+            },
+            error: function(xhr, message, p3) {
+                alert(message);
             }
-	    },
-	    error: function (xhr, message, p3) {
-	        alert(message);
-	    }
-	});
+        });
+    } else {
+        var isByLatex = document.getElementById('byLatex').checked;;
+        console.log(isByLatex);
+        var depthBound = document.getElementById('depthBound').value;;
+        var sizeBound = document.getElementById('sizeBound').value;;
+        var countVariables = document.getElementById('countVariables').value;;
+
+        $.ajax({
+            type: 'GET',
+            data: {
+                'countVariables': countVariables,
+                'depthBound': depthBound,
+                'sizeBound': sizeBound,
+                'isByLatex': isByLatex
+            },
+
+            url: 'GetRandomBooleanFormula',
+
+            success: function (result) {
+                console.log(isByLatex);
+
+                if (isByLatex==true) {
+
+                    prompt('LaTeX', result);
+                } else {
+
+                    $('.latex_formula_image').html('<img src="data:image/jpeg;base64,' + result + '" />');
+                }
+            },
+            error: function (xhr, message, p3) {
+                alert(message);
+            }
+        });
+    }
 
 	return;
 
-    return
-	if(n==1)window.open('pz.php?dp='+s);
-	if(n==2)window.open('ss.php?dp='+s);
-	if(n==3)window.open('kk.php?dp='+s);
-	if(n==4)window.open('logshem.php?dp='+s);
-	if(n==5)window.open('beg.php?g=0&dp='+s);
-	if(n==6)window.open('beg.php?g=1&dp='+s);
 }
 
 function gogo(n)

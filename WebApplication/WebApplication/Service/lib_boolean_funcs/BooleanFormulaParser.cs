@@ -59,6 +59,28 @@ namespace WebApplication.Service.lib_boolean_funcs
                 }
                 else
                 {
+                    // "(!((!(A))4(!(B))))"
+                    // Проверим - если это одна большая формула, а не композиция подформул - избавимся от скобочек
+
+                    if (formula[formula.Length - 1] == RIGHT_PARENTHESIS && formula[0] == LEFT_PARENTHESIS)
+                    {
+                        int counter = 1;
+                        int j = 1;
+                        while (j < formula.Length && counter!=0)
+                        {
+                            if (formula[j] == LEFT_PARENTHESIS)
+                                counter++;
+                            else if (formula[j] == RIGHT_PARENTHESIS)
+                                counter--;
+                            
+                            j++;
+                        }
+
+                        if (counter == 0 && j==formula.Length)
+                            return Parse(formula.Substring(1,formula.Length-2), variables);
+                    }
+
+
                     // прочитаем переменную
                     string variableName = string.Empty;
                     int i = 0;
@@ -78,7 +100,7 @@ namespace WebApplication.Service.lib_boolean_funcs
                     {
                         int counter = 1;
                         int j = i + 1;
-                        var subFormula = "";
+                        string subFormula = "";
                         while (counter != 0 && j < formula.Length)
                         {
                             if (formula[j] == LEFT_PARENTHESIS)
@@ -120,7 +142,7 @@ namespace WebApplication.Service.lib_boolean_funcs
                     {
                         int counter = 1;
                         int j = i + 1;
-                        var subFormula = "";
+                        string subFormula = "";
                         while (counter != 0 && j < formula.Length)
                         {
                             if (formula[j] == LEFT_PARENTHESIS)

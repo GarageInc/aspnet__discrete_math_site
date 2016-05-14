@@ -96,6 +96,14 @@ namespace WebApplication.Service.lib_boolean_funcs
 
         public int VariableCount { get { return variableCount; } }
 
+
+        public void SetNewBooleanFormula(BooleanFormula formula)
+        {
+            formulas = new BooleanFormulaSet();
+            formulas.Add(formula);
+            this.vector = formula.FormulaValues();
+        }
+
         public BooleanFormula ZhegalkinPolynomial
         {
             get

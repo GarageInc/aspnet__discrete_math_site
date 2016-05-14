@@ -6,7 +6,7 @@ ul#tabs {font-family:Verdana, Arial;width:550px;font-size:11px;list-style-type:n
 #tabs li.nonsel a:hover {background-color:#bfe0fe;border-bottom:1px solid #bfe0fe;}
 #tabs li.sel {background-color:#fafafa;border:1px solid;border-color:#a2b6cb #a2b6cb #fafafa #a2b6cb;}
 #tabs-buttons{font-family:Verdana, Arial;font-size:11px;list-style-type:none;padding-left:0;margin:20px;     margin: 0 auto;}
-#tabs-buttons li {float:left;height:25px;margin:0px 0px 0px 10px;border:1px solid #a2b6cb;}
+#tabs-buttons li {float:left;height:25px;margin: 10px;border:1px solid #a2b6cb;}
 #tabs-buttons li a {display:block;color:#666666;text-decoration:none;padding:5px;}
 #tabs-buttons li a:hover {display:block;color:#666666;text-decoration:none;padding:5px;background-color:#deedfb;}
 

@@ -146,8 +146,8 @@ namespace WebApplication.Controllers
         // Генерируем и возвращаем изображение // Генерируется задача в зависимости от присланного номера
         public string CheckBooleanFormulaInput(string formula, int operation)
         {
-            formula = formula.Replace('{', '!');
-            formula = formula.Replace('}', ' ');
+            formula = formula.Replace("{", "(!(");
+            formula = formula.Replace("}", "))");
             formula = formula.Trim();
 
             try
@@ -189,6 +189,16 @@ namespace WebApplication.Controllers
 
                     return CheckLatex(BooleanFormula.PerfectDNF(booleanFormula).ToLaTeXString());
                 }
+                else if (operation == 5)
+                {
+
+                    List<BooleanVariable> variables = new List<BooleanVariable>();
+
+                    BooleanFunction booleanFunction = new BooleanFunction(1,1);
+                    booleanFunction.SetNewBooleanFormula(BooleanFormulaParser.Parse(formula, variables));
+
+                    return CheckLatex(booleanFunction.ToLaTeXBooleanTable());
+                }
                 else
                 {
                     return CheckLatex("Not_selected_operation");
@@ -197,6 +207,20 @@ namespace WebApplication.Controllers
             catch (Exception e)
             {
                 return CheckLatex("Error_in_formule!"); ;
+            }
+        }
+
+        public string GetRandomBooleanFormula(int countVariables, int depthBound, int sizeBound, bool isByLatex)
+        {
+            BooleanFormula booleanFormula = BooleanFormula.RandomFormula(countVariables,sizeBound,depthBound);
+
+            if (isByLatex)
+            {
+                return booleanFormula.ToLaTeXString();
+            }
+            else
+            {
+                return CheckLatex(booleanFormula.ToLaTeXString());
             }
         }
     }

@@ -81,15 +81,31 @@
 
                                     <ul id="tabs-buttons">
 
-                                        <li><a href="#" onclick="go(0);return false;">Получить формулу LaTeX</a></li>
+                                        <li><a href="#" onclick="go(0);return false;">Получить формулу LaTeX(код)</a></li>
                                         <li><a href="#" onclick="go(1);return false;">Перевести в картинку(bmp)</a></li>
                                         <li><a href="#" onclick="go(2);return false;">Полином Жегалкина(bmp)</a></li>
                                         <li><a href="#" onclick="go(3);return false;">Совершенная КНФ(bmp)</a></li>
                                         <li><a href="#" onclick="go(4);return false;">Совершенная ДНФ(bmp)</a></li>
+                                        <li><a href="#" onclick="go(5);return false;">Получить LaTeX-таблицу булевой формулы(код)</a></li>
                                     </ul>
                                 </div>
 
                                 <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <input id="countVariables" style="text-align: center" cols="50" rows="4" value="1"> Количество переменных</input>
+                                <br />
+                                <input id="sizeBound" style="text-align: center" cols="50" rows="4" value="2"> Размер связности</input>
+                                <br />
+                                <input id="depthBound" style="text-align: center" cols="50" rows="4" value="3"> Глубина связности</input>
+                                <br />
+                                <input type="checkbox" id="byLatex">Получить код LaTeX</input>
+                                <br />
+                                <button href="#" onclick="go(6);return false;">Сгенерировать случайную формулу по заданным параметрам</button>
                                 <div class="latex_formula_image" style="padding: 20px; margin: 20px; border: 1px solid;">
                                 </div>
                             </div>
