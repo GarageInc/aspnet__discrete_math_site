@@ -49,15 +49,15 @@ namespace WebApplication.Service.lib_boolean_funcs
             {
                 if ((argument as BooleanVariable).Index != -1)
                 {
-                    return "\\tilde {" + (argument as BooleanVariable).Name + "}_" +
+                    return "~{" + (argument as BooleanVariable).Name + "}_" +
                            (argument as BooleanVariable).Index;
                 }
                 else
                 {
-                    return "\\tilde " + (argument as BooleanVariable).Name;
+                    return "~" + (argument as BooleanVariable).Name;
                 }
             }
-            return "\\tilde {" + argument.ToLaTeXString() + "}";
+            return "~{" + argument.ToLaTeXString() + "}";
         }
 
         public override bool FormulaValue(BooleanFormulaInput input)

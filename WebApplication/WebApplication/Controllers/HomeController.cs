@@ -30,12 +30,12 @@ namespace WebApplication.Controllers
             return View();
         }
 
-        public ActionResult BooleanFormulaInput()
-        {
-            initMathML();
+        //public ActionResult BooleanFormulaInput()
+        //{
+        //    initMathML();
 
-            return View();
-        }
+//            return View();
+  //      }
 
         public void initMathML()
         {
@@ -134,6 +134,7 @@ namespace WebApplication.Controllers
         // Генерируем и возвращаем изображение // Генерируется задача в зависимости от присланного номера
         public string CheckLatex(string code)
         {
+            initMathML();
 
             Bitmap bmp = MathMLFormulaControl.generateBitmapFromLatex(code);
             

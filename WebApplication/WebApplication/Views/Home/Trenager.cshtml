@@ -2,128 +2,360 @@
     ViewBag.Title = "Тренажер по задачам дискретной математики";
 }
 
-<div class="center">
-
     <h1>Добро пожаловать в тренажер по задачам дискретной математики</h1>
 
-    <label>Выберите тип задания:</label>
-    <br/>
 
-    <label>Задания генерируются автоматически!</label>
-    <br/>
+    <div>
 
-    @Html.DropDownList("type",
-        new[]
-        {
-            new SelectListItem {Text = "Однозначность кодирования", Value = "0"},
-            new SelectListItem {Text = "На построение префиксного кода(легкий уровень)", Value = "1"},
-            new SelectListItem {Text = "На построение префиксного кода(сложный уровень)", Value = "2"},
-            new SelectListItem {Text = "Однозначность декодирования", Value = "3"},
-            new SelectListItem {Text = "Оптимальный код Хаффмана для заданной последовательности", Value = "4"},
-        }, new { id = "type" })
+        <ul class="nav nav-tabs" id="firstTab">
+            <li class="active"><a data-toggle="tab" href="#treenager">Кодирование</a></li>
+            <li><a data-toggle="tab" href="#boolean_formuls">Булевы формулы</a></li>
+        </ul>
 
-    <hr />
-    <button class="buttons" id="generate">Сгенерировать задание</button>
+        <div class="tab-content">
+            <div id="treenager" class="tab-pane fade in active">
+                <div class="center">
 
-    <hr />
-    <textarea id="result" disabled cols="50" rows="4"></textarea>
-    <textarea id="condition" disabled cols="50" rows="4"></textarea>
+                    <label>Выберите тип задания:</label>
+                    <br />
 
-    <br/>
-    <button class="btn btn-default" id="clear">Очистить</button>
+                    <label>Задания генерируются автоматически!</label>
+                    <br />
 
-    <hr/>
-    <label>Ответ:</label>
+                    @Html.DropDownList("type",
+                new[]
+                {
+                    new SelectListItem {Text = "Однозначность кодирования", Value = "0"},
+                    new SelectListItem {Text = "На построение префиксного кода(легкий уровень)", Value = "1"},
+                    new SelectListItem {Text = "На построение префиксного кода(сложный уровень)", Value = "2"},
+                    new SelectListItem {Text = "Однозначность декодирования", Value = "3"},
+                    new SelectListItem {Text = "Оптимальный код Хаффмана для заданной последовательности", Value = "4"},
+                }, new { id = "type" })
+
+                    <hr />
+
+                    <label>Выберите уровень:</label>
+                    <br />
+
+                    @Html.DropDownList("level",
+                new[]
+                {
+                    new SelectListItem {Text = "Легкий уровень", Value = "0"},
+                    new SelectListItem {Text = "Средний уровень", Value = "1"},
+                    new SelectListItem {Text = "Тяжелый уровень", Value = "2"},
+                }, new { id = "level" })
+
+                    <hr />
+                    <button class="buttons" id="generate">Сгенерировать задание</button>
+                    <br />
+
+                    <br />
+                    <button class="btn btn-default" id="clear">Очистить</button>
+
+                    <hr />
+                    <div class="center" style="margin: 0 auto;display:inline-block;">
+
+                        <div style="float: left;">
+                            <label>Инструкция:</label><br />
+                            <textarea id="condition" disabled cols="50" rows="4"></textarea>
+                        </div>
+                        <div style="float: left;">
+                            <label>Задание:</label><br />
+                            <textarea id="result" disabled cols="50" rows="4"></textarea>
+                        </div>
+                        <div style="float: left">
+                            <label>Ответ:</label><br />
+                            <textarea id="reply" cols="50" rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    <div>
+
+                        <br />
+                        <button class="buttonb" id="sendToCheck">Отправить на проверку</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="boolean_formuls" class="tab-pane fade">
+
+                <div class="tabbable tabs-below">
+                    <ul class="nav nav-tabs" id="secondTab">
+                        <li class="active"><a data-toggle="tab" href="#home">Формула</a></li>
+                        <li><a data-toggle="tab" href="#menu1">Читать обязательно!</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active">
+                            <noscript>В вашем браузере отключен Javascript. Продолжение не возможно.</noscript>
+                            <div id="cont1" style="margin: 0 auto">
+                                <br />
+
+                                <div>
+                                    <div id="pole" style="position: relative; height: 70px; background-color: gainsboro;">
+                                    </div>
+                                </div>
+                                <br />
+                                <ul id="tabs-buttons">
+                                    <li><a href="#" onclick="addSymbol(2);return false;">Отрицание</a></li>
+                                    <li style="width: 25px;"><a href="#" onclick="addSymbol(3);return false;" title="Конъюнкция">&#8743;</a></li>
+                                    <li style="width: 25px;">
+                                        <a href="#" onclick="addSymbol(4);return false;" title="Дизъюнкция">&#8744;</a>
+                                    </li>
+                                    <li style="width: 25px;"><a href="#" onclick="addSymbol(5);return false;" title="Импликация">&#8594;</a></li>
+                                    <li style="width: 25px;">
+                                        <a href="#" onclick="
+                                           addSymbol(6);return false;" title="Эквивалентность">~</a>
+                                    </li>
+                                    <li style="width: 25px;"><a href="#" onclick="addSymbol(7);return false;" title="Сумма по модулю 2">&#8853;</a></li>
+                                    <li style="width: 25px;"><a href="#" onclick="addSymbol(8);return false;" title="Штрих Шеффера">|</a></li>
+                                    <li style="width: 25px;"><a href="#" onclick="addSymbol(9);return false;" title="Стрелка Пирса">&#8595;</a></li>
+
+                                </ul>
+                                <br><br>
+                                <div id="d1">
+                                    <a href="#" onclick="addSymbol(81);return false;" style="top: 1px; left: 1px;">Q</a>
+                                    <a href="#" onclick="addSymbol(87);return false;" style="top: 1px; left: 28px;">W</a>
+                                    <a href="#" onclick="addSymbol(69);return false;" style="top: 1px; left: 55px;">E</a>
+                                    <a href="#" onclick="addSymbol(82);return false;" style="top: 1px; left: 82px;">R</a>
+                                    <a href="#" onclick="addSymbol(84);return false;" style="top: 1px; left: 109px;">T</a>
+                                    <a href="#" onclick="addSymbol(89);return false;" style="top: 1px; left: 136px;">Y</a>
+                                    <a href="#" onclick="addSymbol(85);return false;" style="top: 1px; left: 163px;">U</a>
+                                    <a href="#" onclick="addSymbol(73);return false;" style="top: 1px; left: 190px;">I</a>
+                                    <a href="#" onclick="addSymbol(79);return false;" style="top: 1px; left: 217px;">O</a>
+                                    <a href="#" onclick="addSymbol(80);return false;" style="top: 1px; left: 244px;">P</a>
+                                    <a href="#" onclick="addSymbol(65);return false;" style="top: 29px; left: 15px;">A</a>
+                                    <a href="#" onclick="addSymbol(83);return false;" style="top: 29px; left: 42px;">S</a>
+                                    <a href="#" onclick="addSymbol(68);return false;" style="top: 29px; left: 69px;">D</a>
+                                    <a href="#" onclick="addSymbol(70);return false;" style="top: 29px; left: 96px;">F</a>
+                                    <a href="#" onclick="addSymbol(71);return false;" style="top: 29px; left: 123px;">G</a>
+                                    <a href="#" onclick="addSymbol(72);return false;" style="top: 29px; left: 150px;">H</a>
+                                    <a href="#" onclick="addSymbol(74);return false;" style="top: 29px; left: 177px;">J</a>
+                                    <a href="#" onclick="addSymbol(75);return false;" style="top: 29px; left: 204px;">K</a>
+                                    <a href="#" onclick="addSymbol(76);return false;" style="top: 29px; left: 231px;">L</a>
+                                    <a href="#" onclick="addSymbol(90);return false;" style="top: 57px; left: 29px;">Z</a>
+                                    <a href="#" onclick="addSymbol(88);return false;" style="top: 57px; left: 56px;">X</a>
+                                    <a href="#" onclick="addSymbol(67);return false;" style="top: 57px; left: 83px;">C</a>
+                                    <a href="#" onclick="addSymbol(86);return false;" style="top: 57px; left: 110px;">V</a>
+                                    <a href="#" onclick="addSymbol(66);return false;" style="top: 57px; left: 137px;">B</a>
+                                    <a href="#" onclick="addSymbol(78);return false;" style="top: 57px; left: 164px;">N</a>
+                                    <a href="#" onclick="addSymbol(77);return false;" style="top: 57px; left: 191px;">M</a>
+                                    <a href="#" onclick="addSymbol(37);return false;" style="top: 57px; left: 218px;">&lt;</a>
+                                    <a href="#" onclick="addSymbol(39);return false;" style="top: 57px; left: 245px;">&gt;</a>
+                                    <a href="#" onclick="addSymbol(57);return false;" style="top: 1px; left: 271px;">(</a>
+                                    <a href="#" onclick="addSymbol(48);return false;" style="top: 1px; left: 298px;">)</a>
+                                    <a href="#" onclick="addSymbol(155);return false;" style="top: 29px; left: 258px; width: 64px; font-size: 10px;">Backspace</a>
+                                    <a href="#" onclick="addSymbol(46);return false;" style="top: 57px; left: 272px; width: 50px;">Delete</a>
+                                </div>
+
+                                <br />
+                                <div>
+
+                                    <ul id="tabs-buttons">
+
+                                        <li><a href="#" onclick="go(0);return false;">Получить формулу LaTeX(код)</a></li>
+                                        <li><a href="#" onclick="go(1);return false;">Перевести в картинку(bmp)</a></li>
+                                        <li><a href="#" onclick="go(2);return false;">Полином Жегалкина(bmp)</a></li>
+                                        <li><a href="#" onclick="go(3);return false;">Совершенная КНФ(bmp)</a></li>
+                                        <li><a href="#" onclick="go(4);return false;">Совершенная ДНФ(bmp)</a></li>
+                                        <li><a href="#" onclick="go(5);return false;">Получить LaTeX-таблицу булевой формулы(код)</a></li>
+                                    </ul>
+                                </div>
+
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <div style="margin: 20px;">
+                                    <input id="countVariables" style="text-align: center" cols="50" rows="4" value="1"> Количество переменных</input>
+                                    <br />
+                                    <input id="sizeBound" style="text-align: center" cols="50" rows="4" value="2"> Размер связности</input>
+                                    <br />
+                                    <input id="depthBound" style="text-align: center" cols="50" rows="4" value="3"> Глубина связности</input>
+                                    <br />
+                                    <input type="checkbox" id="byLatex">Получить код LaTeX</input>
+                                    <br />
+                                    <button href="#" onclick="go(6);return false;">Сгенерировать случайную формулу по заданным параметрам</button>
+                                    
+                                </div>
+                                <div class="latex_formula_image" style="padding: 20px; margin: 20px; border: 1px solid;">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="menu1" class="tab-pane fade">
+
+                            <br />
+                            <div id="cont3">
+                                <b>"Условные обозначения"</b><br>В разных источниках информации булевы функции могут обозначаться по разному. В данной программе приняты следующие обозначения:<br>
+                                <center>
+                                    <table border="1" bordercolor="#999999" cellpadding="2" cellspacing="0">
+                                        <tbody>
+                                            <tr style="background: #c9c9c9;">
+                                                <td>Название функции</td>
+                                                <td align="center">Принятое обозначение</td>
+                                                <td align="center">Альтернативное обозначение</td>
+                                            </tr>
+                                            <tr class="td1">
+                                                <td>Отрицание</td>
+                                                <td align="center">Черта сверху (кнопка "Отрицание")</td>
+                                                <td align="center">! , ¬</td>
+                                            </tr>
+                                            <tr class="td1">
+                                                <td>Конъюнкция</td>
+                                                <td align="center">&#8743;</td>
+                                                <td align="center">&amp; , * , ·</td>
+                                            </tr>
+                                            <tr class="td1">
+                                                <td>Дизъюнкция</td>
+                                                <td align="center">&#8744;</td>
+                                                <td align="center">+</td>
+                                            </tr>
+                                            <tr class="td1">
+                                                <td>Импликация</td>
+                                                <td align="center">&#8594;</td>
+                                                <td align="center"></td>
+                                            </tr>
+                                            <tr class="td1">
+                                                <td>Эквивалентность</td>
+                                                <td align="center">~</td>
+                                                <td align="center">&#8596;</td>
+                                            </tr>
+                                            <tr class="td1">
+                                                <td>Cумма по модулю 2</td>
+                                                <td align="center">&#8853;</td>
+                                                <td align="center"></td>
+                                            </tr>
+                                            <tr class="td1">
+                                                <td>Штрих Шеффера</td>
+                                                <td align="center">|</td>
+                                                <td align="center"></td>
+                                            </tr>
+                                            <tr class="td1">
+                                                <td>Стрелка Пирса</td>
+                                                <td align="center">&#8595;</td>
+                                                <td align="center"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </center>
+                                <br>
+                                <b>"FAQ"</b><br>
+                                <b>Q: Как же мне ввести отрицание?</b><br>
+                                A: Для того, чтобы ввести отрицание, необходимо нажать кнопку "Отрицание", а затем ввести часть функции, на которую будет распространяться это отрицание.<br>
+                                <b>Q: Я хочу поставить отрицание только над одной переменной. Как?</b><br>
+                                A: Нажимаете кнопку "Отрицание", затем вводите нужную переменную и нажимаете кнопку "Вправо" на клавиатуре или кнопку "&gt;" на виртуальной клавиатуре.<br>
+                                <b>Q: Как ввести знак равно?</b><br>
+                                A: Никак. Если у Вас имеется, например, такое уравнение: F=A&#8744;B, то в программу необходимо ввести только: A&#8744;B.<br>
+                                <b>Q: Как ввести X<sub>1</sub>, X<sub>2</sub> и т.д.?</b><br>
+                                A: Индексы переменных не поддерживаются. Вместо X<sub>1</sub>, X<sub>2</sub> вводите A, B.<br>
+                                <b>Q: Я считаю, что приоритет выполнения операций неправильный.</b><br>
+                                A: Если Вы считаете, что программа неправильно расставляет приоритеты операций, то указывайте приоритеты явно, с помощью скобок.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" type="text/css" href="~/boolean_formula_calculator_files/tabs-menu.css">
+
+    <script src="~/boolean_formula_calculator_files/vvod.js"></script>
     
-    <br/>
-    <textarea id="reply" cols="50" rows="2"></textarea>
-    
-    <br />
-    <button class="buttonb" id="sendToCheck">Отправить на проверку</button>
+    @section scripts{
+        <script type="text/javascript">
+            // Генерируем задание
+            $('#generate').click(function (e) {
+                var id = document.getElementById('type').value;
+                var generated = document.getElementById('result');
+                var condition = document.getElementById('condition');
 
-</div>
+                var reply = document.getElementById('reply');
+                reply.value = "";
 
-@section scripts{
-    <script type="text/javascript">
-        // Генерируем задание
-        $('#generate').click(function (e)
-        {
-            var id = document.getElementById('type').value;
-            var generated = document.getElementById('result');
-            var condition = document.getElementById('condition');
+                if (id == 0) {
 
-            var reply = document.getElementById('reply');
-            reply.value = "";
-            
-            if (id == 0) {
-
-                condition.value = "Проверьте на однозначность кодирования. Ответ: либо 'ДА', либо 'НЕТ'(однозначно-не однозначно дешифруется заданная последовательность)";
-            }
-            else if (id == 1 || id == 2) {
-
-                condition.value = "Построить двоичный префиксный код с заданной последовательностью длин кодовых слов. Ответ: последовательность, разделенная пробелами как: \"111 011 001 000\"";
-            }
-            else if (id == 3) {
-
-                condition.value = "Проверьте на однозначность декодирования заданной последовательности данным кодом.  Ответ: либо 'ДА', либо 'НЕТ'(однозначно-не однозначно дешифруется заданная последовательность)";
-            }
-            else if (id == 4) {
-
-                condition.value = "Построить оптимальный код Хаффмана для заданной последовательности. Например, для кода \"12322\" Вы должны ввести в поле ответа: \"00 1 01 1 1\"";
-            }
-
-            // получаем выбранный задание на выполнение
-            $.ajax({
-                type: 'GET',
-                url: '@Url.Action("GetRequest")/' + id,
-                success: function (result) {
-                    // Вставляем в текстовое окно результат запроса
-                    generated.value = result;
-                },
-                error: function (xhr, message, p3) {
-                    alert( message );
+                    condition.value = "Проверьте на однозначность кодирования. Ответ: либо 'ДА', либо 'НЕТ'(однозначно-не однозначно дешифруется заданная последовательность)";
                 }
-            });
-        });
+                else if (id == 1 || id == 2) {
 
-        // Отправляем на проверку
-        $('#sendToCheck').click(function (e) {
-            var id = document.getElementById('type').value;
-            var reply = document.getElementById('reply').value;
-            var generated = document.getElementById('result').value;
-            //var data = { id: 'id', 'reply': reply };
-            // получаем выбранный id
-            $.ajax({
-                type: 'GET',
-                url: '@Url.Action("CheckRequest")/',
-                data: {
-                    id: id,
-                    reply: reply,
-                    generated: generated
-                },
-
-                success: function (result) {
-                    alert(result);
-                },
-                error: function (xhr, status, p3) {
-                    alert(status);
+                    condition.value = "Построить двоичный префиксный код с заданной последовательностью длин кодовых слов. Ответ: последовательность, разделенная пробелами как: \"111 011 001 000\"";
                 }
+                else if (id == 3) {
+
+                    condition.value = "Проверьте на однозначность декодирования заданной последовательности данным кодом.  Ответ: либо 'ДА', либо 'НЕТ'(однозначно-не однозначно дешифруется заданная последовательность)";
+                }
+                else if (id == 4) {
+
+                    condition.value = "Построить оптимальный код Хаффмана для заданной последовательности. Например, для кода \"12322\" Вы должны ввести в поле ответа: \"00 1 01 1 1\"";
+                }
+
+                // получаем выбранный задание на выполнение
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("GetRequest")/' + id,
+                    success: function (result) {
+                        // Вставляем в текстовое окно результат запроса
+                        generated.value = result;
+                    },
+                    error: function (xhr, message, p3) {
+                        alert(message);
+                    }
+                });
             });
-        });
+
+            // Отправляем на проверку
+            $('#sendToCheck').click(function (e) {
+                var id = document.getElementById('type').value;
+                var reply = document.getElementById('reply').value;
+                var generated = document.getElementById('result').value;
+                //var data = { id: 'id', 'reply': reply };
+                // получаем выбранный id
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("CheckRequest")/',
+                    data: {
+                        id: id,
+                        reply: reply,
+                        generated: generated
+                    },
+
+                    success: function (result) {
+                        alert(result);
+                    },
+                    error: function (xhr, status, p3) {
+                        alert(status);
+                    }
+                });
+            });
 
 
 
 
-        // Кнопка очистки
-        $('#clear').click(function (e) {
-            var reply = document.getElementById('reply');
-            var result = document.getElementById('result');
-            var condition = document.getElementById('condition');
+            // Кнопка очистки
+            $('#clear').click(function (e) {
+                var reply = document.getElementById('reply');
+                var result = document.getElementById('result');
+                var condition = document.getElementById('condition');
 
-            reply.value = "";
-            result.value = "";
-            condition.value = "";
-        });
+                reply.value = "";
+                result.value = "";
+                condition.value = "";
+            });
 
-    </script>
-}
+            function maxi(elm) {
+                if (elm.enlarged) {
+                    elm.style.top = '-124px';
+                    elm.enlarged = false;
+                } else {
+                    elm.style.top = '0px';
+                    elm.enlarged = true;
+                }
+            }
+
+        </script>
+    }
