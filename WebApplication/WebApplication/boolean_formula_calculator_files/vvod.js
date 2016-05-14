@@ -718,14 +718,15 @@ function go(n){
             url: 'GetRandomBooleanFormula',
 
             success: function (result) {
-                console.log(isByLatex);
 
-                if (isByLatex==true) {
+                booleanFormula = result;
 
-                    prompt('LaTeX', result);
+                if (isByLatex == true) {
+
+                    prompt('LaTeX', result.result);
                 } else {
 
-                    $('.latex_formula_image').html('<img src="data:image/jpeg;base64,' + result + '" />');
+                    $('.latex_formula_image_2').html('<img src="data:image/jpeg;base64,' + result.result + '" />');
                 }
             },
             error: function (xhr, message, p3) {

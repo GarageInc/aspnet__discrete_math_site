@@ -2,7 +2,7 @@
     ViewBag.Title = "Тренажер по задачам дискретной математики";
 }
 
-    <h1>Добро пожаловать в тренажер по задачам дискретной математики</h1>
+    <h1>Тренажер по задачам дискретной математики</h1>
 
 
     <div>
@@ -80,23 +80,24 @@
 
             <div id="boolean_formuls" class="tab-pane fade">
 
-                <div class="tabbable tabs-below">
+                <div class="tabbable tabs-left">
                     <ul class="nav nav-tabs" id="secondTab">
                         <li class="active"><a data-toggle="tab" href="#home">Формула</a></li>
-                        <li><a data-toggle="tab" href="#menu1">Читать обязательно!</a></li>
+                        <li><a data-toggle="tab" href="#menu1">Проверка по булевым формулам</a></li>
+                        <li><a data-toggle="tab" href="#menu2">Читать обязательно!</a></li>
                     </ul>
 
                     <div class="tab-content">
                         <div id="home" class="tab-pane fade in active">
                             <noscript>В вашем браузере отключен Javascript. Продолжение не возможно.</noscript>
                             <div id="cont1" style="margin: 0 auto">
-                                <br />
+                                <br/>
 
                                 <div>
                                     <div id="pole" style="position: relative; height: 70px; background-color: gainsboro;">
                                     </div>
                                 </div>
-                                <br />
+                                <br/>
                                 <ul id="tabs-buttons">
                                     <li><a href="#" onclick="addSymbol(2);return false;">Отрицание</a></li>
                                     <li style="width: 25px;"><a href="#" onclick="addSymbol(3);return false;" title="Конъюнкция">&#8743;</a></li>
@@ -105,8 +106,7 @@
                                     </li>
                                     <li style="width: 25px;"><a href="#" onclick="addSymbol(5);return false;" title="Импликация">&#8594;</a></li>
                                     <li style="width: 25px;">
-                                        <a href="#" onclick="
-                                           addSymbol(6);return false;" title="Эквивалентность">~</a>
+                                        <a href="#" onclick="addSymbol(6);return false;" title="Эквивалентность">~</a>
                                     </li>
                                     <li style="width: 25px;"><a href="#" onclick="addSymbol(7);return false;" title="Сумма по модулю 2">&#8853;</a></li>
                                     <li style="width: 25px;"><a href="#" onclick="addSymbol(8);return false;" title="Штрих Шеффера">|</a></li>
@@ -149,7 +149,7 @@
                                     <a href="#" onclick="addSymbol(46);return false;" style="top: 57px; left: 272px; width: 50px;">Delete</a>
                                 </div>
 
-                                <br />
+                                <br/>
                                 <div>
 
                                     <ul id="tabs-buttons">
@@ -163,30 +163,50 @@
                                     </ul>
                                 </div>
 
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <div style="margin: 20px;">
-                                    <input id="countVariables" style="text-align: center" cols="50" rows="4" value="1"> Количество переменных</input>
-                                    <br />
-                                    <input id="sizeBound" style="text-align: center" cols="50" rows="4" value="2"> Размер связности</input>
-                                    <br />
-                                    <input id="depthBound" style="text-align: center" cols="50" rows="4" value="3"> Глубина связности</input>
-                                    <br />
-                                    <input type="checkbox" id="byLatex">Получить код LaTeX</input>
-                                    <br />
-                                    <button href="#" onclick="go(6);return false;">Сгенерировать случайную формулу по заданным параметрам</button>
-                                    
-                                </div>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
                                 <div class="latex_formula_image" style="padding: 20px; margin: 20px; border: 1px solid;">
                                 </div>
                             </div>
                         </div>
-                        <div id="menu1" class="tab-pane fade">
+
+                        <div id="menu1" class="tab-pane">
+                            <br />
+                            <div style="margin: 20px;">
+                                <input id="countVariables" style="text-align: center" cols="50" rows="4" value="2"> Количество переменных</input>
+                                <br />
+                                <input id="sizeBound" style="text-align: center" cols="50" rows="4" value="2"> Размер связности</input>
+                                <br />
+                                <input id="depthBound" style="text-align: center" cols="50" rows="4" value="3"> Глубина связности</input>
+                                <br />
+                                <input type="checkbox" id="byLatex">Получить код LaTeX</input>
+                                <br />
+                                <button href="#" onclick="go(6);return false;">Сгенерировать случайную формулу по заданным параметрам</button>
+
+                                <hr />
+                                <div class="latex_formula_image_2" style="padding: 20px; margin: 20px; border: 1px solid;">
+                                </div>
+
+                                <label>Эта функция...</label>
+                                <input type="checkbox" id="isMonotone"> Монотонна</input>
+                                <input type="checkbox" id="isBalanced"> Сбалансирована</input>
+                                <input type="checkbox" id="isLinear"> Линейна</input>
+                                <input type="checkbox" id="isSelfAdjoint"> Самосопряжена</input>
+                                <input type="checkbox" id="isComplete"> Выполнима</input>
+                                <input type="checkbox" id="isBasis"> Базисна</input>
+                                
+                                <br />
+
+                                <button href="#" id="checkCurrentBooleanFormula">Проверьте свои знания. Выберите значения и нажмите эту кнопку</button>
+                                
+                            </div>
+                        </div>
+
+                        <div id="menu2" class="tab-pane">
 
                             <br />
                             <div id="cont3">
@@ -257,7 +277,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
@@ -332,10 +351,7 @@
                     }
                 });
             });
-
-
-
-
+            
             // Кнопка очистки
             $('#clear').click(function (e) {
                 var reply = document.getElementById('reply');
@@ -357,5 +373,51 @@
                 }
             }
 
+            var booleanFormula;
+
+            $('#checkCurrentBooleanFormula').click(function (e) {
+
+                console.log(booleanFormula);
+                var errors = [];
+
+                var selectedMonotone = document.getElementById('isMonotone').checked;
+                var selectedBalance = document.getElementById('isBalanced').checked;
+                var selectedLinear = document.getElementById('isLinear').checked;
+                var selectedSelfAdjoint = document.getElementById('isSelfAdjoint').checked;
+                var selectedBasis = document.getElementById('isBasis').checked;
+                var selectedComplete = document.getElementById('isComplete').checked;
+
+                if (selectedMonotone != booleanFormula.isMonotone) {
+                    var text = (booleanFormula.isMonotone ? "" : "не ") + "монотонна";
+                    errors.push(text);
+                }
+                if (selectedBalance != booleanFormula.isBalanced) {
+                    var text = (booleanFormula.isBalanced ? "" : "не ") + "сбалансирована";
+                    errors.push(text);
+                }
+                if (selectedLinear != booleanFormula.isLinear) {
+                    var text = (booleanFormula.isLinear ? "" : "не ") + "линейна";
+                    errors.push(text);
+                }
+                if (selectedSelfAdjoint != booleanFormula.isSelfAdjoint) {
+                    var text = (booleanFormula.isSelfAdjoint ? "" : "не ") + "самосопряжена";
+                    errors.push(text);
+                }
+                if (selectedBasis != booleanFormula.isBasis) {
+                    var text = (booleanFormula.isBasis ? "" : "не ") + "базисна";
+                    errors.push(text);
+                }
+                if (selectedComplete != booleanFormula.isBasis) {
+                    var text = (booleanFormula.isComplete ? "" : "не ") + "выполнима";
+                    errors.push(text);
+                }
+
+                if (errors.length > 0) {
+                    alert("Ошибка! Функция " + errors.join(", "));
+                } else {
+                    alert("Абсолютно верный ответ!");
+                }
+
+            });
         </script>
     }

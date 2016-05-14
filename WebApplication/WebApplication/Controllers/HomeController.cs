@@ -211,18 +211,26 @@ namespace WebApplication.Controllers
             }
         }
 
-        public string GetRandomBooleanFormula(int countVariables, int depthBound, int sizeBound, bool isByLatex)
+        public ActionResult GetRandomBooleanFormula(int countVariables, int depthBound, int sizeBound, bool isByLatex)
         {
             BooleanFormula booleanFormula = BooleanFormula.RandomFormula(countVariables,sizeBound,depthBound);
 
-            if (isByLatex)
-            {
-                return booleanFormula.ToLaTeXString();
-            }
-            else
-            {
-                return CheckLatex(booleanFormula.ToLaTeXString());
-            }
+            BooleanFunction booleanFunction = new BooleanFunction(1, 1);
+            booleanFunction.SetNewBooleanFormula(booleanFormula);
+
+            var data = new {
+                result = isByLatex ? booleanFormula.ToLaTeXString() : CheckLatex(booleanFormula.ToLaTeXString()),
+
+                isMonotone = booleanFunction.IsMonotone(),
+                isBalanced = booleanFunction.IsBalanced(),
+                isLinear = booleanFunction.IsLinear(),
+
+                isSelfAdjoint = booleanFunction.IsSelfAdjoint(),// Самосопряженная
+                isComplete = booleanFunction.IsComplete(),
+                isBasis = booleanFunction.IsBasis()
+            };
+            
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

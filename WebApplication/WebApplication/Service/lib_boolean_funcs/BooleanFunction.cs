@@ -198,6 +198,16 @@ namespace WebApplication.Service.lib_boolean_funcs
             return count * 2 == vector.Length;
         }
 
+        public bool IsComplete()
+        {
+            return this.formulas.IsComplete();
+        }
+
+        public bool IsBasis()
+        {
+            return this.formulas.IsBasis();
+        }
+
         public bool IsLinear()
         {
             return IsLinear(this.vector, this.variableCount);
