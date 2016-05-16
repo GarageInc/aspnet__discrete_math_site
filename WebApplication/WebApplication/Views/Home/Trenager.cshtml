@@ -2,7 +2,7 @@
     ViewBag.Title = "Тренажер по задачам дискретной математики";
 }
 
-    <h1>Тренажер по задачам дискретной математики</h1>
+    <h3>Тренажер по задачам дискретной математики</h3>
 
 
     <div>
@@ -23,14 +23,13 @@
                     <br />
 
                     @Html.DropDownList("type",
-                new[]
-                {
-                    new SelectListItem {Text = "Однозначность кодирования", Value = "0"},
-                    new SelectListItem {Text = "На построение префиксного кода(легкий уровень)", Value = "1"},
-                    new SelectListItem {Text = "На построение префиксного кода(сложный уровень)", Value = "2"},
-                    new SelectListItem {Text = "Однозначность декодирования", Value = "3"},
-                    new SelectListItem {Text = "Оптимальный код Хаффмана для заданной последовательности", Value = "4"},
-                }, new { id = "type" })
+                        new[]
+                        {
+                            new SelectListItem {Text = "Однозначность кодирования", Value = "0"},
+                            new SelectListItem {Text = "На построение префиксного кода", Value = "1"},
+                            new SelectListItem {Text = "Однозначность декодирования", Value = "2"},
+                            new SelectListItem {Text = "Оптимальный код Хаффмана для заданной последовательности", Value = "3"},
+                        }, new { id = "type" })
 
                     <hr />
 
@@ -38,12 +37,12 @@
                     <br />
 
                     @Html.DropDownList("level",
-                new[]
-                {
-                    new SelectListItem {Text = "Легкий уровень", Value = "0"},
-                    new SelectListItem {Text = "Средний уровень", Value = "1"},
-                    new SelectListItem {Text = "Тяжелый уровень", Value = "2"},
-                }, new { id = "level" })
+                        new[]
+                        {
+                            new SelectListItem {Text = "Легкий уровень", Value = "0"},
+                            new SelectListItem {Text = "Средний уровень", Value = "1"},
+                            new SelectListItem {Text = "Тяжелый уровень", Value = "2"},
+                        }, new { id = "level" })
 
                     <hr />
                     <button class="buttons" id="generate">Сгенерировать задание</button>
@@ -177,15 +176,15 @@
                         <div id="menu1" class="tab-pane">
                             <br />
                             <div style="margin: 20px;">
-                                <input id="countVariables" style="text-align: center" cols="50" rows="4" value="2"> Количество переменных</input>
+                                <input id="countVariables" style="text-align: center" cols="50" rows="4" value="2" class = "form-control"> Количество переменных</input>
                                 <br />
-                                <input id="sizeBound" style="text-align: center" cols="50" rows="4" value="2"> Размер связности</input>
+                                <input id="sizeBound" style="text-align: center" cols="50" rows="4" value="2" class = "form-control"> Размер связности</input>
                                 <br />
-                                <input id="depthBound" style="text-align: center" cols="50" rows="4" value="3"> Глубина связности</input>
+                                <input id="depthBound" style="text-align: center" cols="50" rows="4" value="3" class = "form-control"> Глубина связности</input>
                                 <br />
-                                <input type="checkbox" id="byLatex">Получить код LaTeX</input>
-                                <br />
-                                <button href="#" onclick="go(6);return false;">Сгенерировать случайную формулу по заданным параметрам</button>
+                                <input type="checkbox" id="byLatex" class = "form-control">Получить код LaTeX</input>
+                                <br /><br />
+                                <button href="#" onclick="go(6);return false;" class="buttons">Сгенерировать случайную функцию по заданным параметрам</button>
 
                                 <hr />
                                 <div class="latex_formula_image_2" style="padding: 20px; margin: 20px; border: 1px solid;">
@@ -201,7 +200,7 @@
                                 
                                 <br />
 
-                                <button href="#" id="checkCurrentBooleanFormula">Проверьте свои знания. Выберите значения и нажмите эту кнопку</button>
+                                <button href="#" id="checkCurrentBooleanFormula" class="buttonb">Проверьте свои знания. Выберите значения и нажмите эту кнопку</button>
                                 
                             </div>
                         </div>
@@ -290,6 +289,8 @@
             // Генерируем задание
             $('#generate').click(function (e) {
                 var id = document.getElementById('type').value;
+                var level = document.getElementById('level').value;
+
                 var generated = document.getElementById('result');
                 var condition = document.getElementById('condition');
 
@@ -304,11 +305,11 @@
 
                     condition.value = "Построить двоичный префиксный код с заданной последовательностью длин кодовых слов. Ответ: последовательность, разделенная пробелами как: \"111 011 001 000\"";
                 }
-                else if (id == 3) {
+                else if (id == 2) {
 
                     condition.value = "Проверьте на однозначность декодирования заданной последовательности данным кодом.  Ответ: либо 'ДА', либо 'НЕТ'(однозначно-не однозначно дешифруется заданная последовательность)";
                 }
-                else if (id == 4) {
+                else if (id == 3) {
 
                     condition.value = "Построить оптимальный код Хаффмана для заданной последовательности. Например, для кода \"12322\" Вы должны ввести в поле ответа: \"00 1 01 1 1\"";
                 }
@@ -316,7 +317,11 @@
                 // получаем выбранный задание на выполнение
                 $.ajax({
                     type: 'GET',
-                    url: '@Url.Action("GetRequest")/' + id,
+                    url: '@Url.Action("GetRequest")',
+                    data: {
+                        id: id,
+                        level: level
+                    },
                     success: function (result) {
                         // Вставляем в текстовое окно результат запроса
                         generated.value = result;

@@ -8,19 +8,20 @@ namespace WebApplication.Service.auto_generating_mathtasks
     {
 
         // Функция, которая генерирует последовательность цифр от 0 до 9
-        public static string GetRandomNumbersString()
+        public static string GetRandomNumbersString( int level )
         {
             Random r = new Random();
             List<string> res = new List<string>();
 
             // Количество цифр
-            var count = r.Next(3, 14);
+            var count = r.Next(level + 2, (level + 2) * 4);
 
             // Генерируем последовательности
             int i = 0;
             for (i = 0; i < count; i++)
             {
-                var length = r.Next(0, 10).ToString();
+                var length = r.Next(level + 2, (level + 2)*4).ToString();
+
                 res.Add(length);
             }
 

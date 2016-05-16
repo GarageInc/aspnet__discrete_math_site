@@ -29,14 +29,7 @@ namespace WebApplication.Controllers
 
             return View();
         }
-
-        //public ActionResult BooleanFormulaInput()
-        //{
-        //    initMathML();
-
-//            return View();
-  //      }
-
+        
         public void initMathML()
         {
 
@@ -55,34 +48,29 @@ namespace WebApplication.Controllers
         }
 
         // Генерируется задача в зависимости от присланного номера
-        public JsonResult GetRequest(int id)
+        public JsonResult GetRequest(int id, int level)
         {
             string result = "";
             switch (id)
             {
                 case 0:
                     {
-                        result = UnambiguousCodingService.GetRandomOneZeroString();
+                        result = UnambiguousCodingService.GetRandomOneZeroString( level );
                         break;
                     }
                 case 1:
                     {
-                        result = PrefixCodeService.CheckIsDecodedByCode(1);
+                        result = PrefixCodeService.CheckIsDecodedByCode( level );
                         break;
                     }
                 case 2:
                     {
-                        result = PrefixCodeService.CheckIsDecodedByCode(2);
+                        result = UnambiguousDecodingService.GetDecodingCodeAndCode( level );
                         break;
                     }
                 case 3:
                     {
-                        result = UnambiguousDecodingService.GetDecodingCodeAndCode();
-                        break;
-                    }
-                case 4:
-                    {
-                        result = HaffmaneService.GetRandomNumbersString();
+                        result = HaffmaneService.GetRandomNumbersString(level );
                         break;
                     }
             }
@@ -110,17 +98,12 @@ namespace WebApplication.Controllers
                     }
                 case 2:
                     {
-                        result = PrefixCodeService.CheckString02(reply, generated);
-                        break;
-                    }
-                case 3:
-                    {
                         // Получим только первую часть(т.к. можно просто проверить на правило суффиксного/префиксного кода Фано, независимо от того, что сгенерировано справа)
                         var sub = generated.Split(new string[] { " / " }, StringSplitOptions.None);
                         result = UnambiguousCodingService.CheckString01(reply, sub[0]);
                         break;
                     }
-                case 4:
+                case 3:
                     {
                         result = HaffmaneService.CheckString04(reply, generated);
                         break;

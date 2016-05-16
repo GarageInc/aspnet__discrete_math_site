@@ -14,18 +14,13 @@ namespace WebApplication.Service.auto_generating_mathtasks
             List<string> res = new List<string>();
 
             // Количество последовательностей
-            int count = level == 1 ? r.Next(2, 6) : r.Next(6, 10);
+            var count = r.Next(level + 2, (level + 2) * 4);
 
             // Генерируем последовательности
             int i = 0;
             for (i = 0; i < count; i++)
             {
-                int length;
-
-                if (level == 1)
-                    length = r.Next(2, 4);
-                else
-                    length = r.Next(5, 8);
+                var length = r.Next(level + 2, (level + 2) * 4);
 
                 res.Add(length.ToString());
             }
@@ -72,7 +67,7 @@ namespace WebApplication.Service.auto_generating_mathtasks
                 if (yes)
                     return "Абсолютно верное решение! Строка однозначно декодируется";
 
-                return "Нет, строка неоднозначно декодируема. Не удовлетворяют свойству Фано: " + error;
+                return "Нет, строка неоднозначно декодируема. Не удовлетворяют свойству Фано часть: " + error;
 
             }
             catch (Exception e)

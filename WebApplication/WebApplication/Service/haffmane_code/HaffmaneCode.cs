@@ -68,13 +68,14 @@ namespace WebApplication
 
             for (int i = 0; i < source.Length; i++)
             {
-                //str += "'"+source[i]+"':[";
+
                 List<bool> encodedSymbol = this.Root.Traverse(source[i], new List<bool>());
+
                 foreach (bool ee in encodedSymbol)
                 {
                     str+=ee?"1":"0";
                 }
-                //str += "] ";
+
                 if(i!=source.Length-1)
                     str += " ";
 

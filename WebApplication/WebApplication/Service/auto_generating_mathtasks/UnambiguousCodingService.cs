@@ -8,24 +8,34 @@ namespace WebApplication.Service.auto_generating_mathtasks
     {
 
         // Функция, которая генерирует случайную последовательность из нулей и единиц
-        public static string GetRandomOneZeroString()
+        public static string GetRandomOneZeroString(int level)
         {
             Random r = new Random();
             List<string> res = new List<string>();
 
             // Количество последовательностей
-            var count = r.Next(3, 14);
+            var count = r.Next(level+2, (level+2)*4);
 
             // Генерируем последовательности
             int i = 0;
             for (i = 0; i < count; i++)
             {
                 string s = "";
-                var length = r.Next(1, 10);
+                var length = r.Next(level + 2, (level + 2) * 4);
+
                 for (int j = 0; j < length; j++)
                 {
-                    s += r.Next(1, 100) % 2;
+                    if (level > 1)
+                    {
+                        char symbol = r.Next(1, 100)%2 == 0 ? 'x' : 'y';
+                        s += symbol;
+                    }
+                    else
+                    {
+                        s += r.Next(1, 100)%2;
+                    }
                 }
+
                 res.Add(s);
             }
 
@@ -54,13 +64,14 @@ namespace WebApplication.Service.auto_generating_mathtasks
                 bool yes = true;
                 string error = "";
                 List<string> res = generated.Split(' ').ToList();
+
                 for (int i = 0; i < res.Count; i++)
                 {
                     for (int j = 0; j < res.Count; j++)
                     {
                         if (j != i)
                         {
-                            // Если какая-то строка является окончанием другой - это не хорошо
+                            // Если какая-то строка является окончанием другой - это не хорошо, это ошибка
                             if (res[i].EndsWith(res[j]))
                             {
                                 error = "[" + res[i] + "]" + " & " + "[" + res[j] + "]";
