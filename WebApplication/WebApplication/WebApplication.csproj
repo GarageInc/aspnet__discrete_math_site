@@ -216,6 +216,7 @@
     <Compile Include="Models\StudentGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\auto_generating_mathtasks\HaffmaneService.cs" />
+    <Compile Include="Service\auto_generating_mathtasks\HemmingService.cs" />
     <Compile Include="Service\auto_generating_mathtasks\PrefixCodeService.cs" />
     <Compile Include="Service\auto_generating_mathtasks\UnambiguousDecodingService .cs" />
     <Compile Include="Service\auto_generating_mathtasks\UnambiguousCodingService.cs" />

@@ -50,7 +50,8 @@ namespace WebApplication.Controllers
         // Генерируется задача в зависимости от присланного номера
         public JsonResult GetRequest(int id, int level)
         {
-            string result = "";
+            var result = "";
+
             switch (id)
             {
                 case 0:
@@ -73,8 +74,14 @@ namespace WebApplication.Controllers
                         result = HaffmaneService.GetRandomNumbersString(level );
                         break;
                     }
+                case 4:
+                {
+                    var hemmingResult = HemmingService.Generate(level);
+                        return Json(new { code = string.Join("", hemmingResult.code.Select(x => x.ToString()).ToArray()), numberError = hemmingResult.numberError}, JsonRequestBehavior.AllowGet);
+                        break;
+                    }
+                    
             }
-
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         
