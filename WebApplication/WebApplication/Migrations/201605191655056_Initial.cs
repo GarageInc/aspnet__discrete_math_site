@@ -3,7 +3,7 @@ namespace WebApplication.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -164,6 +164,8 @@ namespace WebApplication.Migrations
                         DocumentId = c.Int(),
                         AuthorId = c.String(maxLength: 128),
                         MathTaskTypeId = c.Int(nullable: false),
+                        Level = c.Int(nullable: false),
+                        SelectedExecutorId = c.String(),
                         Data = c.String(nullable: false),
                         StudentsGroupId = c.Int(),
                         Deadline = c.DateTime(nullable: false),

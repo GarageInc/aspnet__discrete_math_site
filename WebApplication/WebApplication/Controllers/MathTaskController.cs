@@ -55,6 +55,32 @@ namespace WebApplication.Controllers
                 SelectList mathTaskTypes = new SelectList(Db.MathTaskTypes, "Id", "Name");
                 ViewBag.MathTaskTypes = mathTaskTypes;
                 
+                SelectList levels = new SelectList(new[] {
+                    new
+                    {
+                        ID=0, Name="Легкий"
+                    }, new 
+                    {
+                        ID=1, Name="Средний"
+                    }, new
+                    {
+                        ID=2, Name="Сложный"
+                    }
+                }, "Id", "Name");
+                ViewBag.Levels = levels;
+
+                List<ApplicationUser> users = Db.Users.ToList();
+                var newUser = new ApplicationUser();
+                newUser.Id = "0";
+                newUser.Name = "";
+                users.Add(newUser);
+                users.Reverse();
+
+                ViewBag.Users = new SelectList(new[]
+                {
+                    users
+                }, "Id", "Name");
+
                 return View();
             }
 
@@ -78,7 +104,7 @@ namespace WebApplication.Controllers
 
                 SelectList studentsGroups = new SelectList(Db.StudentsGroups, "Id", "Name");
                 ViewBag.StudentsGroups = studentsGroups;
-
+                
                 return View();
             }
 
@@ -125,6 +151,8 @@ namespace WebApplication.Controllers
                 string path = Server.MapPath("~/Files/RequestFiles/" + fileName);
                 string ext = "png";
 
+                // Если приложен код латекса - грузим его как файл(создаем и грузим)
+                // Иначе - сохраняем как файл
                 if (!mathTask.LatexCode.IsNullOrWhiteSpace())
                 {
                     Bitmap bmp = MathMLFormulaControl.generateBitmapFromLatex(mathTask.LatexCode);
@@ -151,6 +179,7 @@ namespace WebApplication.Controllers
                 }
             }
 
+            // Если не рассылка - добавляем всю выбранную группу
             if (mathTask.StudentsGroupId != null)
             {
                 var students = Db.Users.Where(x => x.Id == mathTask.StudentsGroupId.ToString());
@@ -159,6 +188,9 @@ namespace WebApplication.Controllers
                 {
                     mathTask.Executors.Add(student);
                 }
+            }
+            else
+            {
             }
 
             // указываем автора задачи

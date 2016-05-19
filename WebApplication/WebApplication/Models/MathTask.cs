@@ -36,6 +36,12 @@ namespace WebApplication.Models
         [Display(Name = "ID типа")]
         public virtual int MathTaskTypeId{ get; set; }
 
+        [Display(Name = "Уровень сложности")]
+        public virtual int Level { get; set; }
+        
+        [Display(Name = "Выбранный одиночный исполнитель")]
+        public virtual string SelectedExecutorId { get; set; }
+
         [Display(Name = "Тип")]
         [ForeignKey("MathTaskTypeId")]
         public virtual MathTaskType MathTaskType { get; set; }

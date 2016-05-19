@@ -8,6 +8,12 @@
 
         PrefixCode = 2,
 
-        OptimalHaffmaneCode = 3
+        OptimalHaffmaneCode = 3,
+
+        HemmingCode = 4,
+
+        BooleanFormula = 5
+
+
     }
 }

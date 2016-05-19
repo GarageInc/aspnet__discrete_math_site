@@ -206,6 +206,14 @@ namespace WebApplication.Controllers
                 db.MathTaskTypes.Add(new MathTaskType
                 {
                     Name = "Оптимальный код Хаффмана"
+                });         
+                db.MathTaskTypes.Add(new MathTaskType
+                {
+                    Name = "Нахождение ошибки в коде Хемминга"
+                });
+                db.MathTaskTypes.Add(new MathTaskType
+                {
+                    Name = "Анализ булевой функции"
                 });
 
                 db.SaveChanges();

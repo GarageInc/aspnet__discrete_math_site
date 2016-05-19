@@ -14,9 +14,7 @@ namespace WebApplication.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "WebApplication.Models.ApplicationDbContext";
         }
-
         protected override void Seed(WebApplication.Models.ApplicationDbContext context)
         {
             var rm = new RoleManager<IdentityRole>
