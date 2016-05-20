@@ -93,15 +93,6 @@
                             </div>
                         </div>
 
-                        <div >
-                            @Html.LabelFor(model => model.Description, new {})
-
-                            <div>
-                                @Html.TextAreaFor(model => model.Description, 3, 100, new {htmlAttributes = new {}})
-                                @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
-                            </div>
-                        </div>
-
 
                         <div>
                             @Html.Label("Приложенный файл?", new { })
@@ -114,9 +105,19 @@
 
                 </div>
 
-                
+
                 <div style="padding: 20px; margin: 10px;">
-                    @Html.LabelFor(model => model.Priority, new { })
+                    
+                    <div>
+                        @Html.LabelFor(model => model.Description, new {})
+
+                        <div>
+                            @Html.TextAreaFor(model => model.Description, 3, 100, new {htmlAttributes = new {}})
+                            @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+
+                    @Html.LabelFor(model => model.Priority, new {})
                     <div>
                         @Html.DropDownListFor(model => model.Priority, new[]
                         {
@@ -126,11 +127,11 @@
                             new SelectListItem() {Text = "Критичный", Value = "4"}
                         }, new {})
                     </div>
-                    
+
                     <div style="padding-top: 10px;">
-                        @Html.Label("Подтвердить сохранение?", new { })
+                        @Html.Label("Подтвердить сохранение?", new {})
                         <br/>
-                        <input class="buttonS" type="submit" value="Сохранить" width="100" />
+                        <input class="buttonS" type="submit" value="Сохранить" width="100"/>
                     </div>
                 </div>
 

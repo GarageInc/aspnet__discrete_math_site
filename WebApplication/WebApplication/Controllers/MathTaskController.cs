@@ -177,13 +177,14 @@ namespace WebApplication.Controllers
             {
                 mathTask.Description = DeterminantComplexity.GenerateByLevel(mathTask.MathTaskTypeId, mathTask.Level);
             }
-            
+
+
+            mathTask.Executors = new List<ApplicationUser>();
 
             // Если не рассылка - добавляем всю выбранную группу
             if (mathTask.SelectedExecutorId != null)
             {
                 var executor = this.Db.Users.First(x => x.Id == mathTask.SelectedExecutorId);
-
                 mathTask.Executors.Add(executor);
             }
             else
