@@ -44,6 +44,11 @@ namespace WebApplication.Service
                         result = string.Join("", hemmingResult.code);
                         break;
                     }
+                case 5:
+                    {
+                        result = "";
+                        break;
+                    }
 
             }
             return result;

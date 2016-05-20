@@ -1641,6 +1641,7 @@
     <Content Include="Views\MathTaskTypes\Index.cshtml" />
     <Content Include="Views\MathTask\CreateMassControlWork.cshtml" />
     <Content Include="Views\Home\LaTeX.cshtml" />
+    <Content Include="Views\MathTask\MyStudentMathTasks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\themes\" />

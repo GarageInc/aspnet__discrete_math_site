@@ -88,6 +88,7 @@
                                     Панель студента<b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Задачи для решения", "MyStudentMathTasks", "MathTask")</li>
                                     <li>@Html.ActionLink("Загрузить решение задачи", "Create", "MathTaskSolution")</li>
                                     <li>@Html.ActionLink("Мои загруженные решения задач", "MyIndex", "MathTaskSolution")</li>
                                 </ul>
@@ -108,9 +109,6 @@
                                     <li class="divider"></li>
                                     <li>@Html.ActionLink("Подтвержение правильности решений к моим задачам с обсуждениями в комментариях", "Index", "MathTaskSolution")</li>
 
-                                    <li class="divider"></li>
-                                    <li>@Html.ActionLink("Создать массовую контрольную работу", "CreateMassControlWork", "MathTask")</li>
-                                    <li>@Html.ActionLink("Мои массовые контрольные", "CreateMassControlWork", "MathTask")</li>
                                 </ul>
                             </li>
                         }

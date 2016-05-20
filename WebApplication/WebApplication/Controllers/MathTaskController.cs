@@ -53,8 +53,10 @@ namespace WebApplication.Controllers
 
             if (user != null)
             {
+
                 SelectList mathTaskTypes = new SelectList(Db.MathTaskTypes, "Id", "Name");
                 ViewBag.MathTaskTypes = mathTaskTypes;
+
                 /**/
                 SelectList levels = new SelectList(new[] {
                     new
@@ -157,7 +159,7 @@ namespace WebApplication.Controllers
                 doc = new Document();
                 doc.Size = 0;
                 doc.Type = "png";
-                doc.Url = path;
+                doc.Url = path + ".png";
             }
             else if (file != null)
             {
@@ -175,7 +177,7 @@ namespace WebApplication.Controllers
             }
             else
             {
-                mathTask.Description = DeterminantComplexity.GenerateByLevel(mathTask.MathTaskTypeId, mathTask.Level);
+                mathTask.Description = DeterminantComplexity.GenerateByLevel(mathTask.MathTaskTypeId - 1, mathTask.Level);
             }
 
 
@@ -236,6 +238,16 @@ namespace WebApplication.Controllers
 
             MathMLFormulaControl.setFolderUrlForFonts(path + "fonts");
             MathMLFormulaControl.setFolderUrlForGlyphs(path + "glyphs");
+        }
+
+        public ActionResult MyStudentMathTasks()
+        {
+            var user = this.User;
+            var userId = user.Identity.GetUserId();
+
+            var mathTasks = Db.MathTasks.Where(x => x.Executors.Count(y => y.Id == userId)>0).ToList();
+
+            return View(mathTasks);
         }
 
         // Создание новой задачи
