@@ -302,7 +302,7 @@
 
                     condition.value = "Проверьте на однозначность кодирования. Ответ: либо 'ДА', либо 'НЕТ'(однозначно-не однозначно дешифруется заданная последовательность)";
                 }
-                else if (id == 1 || id == 2) {
+                else if (id == 1) {
 
                     condition.value = "Построить двоичный префиксный код с заданной последовательностью длин кодовых слов. Ответ: последовательность, разделенная пробелами как: \"111 011 001 000\"";
                 }
@@ -328,14 +328,7 @@
                     },
                     success: function (result) {
                         // Вставляем в текстовое окно результат запроса
-                        if (id != 4) {
-
-                            generated.value = result;
-                        } else {
-                            console.log(result.numberError);
-                            generated.value = result.code;
-                            hemmingErrorCodeNumber = result.numberError;
-                        }
+                        generated.value = result;
                     },
                     error: function (xhr, message, p3) {
                         alert(message);
@@ -349,32 +342,22 @@
                 var reply = document.getElementById('reply').value;
                 var generated = document.getElementById('result').value;
 
-                if (id != 4) {
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("CheckRequest")/',
+                    data: {
+                        id: id,
+                        reply: reply,
+                        generated: generated
+                    },
 
-                    $.ajax({
-                        type: 'GET',
-                        url: '@Url.Action("CheckRequest")/',
-                        data: {
-                            id: id,
-                            reply: reply,
-                            generated: generated
-                        },
-
-                        success: function(result) {
-                            alert(result);
-                        },
-                        error: function(xhr, status, p3) {
-                            alert(status);
-                        }
-                    });
-                } else {
-                    
-                    if (reply == hemmingErrorCodeNumber) {
-                        alert("Абсолютно верно!");
-                    } else {
-                        alert("Нет, ошибочный бит находится под номером: " + hemmingErrorCodeNumber);;
+                    success: function(result) {
+                        alert(result);
+                    },
+                    error: function(xhr, status, p3) {
+                        alert(status);
                     }
-                }
+                });
             });
             
             // Кнопка очистки

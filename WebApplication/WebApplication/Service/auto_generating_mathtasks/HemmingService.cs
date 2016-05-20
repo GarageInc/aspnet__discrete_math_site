@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace WebApplication.Service.auto_generating_mathtasks
 {
@@ -26,10 +27,7 @@ namespace WebApplication.Service.auto_generating_mathtasks
 
             int[] array = new int[totalBits + 1]; // массив всех бит
             int[] array_Error = new int[totalBits + 1];// массив для генерации ошибки
-
-
-
-
+            
             //int k;
             //генерация сообщений
             gen_message(array, totalBits);
@@ -77,6 +75,56 @@ namespace WebApplication.Service.auto_generating_mathtasks
 
 
             return new HemmingDTO(array, error);
+        }
+
+
+        public static string CheckCode(string generated, int number)
+        {
+            var array_Error = generated.Select(ch => ch - '0').ToArray();
+            int[] array = new int[array_Error.Length];
+
+            for (int j = 0; j < array_Error.Length; j++)
+            {
+                array[j] = array_Error[j];
+            }
+
+            int totalBits = array.Length - 1;
+            int k = 0;
+            double l = 0;// степень двойки
+
+            //исправление ошибки
+            //заново обнуление контрольных битов
+            zeroing(array_Error, totalBits);
+
+            l = 0;
+            //вычисление новых бит
+            for (int j = 1; j < totalBits + 1; j++)
+            {
+                k = Convert.ToInt32(Math.Pow(2, l));
+                if (j == k)
+                {
+                    array_Error[j] = getControlBits(array_Error, k, totalBits);
+                    l++;
+                }
+            }
+
+            for (int j = 0; j < array_Error.Length; j++)
+            {
+                if (array[j] != array_Error[0])
+                {
+                    if (number == j)
+                    {
+                        return "Абсолютно верно!";
+                    }
+                    else
+                    {
+                        return "Неверно! Контрольный бит находится на позиции: " + j;
+                    }
+                }
+                
+            }
+
+            return "Случилась неведомая ошибка, попробуйте снова?";
         }
 
         // функция генерации сообщения

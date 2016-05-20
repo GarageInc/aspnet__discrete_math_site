@@ -1,18 +1,14 @@
 ﻿
-using System.Drawing;
-using fmath.controls;
-using WebApplication.Service.lib_boolean_funcs;
 
 namespace WebApplication.Controllers
 {
+    using System.Drawing;
+    using fmath.controls;
+    using WebApplication.Service;
+    using WebApplication.Service.lib_boolean_funcs;
     using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
-    using System.Web.Helpers;
     using System.Web.Mvc;
-    using System.Web.WebPages;
     using WebApplication.Service.auto_generating_mathtasks;
 
     public class HomeController : Controller
@@ -50,41 +46,10 @@ namespace WebApplication.Controllers
         // Генерируется задача в зависимости от присланного номера
         public JsonResult GetRequest(int id, int level)
         {
-            var result = "";
-
-            switch (id)
-            {
-                case 0:
-                    {
-                        result = UnambiguousCodingService.GetRandomOneZeroString( level );
-                        break;
-                    }
-                case 1:
-                    {
-                        result = PrefixCodeService.CheckIsDecodedByCode( level );
-                        break;
-                    }
-                case 2:
-                    {
-                        result = UnambiguousDecodingService.GetDecodingCodeAndCode( level );
-                        break;
-                    }
-                case 3:
-                    {
-                        result = HaffmaneService.GetRandomNumbersString(level );
-                        break;
-                    }
-                case 4:
-                {
-                    var hemmingResult = HemmingService.Generate(level);
-                        return Json(new { code = string.Join("", hemmingResult.code.Select(x => x.ToString()).ToArray()), numberError = hemmingResult.numberError}, JsonRequestBehavior.AllowGet);
-                        break;
-                    }
-                    
-            }
+            var result = DeterminantComplexity.GenerateByLevel( id, level );
+            
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
 
 
         // Проверяется задача
@@ -113,6 +78,11 @@ namespace WebApplication.Controllers
                 case 3:
                     {
                         result = HaffmaneService.CheckString04(reply, generated);
+                        break;
+                    }
+                case 4:
+                    {
+                        result = HemmingService.CheckCode(generated, Int32.Parse(reply));
                         break;
                     }
             }

@@ -16,8 +16,8 @@ namespace WebApplication.Models
 
         }
         //public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        public DbSet<MathTask> Requests { get; set; }
-        public DbSet<MathTaskSolution> RequestSolutions { get; set; }
+        public DbSet<MathTask> MathTasks { get; set; }
+        public DbSet<MathTaskSolution> MathTaskSolutions { get; set; }
         public DbSet<RecallMessage> RecallMessages { get; set; }
         //public DbSet<ErrorMessage> ErrorMessages { get; set; }
 

@@ -123,13 +123,13 @@
                         @Html.DisplayFor(modelItem => item.Deadline)
                     </td>
                     <td>
-                            <a class="compItem" href='@Url.Action("Details", "Request", new {id = item.Id}, null)'>
+                            <a class="compItem" href='@Url.Action("Details", "MathTask", new {id = item.Id}, null)'>
                                 <img src="../../Content/pictures/info.png" class="tdImage" title="Детали задачи"/>
                             </a>
                     </td>
 
                     <td>
-                        <a class="compItem" href='@Url.Action("Author", "Request", new {id = item.AuthorId}, null)'>
+                        <a class="compItem" href='@Url.Action("Author", "MathTask", new {id = item.AuthorId}, null)'>
                             @item.Author.Name
                             <img src="../../Content/pictures/author.png" class="tdImage" title="Автор задачи" />
                         </a>

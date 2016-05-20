@@ -15,6 +15,7 @@ namespace WebApplication.Migrations
         {
             AutomaticMigrationsEnabled = false;
         }
+
         protected override void Seed(WebApplication.Models.ApplicationDbContext context)
         {
             var rm = new RoleManager<IdentityRole>
@@ -22,11 +23,8 @@ namespace WebApplication.Migrations
             rm.Create(new IdentityRole("Administrator"));
             rm.Create(new IdentityRole("Teacher"));
             rm.Create(new IdentityRole("Student"));
-
-            ApplicationDbContext db = new ApplicationDbContext();
-
-            db.SaveChanges();
-
+            
+            context.SaveChanges();
         }
     }
 }

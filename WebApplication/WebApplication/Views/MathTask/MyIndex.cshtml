@@ -129,13 +129,13 @@
                     </td>
                     <td>
                         <div>
-                            <a class="compItem" href='@Url.Action("Details", "Request", new {id = item.Id}, null)'>
+                            <a class="compItem" href='@Url.Action("Details", "MathTask", new {id = item.Id}, null)'>
                                 <img src="../../Content/pictures/info.png" class="tdImage" title="Детали задачи" />
                             </a>
                         </div>
                     </td>
                     <td>
-                        <a class="compItem" href='@Url.Action("Author", "Request", new {id = item.AuthorId}, null)'>
+                        <a class="compItem" href='@Url.Action("Author", "MathTask", new {id = item.AuthorId}, null)'>
                             @item.Author.Name
                             <img src="../../Content/pictures/author.png" class="tdImage" title="Автор задачи" />
                         </a>
@@ -144,13 +144,13 @@
                     <td>
                         @if (item.RightMathTaskSolution == null)
                         {
-                            <a class="compItem" href="/RequestSolution/CreateRightSolution/@item.Id">
+                            <a class="compItem" href="/MathTaskSolution/CreateRightSolution/@item.Id">
                                 Загрузить правильное решение
                             </a>
                         }
                         else
                         {
-                            <a href="/Request/ShowRightSolution/@item.Id">
+                            <a href="/MathTask/ShowRightSolution/@item.Id">
                                 <img src="../../Content/pictures/filey.png" alt='@item.Id' class="tdImage" title="Скачать файл" />
                                 Посмотреть правильное решение
                             </a>

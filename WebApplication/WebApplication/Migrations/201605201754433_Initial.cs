@@ -166,7 +166,6 @@ namespace WebApplication.Migrations
                         MathTaskTypeId = c.Int(nullable: false),
                         Level = c.Int(nullable: false),
                         SelectedExecutorId = c.String(),
-                        Data = c.String(nullable: false),
                         StudentsGroupId = c.Int(),
                         Deadline = c.DateTime(nullable: false),
                         Status = c.Int(nullable: false),

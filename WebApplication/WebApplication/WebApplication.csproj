@@ -193,9 +193,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605191655056_Initial.cs" />
-    <Compile Include="Migrations\201605191655056_Initial.Designer.cs">
-      <DependentUpon>201605191655056_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201605201754433_Initial.cs" />
+    <Compile Include="Migrations\201605201754433_Initial.Designer.cs">
+      <DependentUpon>201605201754433_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseModel.cs" />
@@ -220,6 +220,7 @@
     <Compile Include="Service\auto_generating_mathtasks\PrefixCodeService.cs" />
     <Compile Include="Service\auto_generating_mathtasks\UnambiguousDecodingService .cs" />
     <Compile Include="Service\auto_generating_mathtasks\UnambiguousCodingService.cs" />
+    <Compile Include="Service\DeterminantComplexity.cs" />
     <Compile Include="Service\dto\ApplicationUserDTO.cs" />
     <Compile Include="Service\dto\ErrorDTO.cs" />
     <Compile Include="Service\Functions.cs" />
@@ -1661,8 +1662,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605191655056_Initial.resx">
-      <DependentUpon>201605191655056_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605201754433_Initial.resx">
+      <DependentUpon>201605201754433_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

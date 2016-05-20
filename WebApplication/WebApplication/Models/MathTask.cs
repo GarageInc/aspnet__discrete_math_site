@@ -18,7 +18,7 @@ namespace WebApplication.Models
         public virtual string Description { get; set; }
         
         [MaxLength(500)]
-        [Display(Name = "Код в LaTeX, если есть, если не прикладывается документ - код документ будет автоматически сгенерирован в .bmp-формат при сохранении")]
+        [Display(Name = "Код в LaTeX, если есть - то документ будет автоматически сгенерирован в .bmp-формат и приложен к задаче")]
         public virtual string LatexCode { get; set; }
 
         [Display(Name = "Файл")]
@@ -46,14 +46,10 @@ namespace WebApplication.Models
         [ForeignKey("MathTaskTypeId")]
         public virtual MathTaskType MathTaskType { get; set; }
         
-        [Display(Name = "Данные")]
-        [Required(ErrorMessage = "Обязательно для заполнения!")]
-        public virtual string Data { get; set; }
-        
         [Display(Name = "Решающие")]
         public virtual ICollection<ApplicationUser> Executors { get; set; }
         
-        [Display(Name = "ID группы, если является массовой рассылкой")]
+        [Display(Name = "ID группы, если является массовой рассылкой(в приоритете всегда группа)")]
         public virtual int? StudentsGroupId{ get; set; }
 
         [DataType(DataType.Date)]

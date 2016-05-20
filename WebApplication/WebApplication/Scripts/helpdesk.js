@@ -1,5 +1,15 @@
 ﻿$(document).ready(function () {
-             
+    
+    if (typeof jQuery.fn.live == 'undefined' || !(jQuery.isFunction(jQuery.fn.live))) {
+        jQuery.fn.extend({
+            live: function (event, callback) {
+                if (this.selector) {
+                    jQuery(document).on(event, this.selector, callback);
+                }
+            }
+        });
+    }
+
     $.ajaxSetup({ cache: false });
  
             $(".openDialog").live("click", function (e) {

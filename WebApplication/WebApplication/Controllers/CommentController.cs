@@ -20,7 +20,7 @@ namespace WebApplication.Controllers
         {
             int id = int.Parse(requestSolutionId);
 
-            var requestSolution = db.RequestSolutions
+            var requestSolution = db.MathTaskSolutions
                 .Where(x=>x.Id==id)
                 .Include(x=>x.Document)
                 .Include(x => x.Author)
@@ -68,7 +68,7 @@ namespace WebApplication.Controllers
                     IsDeleted = false
                 };
 
-                var res = db.RequestSolutions.First(x => x.Id == requestSolutionId);
+                var res = db.MathTaskSolutions.First(x => x.Id == requestSolutionId);
                 newComments.Req = res;
                 newComments.ReqId = res.Id;
 
