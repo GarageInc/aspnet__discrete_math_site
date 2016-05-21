@@ -46,15 +46,7 @@ namespace WebApplication.Service
                     }
                 case 5:
                     {
-                        if (isAutoGenerator)
-                        {
-                            result = BooleanFormulaService.GetRandomBooleanFormulaByLevel(id, level);
-
-                        }
-                        else
-                        {
-                            result = BooleanFormulaService.GetRandomBooleanFormula(level+2, level + 2, level + 2);
-                        }
+                        result = BooleanFormulaService.GetRandomBooleanFormulaByLevel(id, level);
                         break;
                     }
 

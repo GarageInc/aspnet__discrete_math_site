@@ -55,7 +55,7 @@
             <div id="booleanFormulaTaskBlock"style="margin: 20px;">
 
                 <hr/>
-                <div class="latex_formula_image_2" style="padding: 20px; margin: 20px; border: 1px solid;">
+                <div class="latex_formula_image" style="padding: 20px; margin: 20px; border: 1px solid;">
                 </div>
 
                 <label>Эта функция...</label>
@@ -82,7 +82,7 @@
 
             var isProcessStarted = false;
             var currentStep = 0;
-            var stepMaxBorder = 5;
+            var stepMaxBorder = 6;
 
             var booleanFormula;
 
@@ -94,8 +94,7 @@
             function invalidate() {
 
                 console.log("invalidate");
-                console.log("isProcessStarted: " + isProcessStarted);
-                console.log("currentStep: " + currentStep);
+
                 if (isProcessStarted) {
 
                     $(document.getElementById('taskLevel')).hide();
@@ -138,7 +137,7 @@
                     var results_by_string = [];
 
                     for (var i = 0; i < results.length; i++) {
-                        var result = "задача №" + (i + 1) + "решена ";
+                        var result = "задача №" + (i + 1) + " решена ";
                         if (this.results[i] == true) {
                             result += "верно";
                         } else {
@@ -147,7 +146,11 @@
                         results_by_string.push(result);
                     }
 
-                    alert("Закончено! Результаты: " + results_by_string.join(", "));
+                    alert("Закончено! Результаты:\n " + results_by_string.join(",\n "));
+
+                    isProcessStarted = false;
+
+                    invalidate();
 
                     return;
                 }
@@ -199,21 +202,26 @@
                     success: function(result) {
                         
                         console.log("CURRENT_STEP:  " + currentStep);
-                        results.push(result.isRight);
 
-                        if (currentStep < stepMaxBorder) {
+                        if (currentStep < stepMaxBorder - 1) {
 
+                            console.log("currentStep < stepMaxBorder - 1");
                             // Вставляем в текстовое окно результат запроса
                             generated.value = result;
-                        } else if (currentStep == stepMaxBorder) {
+                        } else if (currentStep == stepMaxBorder - 1) {
 
-                            // Придумать
+
+                            console.log("currentStep == stepMaxBorder - 1");
+
+                            console.log(result.result);
+                            
                             booleanFormula = result;
+
                             $('.latex_formula_image').html('<img src="data:image/jpeg;base64,' + result.result + '" />');
                         }
 
-                        invalidate();
                         currentStep = (currentStep + 1);
+                        invalidate();
 
                         if (currentStep > stepMaxBorder) {
 
@@ -259,7 +267,7 @@
 
             // Отправляем на проверку
             function check() {
-                if (currentStep == stepMaxBorder) {
+                if (currentStep > stepMaxBorder) {
 
                     var isError = false;
                     var selectedMonotone = document.getElementById('isMonotone').checked;
