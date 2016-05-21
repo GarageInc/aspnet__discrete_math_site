@@ -39,8 +39,9 @@
 
         <thead>
         <tr>
+            <th></th>
             <th>
-                @Html.DisplayNameFor(model => model.UserName)
+                @Html.DisplayNameFor(model => model.StudentGroup)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -84,8 +85,16 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td></td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
+                    @if (item.StudentGroup != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.StudentGroup.Name) 
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
@@ -127,12 +136,12 @@
                 <td>
                     @if (HttpContext.Current.User.IsInRole("Administrator"))
                     {
-                        if (User.IsInRole("Administrator") )
+                        if (User.IsInRole("Administrator"))
                         {
                             @Html.ActionLink("Редактировать", "Edit", new {id = item.Id})<b>|</b>
-                            @Html.ActionLink("Удалить", "Delete", new { id = item.Id })<b>|</b>
+                            @Html.ActionLink("Удалить", "Delete", new {id = item.Id})<b>|</b>
                         }
-                        @Html.ActionLink("Подробнее", "UserDetails", new {userId = item.Id}, new {@class="buttonb"})
+                        @Html.ActionLink("Подробнее", "UserDetails", new {userId = item.Id}, new {@class = "buttonb"})
                     }
                 </td>
             </tr>

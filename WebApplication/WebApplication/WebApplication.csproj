@@ -193,9 +193,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605211347269_Initial.cs" />
-    <Compile Include="Migrations\201605211347269_Initial.Designer.cs">
-      <DependentUpon>201605211347269_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201605211649079_Initial.cs" />
+    <Compile Include="Migrations\201605211649079_Initial.Designer.cs">
+      <DependentUpon>201605211649079_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseModel.cs" />
@@ -243,10 +243,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Database.mdf" />
-    <Content Include="App_Data\Database_log.ldf">
-      <DependentUpon>Database.mdf</DependentUpon>
-    </Content>
     <Content Include="boolean_formula_calculator_files\tabs-menu.css" />
     <Content Include="boolean_formula_calculator_files\vvod.js" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -1646,6 +1642,7 @@
     <Content Include="Views\MathTask\AutoControlWork.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Content\themes\" />
     <Folder Include="Files\ErrorMessageFiles\" />
     <Folder Include="Files\RequestFiles\" />
@@ -1665,8 +1662,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605211347269_Initial.resx">
-      <DependentUpon>201605211347269_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605211649079_Initial.resx">
+      <DependentUpon>201605211649079_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

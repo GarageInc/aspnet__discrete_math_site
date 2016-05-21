@@ -1,4 +1,5 @@
-﻿@model IEnumerable<WebApplication.Models.StudentGroup>
+﻿@using WebApplication.Models
+@model IEnumerable<WebApplication.Models.StudentGroup>
 
 @{
     ViewBag.Title = "Группы";
@@ -13,6 +14,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Students)
+        </th>
         <th></th>
     </tr>
 
@@ -20,6 +24,12 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @foreach (ApplicationUser student in item.Students)
+            {
+                <span>@student.Name</span>
+            }
         </td>
         <td>
             @Html.ActionLink("Редактировать", "Edit", new { id=item.Id }) |

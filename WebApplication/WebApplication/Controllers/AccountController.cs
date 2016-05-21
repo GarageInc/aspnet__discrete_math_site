@@ -182,16 +182,19 @@ namespace WebApplication.Controllers
                 var studentsGroup09209 = new StudentGroup
                 {
                     Name = "09-209",
+                    Students = new List<ApplicationUser>()
                 };
 
                 var studentsGroup09208 = new StudentGroup
                 {
                     Name = "09-208",
+                    Students = new List<ApplicationUser>()
                 };
 
                 var studentsGroup09207 = new StudentGroup
                 {
                     Name = "09-207",
+                    Students = new List<ApplicationUser>()
                 };
 
 
@@ -200,9 +203,7 @@ namespace WebApplication.Controllers
                 db.StudentsGroups.Add(studentsGroup09209);
 
                 db.SaveChanges();
-
-                var studentGroups = db.StudentsGroups.ToList();
-
+                
                 db.MathTaskTypes.Add(new MathTaskType
                 {
                     Name = "Однозначность кодирования"
@@ -221,7 +222,7 @@ namespace WebApplication.Controllers
                 });         
                 db.MathTaskTypes.Add(new MathTaskType
                 {
-                    Name = "Нахождение ошибки в коде Хемминга"
+                    Name = "Нахождение ошибки в коде Хемминга",
                 });
                 db.MathTaskTypes.Add(new MathTaskType
                 {
@@ -229,30 +230,35 @@ namespace WebApplication.Controllers
                 });
 
                 db.SaveChanges();
-
-                Random r = new Random();
+                
                 createUser("Виктор Васильевич", "1@dismat.ru", "123qwe123qwe", "Teacher");
                 createUser("Елена Геннадьевна", "2@2.ru", "123qwe123qwe", "Teacher");
-                createUser("Мельникова Валерия", "3@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count() ) % studentGroups.Count()]);
-                createUser("Миллер Кристина", "4@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
-                createUser("Водолазов Артем", "5@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
-                createUser("Лаптев Евгений", "6@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
-                createUser("Трегубов Сергей", "7@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
-                createUser("Кусакина Яна", "8@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
-                createUser("Хохлова Ирина", "9@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
-                createUser("Лукашкин Максим", "10@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
-                createUser("Жадаева Елена", "11@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
-                createUser("Ненашева Анастасия", "12@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
-                createUser("Глухова Алена", "13@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
-                createUser("Морозов Дмитрий", "14@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
-                createUser("Краснов Александр", "15@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
-                createUser("Абдул Оглы", "16@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
+                createUser("Мельникова Валерия", "3@dismat.ru", "123qwe123qwe", "Student", studentsGroup09207);
+                createUser("Миллер Кристина", "4@dismat.ru", "123qwe123qwe", "Student", studentsGroup09207);
+                createUser("Водолазов Артем", "5@dismat.ru", "123qwe123qwe", "Student", studentsGroup09207);
+                createUser("Лаптев Евгений", "6@dismat.ru", "123qwe123qwe", "Student", studentsGroup09207);
+                createUser("Трегубов Сергей", "7@dismat.ru", "123qwe123qwe", "Student", studentsGroup09207);
+                createUser("Кусакина Яна", "8@dismat.ru", "123qwe123qwe", "Student", studentsGroup09208);
+                createUser("Хохлова Ирина", "9@dismat.ru", "123qwe123qwe", "Student", studentsGroup09208);
+                createUser("Лукашкин Максим", "10@dismat.ru", "123qwe123qwe", "Student", studentsGroup09208);
+                createUser("Жадаева Елена", "11@dismat.ru", "123qwe123qwe", "Student", studentsGroup09208);
+                createUser("Ненашева Анастасия", "12@dismat.ru", "123qwe123qwe", "Student", studentsGroup09208);
+                createUser("Глухова Алена", "13@dismat.ru", "123qwe123qwe", "Student", studentsGroup09208);
+                createUser("Морозов Дмитрий", "14@dismat.ru", "123qwe123qwe", "Student", studentsGroup09208);
+                createUser("Краснов Александр", "15@dismat.ru", "123qwe123qwe", "Student", studentsGroup09208);
+                createUser("Абдул Оглы", "16@dismat.ru", "123qwe123qwe", "Student", studentsGroup09209);
+
+                db.Entry(studentsGroup09208).State = EntityState.Modified;
+                db.Entry(studentsGroup09207).State = EntityState.Modified;
+                db.Entry(studentsGroup09209).State = EntityState.Modified;
 
                 db.SaveChanges();
             }
 
             return RedirectToAction("Index", "Home");
         }
+
+        Random r = new Random();
 
         void createUser(string name, string email, string password, string role, StudentGroup group = null)
         {
@@ -269,17 +275,24 @@ namespace WebApplication.Controllers
                 IsBlocked = true,
                 BlockReason = ""
             };
-
-            if (group != null)
-            {
-                user.StudentGroup = group;
-
-               // db.Entry(group).State = EntityState.Modified;
-            }
-
-            var result = UserManager.Create(user, password);
+            
+            UserManager.Create(user, password);
 
             UserManager.AddToRole(user.Id, role);
+
+            if (group!=null)
+            {
+                var thisUser = db.Users.First(x => x.Id == user.Id);
+
+                // var group = groups[r.Next(groups.Count())%groups.Count()];
+
+                thisUser.StudentGroup = group;
+                thisUser.StudentGroupId = group.Id;
+
+                db.Entry(thisUser).State = EntityState.Modified;
+                db.Entry( group ).State = EntityState.Modified;
+
+            }
         }
 
         //
@@ -682,6 +695,10 @@ namespace WebApplication.Controllers
         {
             SelectList roles = new SelectList(db.Roles, "Id", "Name");
             ViewBag.Roles = roles;
+
+            SelectList studentsGroups = new SelectList(db.StudentsGroups, "Id", "Name");
+            ViewBag.StudentsGroups = studentsGroups;
+
             return View();
         }
 
@@ -691,28 +708,36 @@ namespace WebApplication.Controllers
         /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "Administrator")]
-        public async Task<ActionResult> Create(RegisterViewModel model)
+        public ActionResult Create(RegisterViewModel model)
         {
-            var user = new ApplicationUser
-            {
-                UserName = model.Email,
-                Name = model.Name,
-                Password = model.Password,
-                Email = model.Email,
-                LastVisition = DateTime.Now,
-                RegistrationDate = DateTime.Now,
-                UserInfo = "user",
-                BlockDate = DateTime.Now,
-                IsBlocked = true,
-                BlockReason = "",
+            var user = new ApplicationUser {
+                UserName = model.Email, Name = model.Name, Password=model.Password, Email = model.Email,LastVisition=DateTime.Now, RegistrationDate = DateTime.Now, UserInfo="user",
+                BlockDate = DateTime.Now, IsBlocked = true,
+                BlockReason=""
             };
 
             var role = db.Roles.First(x => x.Id == model.RoleId);
-            // создадим пользователя
-            var result = await UserManager.CreateAsync(user, model.Password);
+
+            UserManager.Create(user, model.Password);
+            
             // и добавим его к роли
             UserManager.AddToRole(user.Id, role.Name);
-            
+
+            db.SaveChanges();
+
+            if (model.StudentsGroupId != null)
+            {
+                var studentsGroup = db.StudentsGroups.First(x => x.Id == model.StudentsGroupId);
+
+                user.StudentGroup = studentsGroup;
+                user.StudentGroupId = studentsGroup.Id;
+
+                db.Entry(user).State = EntityState.Modified;
+                db.Entry(studentsGroup).State = EntityState.Modified;
+
+                db.SaveChanges();
+            }
+
             var users = db.Users.ToList();
             return View("Index", users);
         }
@@ -720,7 +745,7 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var users = db.Users.ToList();
+            var users = db.Users.Include(x=>x.StudentGroup).ToList();
             return View(users);
         }
 

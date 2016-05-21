@@ -17,7 +17,7 @@ namespace WebApplication.Controllers
         // GET: StudentGroups
         public ActionResult Index()
         {
-            return View(db.StudentsGroups.ToList());
+            return View(db.StudentsGroups.Include(x=>x.Students).ToList());
         }
 
         // GET: StudentGroups/Details/5
@@ -50,6 +50,8 @@ namespace WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
+                studentGroup.Students = new List<ApplicationUser>();
+
                 db.StudentsGroups.Add(studentGroup);
                 db.SaveChanges();
                 return RedirectToAction("Index");

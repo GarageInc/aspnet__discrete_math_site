@@ -11,7 +11,7 @@ namespace WebApplication.Models
 
         [Key]
         [Display(Name = "ID")]
-        public virtual int Id { get; set; }
+        public virtual int Id { get; private set; }
 
     }
 }

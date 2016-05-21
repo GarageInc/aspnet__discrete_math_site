@@ -15,7 +15,7 @@ namespace WebApplication.Models
     public class ApplicationUser : IdentityUser
     {
         [Required]
-        [Display(Name = "Имя/логин пользователя")]
+        [Display(Name = "Имя")]
         public string Name { get; set; }
 
         [Required]
@@ -60,10 +60,7 @@ namespace WebApplication.Models
 
         [Display(Name = "Комментарии")]
         public virtual ICollection<Comment> Comments { get; set; }
-
-        [Display(Name = "Курируемые группы")]
-        public virtual ICollection<StudentGroup> SupervisedGroups { get; set; }
-
+        
         [Display(Name = "Заблокирован?")]
         public  virtual bool IsBlocked { get; set; }
 

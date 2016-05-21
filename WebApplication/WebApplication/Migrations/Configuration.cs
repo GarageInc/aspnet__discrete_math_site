@@ -15,6 +15,8 @@ namespace WebApplication.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
+
+
         protected override void Seed(WebApplication.Models.ApplicationDbContext context)
         {
             var rm = new RoleManager<IdentityRole>

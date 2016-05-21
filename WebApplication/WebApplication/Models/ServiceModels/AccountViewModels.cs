@@ -77,6 +77,9 @@ namespace WebApplication.Models
         
         [Display(Name = "Роль пользователя")]
         public virtual string RoleId { get; set; }
+        
+        [Display(Name = "Учебная группа")]
+        public int? StudentsGroupId { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]

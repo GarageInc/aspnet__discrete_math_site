@@ -49,13 +49,12 @@ namespace WebApplication.Models
             modelBuilder.Entity<ApplicationUser>().HasMany(c => c.DownComments);
             modelBuilder.Entity<ApplicationUser>().HasMany(c => c.UpRecalls);
             modelBuilder.Entity<ApplicationUser>().HasMany(c => c.DownRecalls);
-            modelBuilder.Entity<ApplicationUser>().HasMany(c => c.SupervisedGroups);
 
 
             modelBuilder.Entity<MathTask>().HasMany(c => c.RequestSolutions);
             modelBuilder.Entity<MathTask>().HasMany(c => c.Comments);
 
-//            modelBuilder.Entity<StudentGroup>().HasMany(c => c.Students);
+            modelBuilder.Entity<StudentGroup>().HasMany(c => c.Students);
             // modelBuilder.Entity<MathTask>().HasMany(c => c.Documents);
             // modelBuilder.Entity<MathTaskSolution>().HasMany(c => c.Documents);
         }

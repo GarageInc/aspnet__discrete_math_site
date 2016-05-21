@@ -240,11 +240,8 @@ namespace WebApplication.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false),
-                        ApplicationUser_Id = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .Index(t => t.ApplicationUser_Id);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -265,7 +262,6 @@ namespace WebApplication.Migrations
             DropForeignKey("dbo.Comments", "AuthorId", "dbo.AspNetUsers");
             DropForeignKey("dbo.RecallMessages", "ApplicationUser_Id2", "dbo.AspNetUsers");
             DropForeignKey("dbo.Comments", "ApplicationUser_Id2", "dbo.AspNetUsers");
-            DropForeignKey("dbo.StudentGroups", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUsers", "StudentGroupId", "dbo.StudentGroups");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.RecallMessages", "ApplicationUser_Id1", "dbo.AspNetUsers");
@@ -290,7 +286,6 @@ namespace WebApplication.Migrations
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Documents", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.StudentGroups", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.MathTaskSolutions", new[] { "MathTask_Id" });
