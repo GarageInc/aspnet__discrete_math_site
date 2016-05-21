@@ -10,6 +10,7 @@
         <h4>Не обновляйте и не закрывайте страницу, если не хотите прервать!</h4>
         <h4>Результат будет объявлен и сохранен автоматически в конце контрольной работы.</h4>
 
+        <p><span id="my_timer" style="color: #f00; font-size: 150%; font-weight: bold;">00:00:00</span></p>
 
         <div id="taskLevel">
 
@@ -131,6 +132,7 @@
                 document.getElementById('step').innerHTML = "Вопрос №" + (currentStep+1);
 
                 console.log("generate..");
+                console.log("CURRENT_STEP:  " + currentStep);
 
                 if (currentStep == stepMaxBorder) {
 
@@ -201,7 +203,6 @@
                     },
                     success: function(result) {
                         
-                        console.log("CURRENT_STEP:  " + currentStep);
 
                         if (currentStep < stepMaxBorder - 1) {
 
@@ -241,9 +242,12 @@
                 .click(function (e) {
                     console.log("beginButton..");
 
+                    results = [];
                     currentStep = 0;
                     isProcessStarted = true;
 
+                    startTimer();
+                    
                     invalidate();
                     generate();
                 });
@@ -299,7 +303,7 @@
                     results.push(isError);
                     generate();
                 } else {
-                    var id = this.currentStep;
+                    var id = this.currentStep - 1;
                     var reply = document.getElementById('reply').value;
                     var generated = document.getElementById('result').value;
 
@@ -314,7 +318,7 @@
                         },
 
                         success: function (result) {
-                            
+                            console.log(result.result)
                             results.push(result.isRight);
                             generate();
                         },
@@ -326,54 +330,37 @@
                     
             };
 
+            function startTimer() {
+                var my_timer = document.getElementById("my_timer");
 
-            var booleanFormula;
-            var hemmingErrorCodeNumber = -1;
+                var time = my_timer.innerHTML;
+                var arr = time.split(":");
 
-            $('#checkCurrentBooleanFormula')
-                .click(function(e) {
+                var h = arr[0];
+                var m = arr[1];
+                var s = arr[2];
 
-                    console.log(booleanFormula);
-                    var errors = [];
+                if (s == 60) {
+                    if (m == 60) {
+                        h++;
+                        m = 0;
+                        if (h < 10) h = "0" + h;
+                    }
+                    m++;
+                    if (m < 10) m = "0" + m;
+                    s = 0;
+                }
+                else s++;
+                if (s < 10) s = "0" + s;
+                
+                if (isProcessStarted) {
 
-                    var selectedMonotone = document.getElementById('isMonotone').checked;
-                    var selectedBalance = document.getElementById('isBalanced').checked;
-                    var selectedLinear = document.getElementById('isLinear').checked;
-                    var selectedSelfAdjoint = document.getElementById('isSelfAdjoint').checked;
-                    var selectedBasis = document.getElementById('isBasis').checked;
-                    var selectedComplete = document.getElementById('isComplete').checked;
+                    document.getElementById("my_timer").innerHTML = h + ":" + m + ":" + s;
+                    setTimeout(startTimer, 1000);
+                } else {
 
-                    if (selectedMonotone != booleanFormula.isMonotone) {
-                        var text = (booleanFormula.isMonotone ? "" : "не ") + "монотонна";
-                        errors.push(text);
-                    }
-                    if (selectedBalance != booleanFormula.isBalanced) {
-                        var text = (booleanFormula.isBalanced ? "" : "не ") + "сбалансирована";
-                        errors.push(text);
-                    }
-                    if (selectedLinear != booleanFormula.isLinear) {
-                        var text = (booleanFormula.isLinear ? "" : "не ") + "линейна";
-                        errors.push(text);
-                    }
-                    if (selectedSelfAdjoint != booleanFormula.isSelfAdjoint) {
-                        var text = (booleanFormula.isSelfAdjoint ? "" : "не ") + "самосопряжена";
-                        errors.push(text);
-                    }
-                    if (selectedBasis != booleanFormula.isBasis) {
-                        var text = (booleanFormula.isBasis ? "" : "не ") + "базисна";
-                        errors.push(text);
-                    }
-                    if (selectedComplete != booleanFormula.isBasis) {
-                        var text = (booleanFormula.isComplete ? "" : "не ") + "выполнима";
-                        errors.push(text);
-                    }
-
-                    if (errors.length > 0) {
-                        alert("Ошибка! Функция " + errors.join(", "));
-                    } else {
-                        alert("Абсолютно верный ответ!");
-                    }
-
-                });
+                    document.getElementById("my_timer").innerHTML ="00:00:00";
+                }
+            }
         </script>
     }

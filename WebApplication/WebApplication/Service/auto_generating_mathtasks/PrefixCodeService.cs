@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Ajax.Utilities;
 
 namespace WebApplication.Service.auto_generating_mathtasks
 {
@@ -44,8 +45,14 @@ namespace WebApplication.Service.auto_generating_mathtasks
         {
             try
             {
+                if (reply.IsNullOrWhiteSpace())
+                {
+                    return new ReturnResult(false, "Ошибка ввода! ");
+                }
+
                 bool yes = true;
                 string error = "";
+                
                 // Если есть - вернём ошибку
                 var res = reply.Split(' ').ToList();
                 for (int i = 0; i < res.Count && yes; i++)
