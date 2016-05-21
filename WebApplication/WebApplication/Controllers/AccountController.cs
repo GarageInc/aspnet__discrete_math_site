@@ -191,6 +191,10 @@ namespace WebApplication.Controllers
                 db.StudentsGroups.Add(studentsGroup09207);
                 db.StudentsGroups.Add(studentsGroup09208);
 
+                db.SaveChanges();
+
+                var studentGroups = db.StudentsGroups.ToList();
+
                 db.MathTaskTypes.Add(new MathTaskType
                 {
                     Name = "Однозначность кодирования"
@@ -218,9 +222,10 @@ namespace WebApplication.Controllers
 
                 db.SaveChanges();
 
+                Random r = new Random();
                 createUser("Евгений Васильевич", "2@2.ru", "123qwe123qwe", "Teacher");
-                createUser("Петя", "3@3.ru", "123qwe123qwe", "Student", studentsGroup09207);
-                createUser("Вася", "4@4.ru", "123qwe123qwe", "Student", studentsGroup09207);
+                createUser("Петя", "3@3.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count() ) % studentGroups.Count()]);
+                createUser("Вася", "4@4.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
 
                 db.SaveChanges();
             }

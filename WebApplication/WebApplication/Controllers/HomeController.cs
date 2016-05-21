@@ -178,6 +178,8 @@ namespace WebApplication.Controllers
 
         public ActionResult GetRandomBooleanFormula(int countVariables, int depthBound, int sizeBound, bool isByLatex)
         {
+            initMathML();
+
             return Json(BooleanFormulaService.GetRandomBooleanFormulaWithParams(countVariables,depthBound,sizeBound,isByLatex), JsonRequestBehavior.AllowGet);
         }
 

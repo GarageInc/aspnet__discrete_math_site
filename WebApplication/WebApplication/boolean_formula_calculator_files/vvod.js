@@ -715,7 +715,7 @@ function go(n){
                 'isByLatex': isByLatex
             },
 
-            url: 'GetRandomBooleanFormulaWithParams',
+            url: 'GetRandomBooleanFormula',
 
             success: function (result) {
 
