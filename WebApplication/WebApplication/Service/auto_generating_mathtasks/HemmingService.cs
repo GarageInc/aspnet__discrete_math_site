@@ -78,7 +78,7 @@ namespace WebApplication.Service.auto_generating_mathtasks
         }
 
 
-        public static string CheckCode(string generated, int number)
+        public static ReturnResult CheckCode(string generated, int number)
         {
             var array_Error = generated.Select(ch => ch - '0').ToArray();
             int[] array = new int[array_Error.Length];
@@ -114,17 +114,17 @@ namespace WebApplication.Service.auto_generating_mathtasks
                 {
                     if (number == j)
                     {
-                        return "Абсолютно верно!";
+                        return new ReturnResult(true, "Абсолютно верно!");
                     }
                     else
                     {
-                        return "Неверно! Контрольный бит находится на позиции: " + j;
+                        return new ReturnResult(false, "Неверно! Контрольный бит находится на позиции: " + j);
                     }
                 }
                 
             }
 
-            return "Случилась неведомая ошибка, попробуйте снова?";
+            return new ReturnResult(false, "Случилась неведомая ошибка, попробуйте снова?");
         }
 
         // функция генерации сообщения

@@ -38,7 +38,7 @@ namespace WebApplication.Service.auto_generating_mathtasks
 
 
         // Проверка правильности строки для кода Хаффмана
-        public static string CheckString04(string reply, string generated)
+        public static ReturnResult CheckString04(string reply, string generated)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace WebApplication.Service.auto_generating_mathtasks
 
                 if (input.CompareTo("") == 0)
                 {
-                    return "Вы не ввели текст!";
+                    return new ReturnResult(false, "Вы не ввели текст!");
                 }
 
                 HuffmanTree huffmanTree = new HuffmanTree();
@@ -63,14 +63,14 @@ namespace WebApplication.Service.auto_generating_mathtasks
                     yes = false;
 
                 if (yes)
-                    return "Абсолютно верное решение! ";
+                    return new ReturnResult(true, "Абсолютно верное решение! ");
 
-                return "Это не оптимальный код Хаффмана. Вот он: " + huffmanTree.str;
+                return new ReturnResult(false, "Это не оптимальный код Хаффмана. Вот он: " + huffmanTree.str);
 
             }
             catch (Exception e)
             {
-                return "Ошибка ввода! " + e.Message;
+                return new ReturnResult(false, "Ошибка ввода! " + e.Message);
             }
         }
     }

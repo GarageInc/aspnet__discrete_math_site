@@ -40,7 +40,7 @@ namespace WebApplication.Service.auto_generating_mathtasks
 
 
         // Проверка правильности строки
-        public static string CheckString02(string reply, string generated)
+        public static ReturnResult CheckString02(string reply, string generated)
         {
             try
             {
@@ -65,14 +65,14 @@ namespace WebApplication.Service.auto_generating_mathtasks
                 }
 
                 if (yes)
-                    return "Абсолютно верное решение! Строка однозначно декодируется";
+                    return new ReturnResult(true, "Абсолютно верное решение! Строка однозначно декодируется");
 
-                return "Нет, строка неоднозначно декодируема. Не удовлетворяют свойству Фано часть: " + error;
+                return new ReturnResult(false, "Нет, строка неоднозначно декодируема. Не удовлетворяют свойству Фано часть: " + error);
 
             }
             catch (Exception e)
             {
-                return "Ошибка ввода! " + e.Message;
+                return new ReturnResult(false, "Ошибка ввода! " + e.Message);
             }
         }
     }

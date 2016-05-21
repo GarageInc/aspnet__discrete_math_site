@@ -84,10 +84,10 @@ namespace WebApplication.Controllers
 
             return RedirectToAction("LogOff", "Account");
         }
-        /*
+
         [HttpGet]
         [Authorize]
-        public ActionResult CreateMassControlWork()
+        public ActionResult AutoControlWork()
         {
             initMathML();
             var curId = HttpContext.User.Identity.GetUserId();
@@ -97,11 +97,6 @@ namespace WebApplication.Controllers
 
             if (user != null)
             {
-                SelectList mathTaskTypes = new SelectList(Db.MathTaskTypes, "Id", "Name");
-                ViewBag.MathTaskTypes = mathTaskTypes;
-
-                SelectList studentsGroups = new SelectList(Db.StudentsGroups, "Id", "Name");
-                ViewBag.StudentsGroups = studentsGroups;
                 
                 return View();
             }
@@ -110,31 +105,6 @@ namespace WebApplication.Controllers
         }
 
         
-        [HttpPost]
-        [Authorize]
-        public ActionResult CreateMassControlWork(MathTask mathTask, HttpPostedFileBase file)
-        {
-            initMathML();
-            var curId = HttpContext.User.Identity.GetUserId();
-
-            // получаем текущего пользователя
-            ApplicationUser user = Db.Users.FirstOrDefault(m => m.Id == curId);
-
-            if (user == null)
-            {
-                return RedirectToAction("LogOff", "Account");
-            }
-
-            if (ModelState.IsValid)
-            {
-                TryCreate(user, mathTask, file);
-
-                return RedirectToAction("Index");
-            }
-
-            return View(mathTask);
-        }
-        */
         protected void TryCreate(ApplicationUser user, MathTask mathTask, HttpPostedFileBase file)
         {
             //получаем время открытия

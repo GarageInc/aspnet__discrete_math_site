@@ -11,9 +11,9 @@ namespace WebApplication.Service
     public class DeterminantComplexity
     {
 
-        public static string GenerateByLevel(int id, int level)
+        public static object GenerateByLevel(int id, int level)
         {
-            var result = "";
+            object result = null;
 
             switch (id)
             {
@@ -46,7 +46,7 @@ namespace WebApplication.Service
                     }
                 case 5:
                     {
-                        result = "";
+                        result = BooleanFormulaService.GetRandomBooleanFormulaByLevel(id,level);
                         break;
                     }
 

@@ -218,6 +218,7 @@
     <Compile Include="Service\auto_generating_mathtasks\HaffmaneService.cs" />
     <Compile Include="Service\auto_generating_mathtasks\HemmingService.cs" />
     <Compile Include="Service\auto_generating_mathtasks\PrefixCodeService.cs" />
+    <Compile Include="Service\auto_generating_mathtasks\ReturnResult.cs" />
     <Compile Include="Service\auto_generating_mathtasks\UnambiguousDecodingService .cs" />
     <Compile Include="Service\auto_generating_mathtasks\UnambiguousCodingService.cs" />
     <Compile Include="Service\DeterminantComplexity.cs" />
@@ -1639,9 +1640,9 @@
     <Content Include="Views\MathTaskTypes\Details.cshtml" />
     <Content Include="Views\MathTaskTypes\Edit.cshtml" />
     <Content Include="Views\MathTaskTypes\Index.cshtml" />
-    <Content Include="Views\MathTask\CreateMassControlWork.cshtml" />
     <Content Include="Views\Home\LaTeX.cshtml" />
     <Content Include="Views\MathTask\MyStudentMathTasks.cshtml" />
+    <Content Include="Views\MathTask\AutoControlWork.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\themes\" />

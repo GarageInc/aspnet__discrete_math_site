@@ -53,7 +53,7 @@ namespace WebApplication.Service.auto_generating_mathtasks
 
 
         // Проверка правильности строки
-        public static string CheckString01(string reply, string generated)
+        public static ReturnResult CheckString01(string reply, string generated)
         {
             // Проверим - нет ли в строке суффиксного/префиксного кода?
             // Если есть - вернём ошибку
@@ -85,16 +85,16 @@ namespace WebApplication.Service.auto_generating_mathtasks
                 }
 
                 if (reply == "да" && yes)
-                    return "Абсолютно верное решение! Строка однозначно декодируется";
+                    return new ReturnResult(true,"Абсолютно верное решение! Строка однозначно декодируется");
                 if (reply == "нет" && !yes)
-                    return "Абсолютно верное решение! Строка неоднозначно декодируется";
+                    return new ReturnResult(true, "Абсолютно верное решение! Строка неоднозначно декодируется");
                 if (reply == "да" && !yes)
-                    return "Нет, строка неоднозначно декодируема. Не удовлетворяют суффиксному коду: " + error;
+                    return new ReturnResult(false, "Нет, строка неоднозначно декодируема. Не удовлетворяют суффиксному коду: " + error);
                 if (reply == "нет" && yes)
-                    return "Нет, строка однозначно декодируема!";
+                    return new ReturnResult(false, "Нет, строка однозначно декодируема!");
             }
 
-            return "Ваш ответ не подходит под условие";
+            return new ReturnResult(false,"Ваш ответ не подходит под условие");
         }
 
     }

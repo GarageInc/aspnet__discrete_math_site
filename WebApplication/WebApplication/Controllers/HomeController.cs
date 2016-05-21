@@ -44,7 +44,7 @@ namespace WebApplication.Controllers
         }
 
         // Генерируется задача в зависимости от присланного номера
-        public JsonResult GetRequest(int id, int level)
+        public ActionResult GetRequest(int id, int level)
         {
             var result = DeterminantComplexity.GenerateByLevel( id, level );
             
@@ -55,7 +55,7 @@ namespace WebApplication.Controllers
         // Проверяется задача
         public JsonResult CheckRequest(int id, string reply, string generated)
         {
-            string result = "yes!";
+            ReturnResult result = null;
             switch (id)
             {
                 case 0:
@@ -85,24 +85,18 @@ namespace WebApplication.Controllers
                         result = HemmingService.CheckCode(generated, Int32.Parse(reply));
                         break;
                     }
+                default:
+                {
+                        result = new ReturnResult(false, "Error");
+                        break;
+                }
             }
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(new { isRight = result.isRight, result = result.Data }, JsonRequestBehavior.AllowGet);
         }
 
         
 
-        // Генерируем и возвращаем изображение // Генерируется задача в зависимости от присланного номера
-        public string CheckLatex(string code)
-        {
-            initMathML();
-
-            Bitmap bmp = MathMLFormulaControl.generateBitmapFromLatex(code);
-            
-            ImageConverter converter = new ImageConverter();
-            var bytes = (byte[])converter.ConvertTo(bmp, typeof(byte[]));
-            
-            return Convert.ToBase64String(bytes);
-        }
+        
 
         // Генерируем и возвращаем изображение // Генерируется задача в зависимости от присланного номера
         public string CheckBooleanFormulaInput(string formula, int operation)
@@ -126,14 +120,14 @@ namespace WebApplication.Controllers
                     List<BooleanVariable> variables = new List<BooleanVariable>();
                     BooleanFormula booleanFormula = BooleanFormulaParser.Parse(formula, variables);
 
-                    return CheckLatex(booleanFormula.ToLaTeXString());
+                    return BooleanFormulaService.CheckLatex(booleanFormula.ToLaTeXString());
                 } else if (operation == 2)
                 {
 
                     List<BooleanVariable> variables = new List<BooleanVariable>();
                     BooleanFormula booleanFormula = BooleanFormulaParser.Parse(formula, variables);
 
-                    return CheckLatex(booleanFormula.GetZhegalkinPolynomial().ToLaTeXString());
+                    return BooleanFormulaService.CheckLatex(booleanFormula.GetZhegalkinPolynomial().ToLaTeXString());
                 }
                 else if (operation == 3)
                 {
@@ -141,14 +135,14 @@ namespace WebApplication.Controllers
                     List<BooleanVariable> variables = new List<BooleanVariable>();
                     BooleanFormula booleanFormula = BooleanFormulaParser.Parse(formula, variables);
 
-                    return CheckLatex(BooleanFormula.PerfectCNF(booleanFormula).ToLaTeXString());
+                    return BooleanFormulaService.CheckLatex(BooleanFormula.PerfectCNF(booleanFormula).ToLaTeXString());
                 }else if (operation == 4)
                 {
 
                     List<BooleanVariable> variables = new List<BooleanVariable>();
                     BooleanFormula booleanFormula = BooleanFormulaParser.Parse(formula, variables);
 
-                    return CheckLatex(BooleanFormula.PerfectDNF(booleanFormula).ToLaTeXString());
+                    return BooleanFormulaService.CheckLatex(BooleanFormula.PerfectDNF(booleanFormula).ToLaTeXString());
                 }
                 else if (operation == 5)
                 {
@@ -158,39 +152,23 @@ namespace WebApplication.Controllers
                     BooleanFunction booleanFunction = new BooleanFunction(1,1);
                     booleanFunction.SetNewBooleanFormula(BooleanFormulaParser.Parse(formula, variables));
 
-                    return CheckLatex(booleanFunction.ToLaTeXBooleanTable());
+                    return BooleanFormulaService.CheckLatex(booleanFunction.ToLaTeXBooleanTable());
                 }
                 else
                 {
-                    return CheckLatex("Not_selected_operation");
+                    return BooleanFormulaService.CheckLatex("Not_selected_operation");
                 }
             }
             catch (Exception e)
             {
-                return CheckLatex("Error_in_formule!"); ;
+                return BooleanFormulaService.CheckLatex("Error_in_formule!"); ;
             }
         }
 
         public ActionResult GetRandomBooleanFormula(int countVariables, int depthBound, int sizeBound, bool isByLatex)
         {
-            BooleanFormula booleanFormula = BooleanFormula.RandomFormula(countVariables,sizeBound,depthBound);
-
-            BooleanFunction booleanFunction = new BooleanFunction(1, 1);
-            booleanFunction.SetNewBooleanFormula(booleanFormula);
-
-            var data = new {
-                result = isByLatex ? booleanFormula.ToLaTeXString() : CheckLatex(booleanFormula.ToLaTeXString()),
-
-                isMonotone = booleanFunction.IsMonotone(),
-                isBalanced = booleanFunction.IsBalanced(),
-                isLinear = booleanFunction.IsLinear(),
-
-                isSelfAdjoint = booleanFunction.IsSelfAdjoint(),// Самосопряженная
-                isComplete = booleanFunction.IsComplete(),
-                isBasis = booleanFunction.IsBasis()
-            };
-            
-            return Json(data, JsonRequestBehavior.AllowGet);
+            return Json(BooleanFormulaService.GetRandomBooleanFormula(countVariables,depthBound,sizeBound,isByLatex), JsonRequestBehavior.AllowGet);
         }
+
     }
 }
