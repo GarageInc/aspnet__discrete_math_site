@@ -9,7 +9,7 @@ namespace WebApplication.Service.auto_generating_mathtasks
 {
     public class BooleanFormulaService
     {
-        public static object GetRandomBooleanFormula(int countVariables, int depthBound, int sizeBound, bool isByLatex)
+        public static object GetRandomBooleanFormulaWithParams(int countVariables, int depthBound, int sizeBound, bool isByLatex)
         {
             BooleanFormula booleanFormula = BooleanFormula.RandomFormula(countVariables, sizeBound, depthBound);
 
@@ -32,6 +32,16 @@ namespace WebApplication.Service.auto_generating_mathtasks
             return data;
         }
 
+        public static object GetRandomBooleanFormula(int countVariables, int depthBound, int sizeBound)
+        {
+            BooleanFormula booleanFormula = BooleanFormula.RandomFormula(countVariables, sizeBound, depthBound);
+
+            BooleanFunction booleanFunction = new BooleanFunction(1, 1);
+            booleanFunction.SetNewBooleanFormula(booleanFormula);
+            
+            return  CheckLatex(booleanFormula.ToLaTeXString());
+        }
+
         // Генерируем и возвращаем изображение // Генерируется задача в зависимости от присланного номера
         public static string CheckLatex(string code)
         {
@@ -45,7 +55,7 @@ namespace WebApplication.Service.auto_generating_mathtasks
 
         public static object GetRandomBooleanFormulaByLevel(int id, int level)
         {
-            return GetRandomBooleanFormula(level + 3, level + 3, level + 3, false);
+            return GetRandomBooleanFormulaWithParams(level + 3, level + 3, level + 3, false);
         }
     }
 }

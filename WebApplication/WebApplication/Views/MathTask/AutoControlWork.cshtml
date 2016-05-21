@@ -32,8 +32,12 @@
         </div>
 
         <div id="taskBlock">
-            <div id="simpleTaskBlock" class="center" style="margin: 0 auto;display:inline-block;">
+            <br />
+            <label id="step"></label>
+            <br/>
 
+            <div id="simpleTaskBlock" class="center" style="margin: 0 auto;display:inline-block;">
+                
                 <div style="float: left;">
                     <label>Инструкция:</label><br />
                     <textarea id="condition" disabled cols="50" rows="4"></textarea>
@@ -125,7 +129,28 @@
             // Генерируем задание
             function generate() {
 
+                document.getElementById('step').innerHTML = "Вопрос №" + (currentStep+1);
+
                 console.log("generate..");
+
+                if (currentStep == stepMaxBorder) {
+
+                    var results_by_string = [];
+
+                    for (var i = 0; i < results.length; i++) {
+                        var result = "задача №" + (i + 1) + "решена ";
+                        if (this.results[i] == true) {
+                            result += "верно";
+                        } else {
+                            result += "не верно";
+                        }
+                        results_by_string.push(result);
+                    }
+
+                    alert("Закончено! Результаты: " + results_by_string.join(", "));
+
+                    return;
+                }
 
                 var id = currentStep;
                 var level = document.getElementById('level').value;
@@ -185,20 +210,6 @@
                             // Придумать
                             booleanFormula = result;
                             $('.latex_formula_image').html('<img src="data:image/jpeg;base64,' + result.result + '" />');
-                        } else {
-
-                            var results_by_string = [];
-                            for (var i = 0; i < results.length; i++) {
-                                var result = "задача №" + (i + 1) + "решена ";
-                                if (this.results[i] == true) {
-                                    result += "верно";
-                                } else {
-                                    result += "не верно";
-                                }
-                                results_by_string.push(result);
-                            }
-
-                            alert("Закончено! Результаты: " + results_by_string.join(", "));
                         }
 
                         invalidate();
@@ -248,6 +259,38 @@
 
             // Отправляем на проверку
             function check() {
+                if (currentStep == stepMaxBorder) {
+
+                    var isError = false;
+                    var selectedMonotone = document.getElementById('isMonotone').checked;
+                    var selectedBalance = document.getElementById('isBalanced').checked;
+                    var selectedLinear = document.getElementById('isLinear').checked;
+                    var selectedSelfAdjoint = document.getElementById('isSelfAdjoint').checked;
+                    var selectedBasis = document.getElementById('isBasis').checked;
+                    var selectedComplete = document.getElementById('isComplete').checked;
+
+                    if (selectedMonotone != booleanFormula.isMonotone) {
+                        isError = true;
+                    }
+                    if (selectedBalance != booleanFormula.isBalanced) {
+                        isError = true;
+                    }
+                    if (selectedLinear != booleanFormula.isLinear) {
+                        isError = true;
+                    }
+                    if (selectedSelfAdjoint != booleanFormula.isSelfAdjoint) {
+                        isError = true;
+                    }
+                    if (selectedBasis != booleanFormula.isBasis) {
+                        isError = true;
+                    }
+                    if (selectedComplete != booleanFormula.isBasis) {
+                        isError = true;
+                    }
+
+                    results.push(isError);
+                    generate();
+                } else {
                     var id = this.currentStep;
                     var reply = document.getElementById('reply').value;
                     var generated = document.getElementById('result').value;
@@ -255,25 +298,27 @@
                     $.ajax({
                         type: 'GET',
                         url: '@Url.Action("CheckRequest", "Home")/',
-                        
+
                         data: {
                             id: id,
                             reply: reply,
                             generated: generated
                         },
 
-                        success: function(result) {
+                        success: function (result) {
 
                             alert(result.isRight);
 
                             results.push(result.isRight);
                             generate();
                         },
-                        error: function(xhr, status, p3) {
+                        error: function (xhr, status, p3) {
                             alert(status);
                         }
                     });
                 }
+                    
+            };
 
 
             var booleanFormula;

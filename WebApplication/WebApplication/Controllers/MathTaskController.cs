@@ -147,7 +147,7 @@ namespace WebApplication.Controllers
             }
             else
             {
-                mathTask.Description = DeterminantComplexity.GenerateByLevel(mathTask.MathTaskTypeId - 1, mathTask.Level);
+                mathTask.Description = DeterminantComplexity.GenerateByLevel(mathTask.MathTaskTypeId - 1, mathTask.Level, true).ToString();
             }
 
 

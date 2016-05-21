@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.Ajax.Utilities;
+
 namespace WebApplication.Controllers
 {
     using System.Drawing;
@@ -82,7 +84,16 @@ namespace WebApplication.Controllers
                     }
                 case 4:
                     {
-                        result = HemmingService.CheckCode(generated, Int32.Parse(reply));
+                        try
+                        {
+                            result = HemmingService.CheckCode(generated, Int32.Parse(reply));
+
+                        }
+                        catch (Exception er)
+                        {
+
+                            result = new ReturnResult(false, "Error: " + er.Message);
+                        }
                         break;
                     }
                 default:
@@ -167,7 +178,7 @@ namespace WebApplication.Controllers
 
         public ActionResult GetRandomBooleanFormula(int countVariables, int depthBound, int sizeBound, bool isByLatex)
         {
-            return Json(BooleanFormulaService.GetRandomBooleanFormula(countVariables,depthBound,sizeBound,isByLatex), JsonRequestBehavior.AllowGet);
+            return Json(BooleanFormulaService.GetRandomBooleanFormulaWithParams(countVariables,depthBound,sizeBound,isByLatex), JsonRequestBehavior.AllowGet);
         }
 
     }
