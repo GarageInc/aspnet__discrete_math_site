@@ -159,7 +159,7 @@ namespace WebApplication.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false),
-                        Description = c.String(nullable: false),
+                        Description = c.String(),
                         LatexCode = c.String(maxLength: 500),
                         DocumentId = c.Int(),
                         AuthorId = c.String(maxLength: 128),
@@ -208,6 +208,7 @@ namespace WebApplication.Migrations
                         Comment = c.String(),
                         IsChecked = c.Boolean(nullable: false),
                         IsRight = c.Boolean(nullable: false),
+                        IsOnlineControlWork = c.Boolean(nullable: false),
                         MathTask_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)

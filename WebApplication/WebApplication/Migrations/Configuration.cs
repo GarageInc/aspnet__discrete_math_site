@@ -1,6 +1,5 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using WebApplication.Models;
 
 namespace WebApplication.Migrations
 {
@@ -23,7 +22,7 @@ namespace WebApplication.Migrations
             rm.Create(new IdentityRole("Administrator"));
             rm.Create(new IdentityRole("Teacher"));
             rm.Create(new IdentityRole("Student"));
-            
+
             context.SaveChanges();
         }
     }

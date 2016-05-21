@@ -14,7 +14,6 @@ namespace WebApplication.Models
         public virtual string Name { get; set; }
 
         [Display(Name = "Описание/Пожелания")]
-        [Required(ErrorMessage = "Обязательно для заполнения!")]
         public virtual string Description { get; set; }
         
         [MaxLength(500)]

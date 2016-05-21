@@ -183,5 +183,9 @@ namespace WebApplication.Controllers
             return Json(BooleanFormulaService.GetRandomBooleanFormulaWithParams(countVariables,depthBound,sizeBound,isByLatex), JsonRequestBehavior.AllowGet);
         }
 
+        public string CheckLatex(string code)
+        {
+            return BooleanFormulaService.CheckLatex(code);
+        }
     }
 }

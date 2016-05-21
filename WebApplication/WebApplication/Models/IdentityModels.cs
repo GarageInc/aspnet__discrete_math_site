@@ -36,7 +36,7 @@ namespace WebApplication.Models
         [Display(Name = "Решения задач")]
         public virtual ICollection<MathTaskSolution> MathTaskSolutions { get; set; }
 
-        [Display(Name = "Дата последнего посещения")]
+        [Display(Name = "Дата входа")]
         public virtual DateTime LastVisition { get; set; } 
 
         [Display(Name = "Оставленные отзывы")]
@@ -52,7 +52,7 @@ namespace WebApplication.Models
         [Display(Name = "Контакты")]
         public virtual ICollection<Contact> Contacts { get; set; }
 
-        [Display(Name = "Дата регистрации")]
+        [Display(Name = "Зарегистрирован")]
         public virtual DateTime RegistrationDate { get; set; }
 
         [Display(Name = "О себе")]

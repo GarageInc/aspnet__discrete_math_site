@@ -42,6 +42,8 @@ namespace WebApplication.Models
         [Display(Name = "Правильно ли решено?")]
         public virtual bool IsRight { get; set; }
 
-        
+        [Display(Name = "Онлайн контрольная работа?")]
+        public virtual bool IsOnlineControlWork { get; set; }
+
     }
 }

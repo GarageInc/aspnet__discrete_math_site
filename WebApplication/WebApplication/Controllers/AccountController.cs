@@ -178,6 +178,12 @@ namespace WebApplication.Controllers
         {
             if (db.Users.Count() == 1)
             {
+
+                var studentsGroup09209 = new StudentGroup
+                {
+                    Name = "09-209",
+                };
+
                 var studentsGroup09208 = new StudentGroup
                 {
                     Name = "09-208",
@@ -188,8 +194,10 @@ namespace WebApplication.Controllers
                     Name = "09-207",
                 };
 
+
                 db.StudentsGroups.Add(studentsGroup09207);
                 db.StudentsGroups.Add(studentsGroup09208);
+                db.StudentsGroups.Add(studentsGroup09209);
 
                 db.SaveChanges();
 
@@ -223,9 +231,22 @@ namespace WebApplication.Controllers
                 db.SaveChanges();
 
                 Random r = new Random();
-                createUser("Евгений Васильевич", "2@2.ru", "123qwe123qwe", "Teacher");
-                createUser("Петя", "3@3.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count() ) % studentGroups.Count()]);
-                createUser("Вася", "4@4.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
+                createUser("Виктор Васильевич", "1@dismat.ru", "123qwe123qwe", "Teacher");
+                createUser("Елена Геннадьевна", "2@2.ru", "123qwe123qwe", "Teacher");
+                createUser("Мельникова Валерия", "3@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count() ) % studentGroups.Count()]);
+                createUser("Миллер Кристина", "4@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
+                createUser("Водолазов Артем", "5@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
+                createUser("Лаптев Евгений", "6@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
+                createUser("Трегубов Сергей", "7@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
+                createUser("Кусакина Яна", "8@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
+                createUser("Хохлова Ирина", "9@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
+                createUser("Лукашкин Максим", "10@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
+                createUser("Жадаева Елена", "11@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
+                createUser("Ненашева Анастасия", "12@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
+                createUser("Глухова Алена", "13@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
+                createUser("Морозов Дмитрий", "14@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
+                createUser("Краснов Александр", "15@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
+                createUser("Абдул Оглы", "16@dismat.ru", "123qwe123qwe", "Student", studentGroups[r.Next(studentGroups.Count()) % studentGroups.Count()]);
 
                 db.SaveChanges();
             }

@@ -14,14 +14,14 @@
 
     public class MathTaskSolutionController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext Db = new ApplicationDbContext();
 
         // Получаем вообще все решения к моим задачам (администратор-преподаватель)
         public async Task<ActionResult> Index()
         {
             var curId = this.User.Identity.GetUserId();
             
-            var requestSolutions = db.MathTaskSolutions
+            var requestSolutions = Db.MathTaskSolutions
                 .Include(r => r.Author)
                 .Include(r => r.Document)
                 .Include(r => r.MathTask)
@@ -30,13 +30,60 @@
 
             return View(await requestSolutions.ToListAsync());
         }
-        
+
+
+        public ActionResult AllOnlainControlWorks()
+        {
+            var matTasksSolutions = Db.MathTaskSolutions.Where(x => x.IsOnlineControlWork ).ToList();
+
+            return View(matTasksSolutions);
+        }
+
+        [Authorize]
+        public ActionResult CreateOnlineControlWork(bool[] results, int level)
+        {
+            var mathTaskSolution = new MathTaskSolution();
+
+            var isRight = true;
+            var comment = "Результаты: ";
+            for (var i = 0; i < results.Length; i++)
+            {
+                if (!results[i])
+                {
+                    isRight = false;
+                }
+
+                comment += "задача №" + (i + 1) + (results[i] ? " не " : "") + "верно решена";
+            }
+
+            mathTaskSolution.Comment = comment;
+            
+            mathTaskSolution.Document = null;
+
+
+            var curId = this.User.Identity.GetUserId();
+            var user = Db.Users.Find(curId);
+
+            mathTaskSolution.Author = user;
+            mathTaskSolution.AuthorId = user.Id;
+
+            mathTaskSolution.IsRight = isRight;
+            mathTaskSolution.Date = DateTime.Now;
+            
+            Db.MathTaskSolutions.Add(mathTaskSolution);
+
+            Db.SaveChanges();
+            
+            return View("AllOnlainControlWorks");
+        }
+
+
         // Получаем решения текущего пользователя (студент-преподаватель)
         public async Task<ActionResult> MyIndex()
         {
             var curId = this.User.Identity.GetUserId();
 
-            var requestSolutions = db.MathTaskSolutions
+            var requestSolutions = Db.MathTaskSolutions
                 .Include(r => r.Author)
                 .Include(r => r.Document)
                 .Include(r => r.MathTask)//                .Where(r => !r.IsRightSolution)
@@ -48,7 +95,7 @@
         public ActionResult MyRightSolutions()
         {
             var curId = this.User.Identity.GetUserId();
-            var requestSolutions = db.MathTaskSolutions
+            var requestSolutions = Db.MathTaskSolutions
                 .Include(r => r.Author)
                 .Include(r => r.Document)
                 .Include(r => r.MathTask).ToList();
@@ -64,7 +111,7 @@
             var curId = this.User.Identity.GetUserId();
 
             // Выбираем те задачи, которые данные пользователь ещё не решал
-            ViewBag.Requests = new SelectList(db.MathTasks.Where(x => x.Executors.Count(y=>y.Id== curId)==0), "Id", "Name");
+            ViewBag.Requests = new SelectList(Db.MathTasks.Where(x => x.Executors.Count(y=>y.Id== curId)==0), "Id", "Name");
             return View();
         }
 
@@ -81,7 +128,7 @@
             {
                 // если получен файл
                 var current = DateTime.Now;
-                var user = db.Users.Find(curId);
+                var user = Db.Users.Find(curId);
 
                 if (error != null)
                 {
@@ -96,12 +143,12 @@
                     doc.Url = path;
 
                     mathTaskSolution.Document = doc;
-                    db.Documents.Add(doc);
+                    Db.Documents.Add(doc);
                 }
                 else
                     mathTaskSolution.Document = null;
 
-                var req = db.MathTasks.Find(mathTaskSolution.MathTaskId);
+                var req = Db.MathTasks.Find(mathTaskSolution.MathTaskId);
                 mathTaskSolution.MathTask = req;
                 mathTaskSolution.Author = user;
                 mathTaskSolution.AuthorId = user.Id;
@@ -111,22 +158,24 @@
                 // Отметим, что решение относится к этой задаче
                 req.RequestSolutions.Add(mathTaskSolution);
                 req.Executors.Add(user);
-                db.Entry(req).State = EntityState.Modified;
 
-                db.MathTaskSolutions.Add(mathTaskSolution);
+                Db.Entry(req).State = EntityState.Modified;
 
-                db.SaveChanges();
+                Db.MathTaskSolutions.Add(mathTaskSolution);
+
+                Db.SaveChanges();
+
                 return RedirectToAction("MyIndex");
             }
 
-            ViewBag.Requests = new SelectList(db.MathTasks.Where(x => x.Executors.Count(y => y.Id == curId) == 0), "Id", "Name");
+            ViewBag.Requests = new SelectList(Db.MathTasks.Where(x => x.Executors.Count(y => y.Id == curId) == 0), "Id", "Name");
             return View(mathTaskSolution);
         }
         
         // GET: MathTaskSolution/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
-            MathTaskSolution mathTaskSolution = await db.MathTaskSolutions.FindAsync(id);
+            MathTaskSolution mathTaskSolution = await Db.MathTaskSolutions.FindAsync(id);
 
             // Нельзя удалить уже проверенное решение 
             if (mathTaskSolution.IsChecked)
@@ -134,15 +183,15 @@
                 return RedirectToAction("MyIndex");
             }
             // Удалим информацию, что данный пользователь уже решал данную задачу.
-            var req = db.MathTasks.Find(mathTaskSolution.MathTaskId);
+            var req = Db.MathTasks.Find(mathTaskSolution.MathTaskId);
             var curId = this.User.Identity.GetUserId();
-            var user = db.Users.Find(curId);
+            var user = Db.Users.Find(curId);
             req.Executors.Remove(user);
             req.RequestSolutions.Remove(mathTaskSolution);
 
-            db.Entry(req).State = EntityState.Modified;;
-            db.MathTaskSolutions.Remove(mathTaskSolution);
-            await db.SaveChangesAsync();
+            Db.Entry(req).State = EntityState.Modified;;
+            Db.MathTaskSolutions.Remove(mathTaskSolution);
+            await Db.SaveChangesAsync();
             return RedirectToAction("MyIndex");
         }
         
@@ -151,14 +200,14 @@
         public ActionResult DistributeChangeStatus(int requestSolutionId, int status)
         {
             var curId = HttpContext.User.Identity.GetUserId();
-            ApplicationUser user = db.Users.First(m => m.Id == curId);
+            ApplicationUser user = Db.Users.First(m => m.Id == curId);
 
             if (user == null)
             {
                 return RedirectToAction("LogOff", "Account");
             }
 
-            MathTaskSolution req = db.MathTaskSolutions.Find(requestSolutionId);
+            MathTaskSolution req = Db.MathTaskSolutions.Find(requestSolutionId);
             switch (status)
             {
                 case 0:
@@ -184,8 +233,8 @@
 
             if (req != null)
             {
-                db.Entry(req).State = EntityState.Modified;
-                db.SaveChanges();
+                Db.Entry(req).State = EntityState.Modified;
+                Db.SaveChanges();
             }
 
             return RedirectToAction("Index");
@@ -195,7 +244,7 @@
         {
             if (disposing)
             {
-                db.Dispose();
+                Db.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -207,7 +256,7 @@
         {
             // Выбираем те задачи, для которых ещё не загружено правильное решение
             var curReqId = int.Parse(id);
-            ViewBag.Requests = new SelectList(db.MathTasks.Where(x=>x.Id== curReqId), "Id", "Name");
+            ViewBag.Requests = new SelectList(Db.MathTasks.Where(x=>x.Id== curReqId), "Id", "Name");
             return PartialView("_CreateRightSolution");
         }
 
@@ -224,7 +273,7 @@
             {
                 // если получен файл
                 var current = DateTime.Now;
-                var user = db.Users.Find(curId);
+                var user = Db.Users.Find(curId);
 
                 if (error != null)
                 {
@@ -239,12 +288,12 @@
                     doc.Url = path;
 
                     mathTaskSolution.Document = doc;
-                    db.Documents.Add(doc);
+                    Db.Documents.Add(doc);
                 }
                 else
                     mathTaskSolution.Document = null;
 
-                var req = db.MathTasks.Find(mathTaskSolution.MathTaskId);
+                var req = Db.MathTasks.Find(mathTaskSolution.MathTaskId);
                 mathTaskSolution.MathTask = req;
                 mathTaskSolution.Author = user;
                 mathTaskSolution.AuthorId = user.Id;
@@ -260,11 +309,11 @@
                 req.RightMathTaskSolution = mathTaskSolution;
                 req.RightRequestSolutionId = mathTaskSolution.Id;
 
-                db.Entry(req).State = EntityState.Modified;
+                Db.Entry(req).State = EntityState.Modified;
 
-                db.MathTaskSolutions.Add(mathTaskSolution);
+                Db.MathTaskSolutions.Add(mathTaskSolution);
 
-                db.SaveChanges();
+                Db.SaveChanges();
                 return RedirectToAction("MyRightSolutions");
             }
 
@@ -274,7 +323,7 @@
 
         public async Task<ActionResult> DeleteRightSolution(int? id)
         {
-            MathTaskSolution mathTaskSolution = await db.MathTaskSolutions.FindAsync(id);
+            MathTaskSolution mathTaskSolution = await Db.MathTaskSolutions.FindAsync(id);
 
             // Нельзя удалить уже проверенное решение 
             if (mathTaskSolution.IsChecked)
@@ -282,27 +331,27 @@
                 return RedirectToAction("MyRightSolutions");
             }
             // Удалим информацию, что данный пользователь уже решал данную задачу.
-            var req = db.MathTasks.Find(mathTaskSolution.MathTaskId);
+            var req = Db.MathTasks.Find(mathTaskSolution.MathTaskId);
             var curId = this.User.Identity.GetUserId();
-            var user = db.Users.Find(curId);
+            var user = Db.Users.Find(curId);
 
             req.Executors.Remove(user);
             req.RequestSolutions.Remove(mathTaskSolution);
 
             req.RightMathTaskSolution = null;
 
-            db.Entry(req).State = EntityState.Modified; ;
-            db.MathTaskSolutions.Remove(mathTaskSolution);
-            await db.SaveChangesAsync();
+            Db.Entry(req).State = EntityState.Modified; ;
+            Db.MathTaskSolutions.Remove(mathTaskSolution);
+            await Db.SaveChangesAsync();
             return RedirectToAction("MyRightSolutions");
         }
 
         public ActionResult ShowRightSolution(string id)
         {
             var curId = int.Parse(id);
-            var reqSol = db.MathTaskSolutions.Find(curId);
+            var reqSol = Db.MathTaskSolutions.Find(curId);
             var idReq = reqSol.MathTask.Id;
-            var model = db.MathTasks.Find(idReq).RightMathTaskSolution;
+            var model = Db.MathTasks.Find(idReq).RightMathTaskSolution;
 
             return PartialView("_ShowRightSolution", model);
         }
