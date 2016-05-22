@@ -27,21 +27,23 @@
                     <ul class="nav navbar-nav">
                         
                         <li>
-                            @Html.ActionLink("Отложенные задачи", "Index", "MathTask")
-                        </li>
-
-                        <li>
-                            @Html.ActionLink("Выполненные онлайн-контрольные", "AllOnlainControlWorks", "MathTaskSolution")
-                        </li>
-
-                        <li>
                             @Html.ActionLink("Генератор LaTeX", "LaTeX", "Home")
                         </li>
 
                         <li>
                             @Html.ActionLink("Тренажер: кодирование и булева алгебра", "Trenager", "Home")
                         </li>
-    
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                @Html.ActionLink("Текущие задачи", "Index", "MathTask")
+                            </li>
+
+                            <li>
+                                @Html.ActionLink("Онлайн-контрольные", "AllOnlainControlWorks", "MathTaskSolution")
+                            </li>
+                        }
 
                         <li class="divider-vertical"></li>'
                         
@@ -78,7 +80,7 @@
                             </li>
 
                             <li class="dropdown">
-                                @Html.ActionLink("Заполнение БД", "StartIfAdmin", "Account", routeValues: null, htmlAttributes: new {title = "Account"})
+                                @Html.ActionLink("-> БД", "StartIfAdmin", "Account", routeValues: null, htmlAttributes: new {title = "Account"})
                             </li>
                                 
                         }
