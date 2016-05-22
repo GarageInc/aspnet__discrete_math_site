@@ -53,7 +53,7 @@
                     isRight = false;
                 }
 
-                comment += "\nзадача №" + (i + 1) + (results[i] ? " не" : "") + " верно решена ;";
+                comment += "\nзадача №" + (i + 1) + (results[i] ? "" : " не") + " верно решена ;";
             }
 
             mathTaskSolution.Level = level;
@@ -187,13 +187,18 @@
                 return RedirectToAction("MyIndex");
             }
             // Удалим информацию, что данный пользователь уже решал данную задачу.
-            var req = Db.MathTasks.Find(mathTaskSolution.MathTaskId);
-            var curId = this.User.Identity.GetUserId();
-            var user = Db.Users.Find(curId);
-            req.Executors.Remove(user);
-            req.RequestSolutions.Remove(mathTaskSolution);
 
-            Db.Entry(req).State = EntityState.Modified;;
+            if (mathTaskSolution.MathTaskId != null)
+            {
+
+                var req = Db.MathTasks.Find(mathTaskSolution.MathTaskId);
+                var curId = this.User.Identity.GetUserId();
+                var user = Db.Users.Find(curId);
+                req.Executors.Remove(user);
+                req.RequestSolutions.Remove(mathTaskSolution);
+                Db.Entry(req).State = EntityState.Modified; ;
+            }
+
             Db.MathTaskSolutions.Remove(mathTaskSolution);
             await Db.SaveChangesAsync();
             return RedirectToAction("MyIndex");
