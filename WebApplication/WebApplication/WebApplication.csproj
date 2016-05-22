@@ -197,6 +197,10 @@
     <Compile Include="Migrations\201605211649079_Initial.Designer.cs">
       <DependentUpon>201605211649079_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605220810491_Initial1.cs" />
+    <Compile Include="Migrations\201605220810491_Initial1.Designer.cs">
+      <DependentUpon>201605220810491_Initial1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\MathTaskType.cs" />
@@ -1640,6 +1644,7 @@
     <Content Include="Views\Home\LaTeX.cshtml" />
     <Content Include="Views\MathTask\MyStudentMathTasks.cshtml" />
     <Content Include="Views\MathTask\AutoControlWork.cshtml" />
+    <Content Include="Views\MathTaskSolution\AllOnlainControlWorks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1664,6 +1669,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605211649079_Initial.resx">
       <DependentUpon>201605211649079_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605220810491_Initial1.resx">
+      <DependentUpon>201605220810491_Initial1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

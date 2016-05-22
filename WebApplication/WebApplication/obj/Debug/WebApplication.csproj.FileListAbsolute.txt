@@ -646,3 +646,4 @@ C:\Data\discrete_math_site_asp_net\WebApplication\WebApplication\obj\Debug\WebAp
 C:\Data\discrete_math_site_asp_net\WebApplication\WebApplication\bin\WinMathML.dll
 C:\Data\discrete_math_site_asp_net\WebApplication\WebApplication\obj\Debug\WebApplication.Migrations.Initial.resources
 C:\Data\discrete_math_site_asp_net\WebApplication\WebApplication\obj\Debug\WebApplication.csproj.GenerateResource.Cache
+C:\Data\discrete_math_site_asp_net\WebApplication\WebApplication\obj\Debug\WebApplication.Migrations.Initial1.resources

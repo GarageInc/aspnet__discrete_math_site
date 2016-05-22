@@ -31,7 +31,7 @@
             return View(await requestSolutions.ToListAsync());
         }
 
-
+        [HttpGet]
         public ActionResult AllOnlainControlWorks()
         {
             var matTasksSolutions = Db.MathTaskSolutions.Where(x => x.IsOnlineControlWork ).ToList();
@@ -40,12 +40,12 @@
         }
 
         [Authorize]
-        public ActionResult CreateOnlineControlWork(bool[] results, int level)
+        public ActionResult CreateOnlineControlWork(bool[] results, int level, int time)
         {
             var mathTaskSolution = new MathTaskSolution();
 
             var isRight = true;
-            var comment = "Результаты: ";
+            var comment = "Результаты: \n";
             for (var i = 0; i < results.Length; i++)
             {
                 if (!results[i])
@@ -53,8 +53,10 @@
                     isRight = false;
                 }
 
-                comment += "задача №" + (i + 1) + (results[i] ? " не " : "") + "верно решена";
+                comment += "\nзадача №" + (i + 1) + (results[i] ? " не" : "") + " верно решена ;";
             }
+
+            mathTaskSolution.Level = level;
 
             mathTaskSolution.Comment = comment;
             
@@ -69,12 +71,14 @@
 
             mathTaskSolution.IsRight = isRight;
             mathTaskSolution.Date = DateTime.Now;
-            
+
+            mathTaskSolution.IsOnlineControlWork = true;
+
             Db.MathTaskSolutions.Add(mathTaskSolution);
 
             Db.SaveChanges();
             
-            return View("AllOnlainControlWorks");
+            return RedirectToAction("AllOnlainControlWorks");
         }
 
 

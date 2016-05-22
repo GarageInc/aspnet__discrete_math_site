@@ -45,5 +45,7 @@ namespace WebApplication.Models
         [Display(Name = "Онлайн контрольная работа?")]
         public virtual bool IsOnlineControlWork { get; set; }
 
+        [Display(Name = "Сложность")]
+        public virtual int Level { get; set; }
     }
 }

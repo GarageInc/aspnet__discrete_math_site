@@ -153,6 +153,7 @@
                     isProcessStarted = false;
 
                     invalidate();
+                    sendResults();
 
                     return;
                 }
@@ -259,7 +260,7 @@
                     
                     invalidate();
 
-                    if (isProcessStarted==true) {
+                    if (isProcessStarted == true) {
 
                         if (this.currentStep == 0) {
                             generate();
@@ -361,6 +362,45 @@
 
                     document.getElementById("my_timer").innerHTML ="00:00:00";
                 }
+            }
+
+            function sendResults() {
+                console.log("-----------sendResults-------------");
+                var level = document.getElementById('level').value;
+
+                var my_timer = document.getElementById("my_timer");
+
+                var time = my_timer.innerHTML;
+                var arr = time.split(":");
+
+                var h = arr[0];
+                var m = arr[1];
+                var s = arr[2];
+
+                var time = h * 3600 + m * 60 + s;
+
+                var selfResults = results;
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("CreateOnlineControlWork", "MathTaskSolution")/',
+
+                    datatype: "json",
+
+                    data: {
+                        results: selfResults,
+                        level: level,
+                        time: time
+                    },
+
+                    success: function (result) {
+                        console.log('success: CreateOnlineControlWork')
+                    },
+
+                    error: function (xhr, status, p3) {
+                        alert(status);
+                    }
+                });
             }
         </script>
     }

@@ -3,26 +3,31 @@
 @using WebApplication.Models
 
 @{
-    ViewBag.Title = "Все решения";
+    ViewBag.Title = "Все онлайн-решения";
 }
 
 <div class="modal fade" id="modDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div id="dialogContent" class="modal-dialog"></div>
 </div>
 
-<h2>Мои решения</h2>
+<h2>Все решения</h2>
 
-<p>
-    @Html.ActionLink("Новое решение", "Create", "MathTaskSolution", new { @class = "buttonS" })
-</p>
-
-<p>Всего решений: @(Model.Count<MathTaskSolution>())</p>
+@if (User.IsInRole("Student"))
+{
+    <p>
+        <a href="/MathTask/AutoControlWork/" class="buttonS">
+            Новая контрольная работа
+        </a>
+    </p>
+}
 
 <div id="toolbar">
     <button id="remove" class="btn btn-warning" disabled>
         <i class="glyphicon glyphicon-remove"></i> Скрыть выбранное
     </button>
 </div>
+
+<br/>
 
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-condensed"
@@ -52,10 +57,7 @@
                 @Html.DisplayNameFor(model => model.Author)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Document)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Сложность
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Date)
@@ -64,7 +66,7 @@
                 @Html.DisplayNameFor(model => model.Comment)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsChecked)
+                @Html.DisplayNameFor(model => model.IsRight)
             </th>
             <th></th>
         </tr>
@@ -81,17 +83,19 @@
                         </a>
                     </td>
                     <td>
-                        @if (item.Document != null)
+
+                        @if (item.Level == 0)
                         {
-                            <a href="/Document/DownloadRequestSolutionFiles/@item.Document.Id"><img src="../../Content/pictures/filey.png" alt='@item.Document.Url' class="tdImage" title="Скачать файл"/></a>
+                            <span class="badge badge-low">Легкий уровень</span>
                         }
-                        else
+                        else if (item.Level == 1)
                         {
-                            <img src="../../Content/pictures/filen.png" alt="без файла изображения" class="tdImage" title="Файл не приложен"/>
+                            <span class="badge badge-medium">Средний уровень</span>
                         }
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
+                        else if (item.Level == 2)
+                        {
+                            <span class="badge badge-high">Уровень</span>
+                        }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Date)
@@ -100,32 +104,15 @@
                         @Html.DisplayFor(modelItem => item.Comment)
                     </td>
                     <td>
-                        @if (item.IsChecked)
-                        {
-                            if (item.IsRight)
+                            @if (item.IsRight)
                             {
                                 <h5>Решение верное!</h5>
                             }
                             else
                             {
-                                if (item.MathTask.RightMathTaskSolution != null)
-                                {
                                     <h5>Решение не верное!</h5>
-                                    <a class="compItem" href="/RequestSolution/ShowRightSolution/@item.Id">
-                                        <img src="../../Content/pictures/filey.png" alt='@item.Id' class="tdImage" title="Скачать файл"/>
-                                        Посмотреть правильное решение
-                                    </a>
-                                }
-                                else
-                                {
-                                    <h5>Правильное решение ещё не загружено</h5>
-                                }
+                                
                             }
-                        }
-                        else
-                        {
-                            <h5>Не проверено</h5>
-                        }
                     </td>
                     <td>
                         @if (item.Author.Id == User.Identity.GetUserId() && !item.IsChecked)
@@ -135,6 +122,7 @@
 
                         @Html.ActionLink("Обсуждение", "Index", "Comment", new {requestSolutionId = item.Id}, new {@class = "buttons"})
                     </td>
+                    <td></td>
                 </tr>
             }
         </tbody>

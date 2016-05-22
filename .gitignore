@@ -1,2 +1,4 @@
 *.mdf
 WebApplication/WebApplication/App_Data/Database.mdf
+*.ldf
+WebApplication/WebApplication/App_Data/Database.mdf
