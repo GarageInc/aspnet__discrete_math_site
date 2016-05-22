@@ -114,8 +114,10 @@
         {
             var curId = this.User.Identity.GetUserId();
 
-            // Выбираем те задачи, которые данные пользователь ещё не решал
-            ViewBag.Requests = new SelectList(Db.MathTasks.Where(x => x.Executors.Count(y=>y.Id== curId)==0), "Id", "Name");
+            var myMathTasks = Db.MathTasks.Where(x => x.Executors.Count(y => y.Id == curId) != 0).ToList();
+
+            ViewBag.MyMathTasks = new SelectList(myMathTasks, "Id", "Name");
+
             return View();
         }
 
